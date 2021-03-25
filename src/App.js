@@ -1,8 +1,10 @@
 import React from 'react';
-import Admin from './pages/AdminScreen';
+import Routes from './Routes';
+
+
 function App() {
   return (
-    <Admin/>
+      <Routes/>
   );
 }
 

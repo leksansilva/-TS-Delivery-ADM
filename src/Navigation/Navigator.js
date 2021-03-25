@@ -10,19 +10,27 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
 import PeopleIcon from '@material-ui/icons/People';
-import DnsRoundedIcon from '@material-ui/icons/DnsRounded';
-import PermMediaOutlinedIcon from '@material-ui/icons/PhotoSizeSelectActual';
-import PublicIcon from '@material-ui/icons/Public';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import SettingsIcon from '@material-ui/icons/Settings';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import ListAltIcon from '@material-ui/icons/ListAlt';
 const categories = [
   {
-    id: 'Develop',
+    id: 'Menu',
     children: [
-      { id: 'Usuários', icon: <PeopleIcon />, active: true },
-      { id: 'Database', icon: <DnsRoundedIcon /> },
-      { id: 'Storage', icon: <PermMediaOutlinedIcon /> },
-      { id: 'Hosting', icon: <PublicIcon /> },
-    ],
+      { id: 'Pedidos', icon: <NotificationsIcon />,link: "/"},
+      { id: 'Usuários', icon: <PeopleIcon />, link: "/UsersList"},
+      { id: 'Produtos', icon: < ListAltIcon/>, link: "/ItensList" },
+    ],  
   },
+  {
+    id: 'Opções',
+    children: [
+      { id: 'Configurações', icon: <SettingsIcon /> },
+      { id: 'Logout', icon: <ExitToAppIcon /> },
+    ],
+    
+  }
 ];
 
 const styles = (theme) => ({
@@ -73,7 +81,7 @@ function Navigator(props) {
     <Drawer variant="permanent" {...other}>
       <List disablePadding>
         <ListItem className={clsx(classes.firebase, classes.item, classes.itemCategory)}>
-          Paperbase
+          Sushi-Delivery
         </ListItem>
         <ListItem className={clsx(classes.item, classes.itemCategory)}>
           <ListItemIcon className={classes.itemIcon}>
@@ -84,7 +92,7 @@ function Navigator(props) {
               primary: classes.itemPrimary,
             }}
           >
-            Project Overview
+            Home
           </ListItemText>
         </ListItem>
         {categories.map(({ id, children }) => (
@@ -98,11 +106,12 @@ function Navigator(props) {
                 {id}
               </ListItemText>
             </ListItem>
-            {children.map(({ id: childId, icon, active }) => (
+            {children.map(({ id: childId, icon, active, link }) => (
               <ListItem
                 key={childId}
                 button
                 className={clsx(classes.item, active && classes.itemActiveItem)}
+                component = "a" href={link}
               >
                 <ListItemIcon className={classes.itemIcon}>{icon}</ListItemIcon>
                 <ListItemText
