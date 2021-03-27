@@ -2,7 +2,7 @@ import React from 'react';
 
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import Home from './pages/AdminScreen';
+import Home from './pages/RequestsScreen';
 
 //Usuários
 import UserList from './pages/User/UsersListScreen';
