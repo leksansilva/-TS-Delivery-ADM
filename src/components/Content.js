@@ -5,11 +5,22 @@ import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 
 
+const categories = [
+  {
+    List:[
+      { id: 'Pedidos',  link: "/"},
+      { id: 'Usuários', link: "/UsersList"},
+      { id: 'Produtos', link: "/ItensList" },
+    ]
+  }
+];
+
 const styles = (theme) => ({
   paper: {
     maxWidth: 936,
     margin: 'auto',
     overflow: 'hidden',
+    
   },
   block: {
     display: 'block',
@@ -21,15 +32,16 @@ const styles = (theme) => ({
 
 function Content(props) {
   const { classes } = props;
-
+  const { name } = props;
   return (
     <Paper className={classes.paper}>
-      
-      <div className={classes.contentWrapper}>
-        <Typography color="textSecondary" align="center">
-          Nenhum pedido
-        </Typography>
-      </div>
+      {categories.map(({ List: id, item, img }) => (
+          <div className={classes.contentWrapper} numCollumns={1}>
+            <Typography color="textSecondary" align="center">
+              {name}
+            </Typography>
+        </div>
+      ))} 
     </Paper>
   );
 }

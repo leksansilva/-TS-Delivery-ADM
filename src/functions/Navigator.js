@@ -8,19 +8,20 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import HomeIcon from '@material-ui/icons/Home';
 import PeopleIcon from '@material-ui/icons/People';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsIcon from '@material-ui/icons/Settings';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import ListAltIcon from '@material-ui/icons/ListAlt';
+
+
 const categories = [
   {
     id: 'Menu',
     children: [
-      { id: 'Pedidos', icon: <NotificationsIcon />,link: "/"},
+      { id: 'Pedidos', icon: <NotificationsIcon />, link: "/"},
       { id: 'Usuários', icon: <PeopleIcon />, link: "/UsersList"},
-      { id: 'Produtos', icon: < ListAltIcon/>, link: "/ItensList" },
+      { id: 'Produtos', icon: < ListAltIcon/>, link: "/ItensList", },
     ],  
   },
   {
@@ -83,18 +84,6 @@ function Navigator(props) {
         <ListItem className={clsx(classes.firebase, classes.item, classes.itemCategory)}>
           Sushi-Delivery
         </ListItem>
-        <ListItem className={clsx(classes.item, classes.itemCategory)}>
-          <ListItemIcon className={classes.itemIcon}>
-            <HomeIcon />
-          </ListItemIcon>
-          <ListItemText
-            classes={{
-              primary: classes.itemPrimary,
-            }}
-          >
-            Home
-          </ListItemText>
-        </ListItem>
         {categories.map(({ id, children }) => (
           <React.Fragment key={id}>
             <ListItem className={classes.categoryHeader}>
@@ -106,12 +95,13 @@ function Navigator(props) {
                 {id}
               </ListItemText>
             </ListItem>
-            {children.map(({ id: childId, icon, active, link }) => (
+            {children.map(({ id: childId, icon, link,active }) => (
               <ListItem
                 key={childId}
                 button
                 className={clsx(classes.item, active && classes.itemActiveItem)}
-                component = "a" href={link}
+                component = "a"
+                 href={link}
               >
                 <ListItemIcon className={classes.itemIcon}>{icon}</ListItemIcon>
                 <ListItemText

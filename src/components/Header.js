@@ -37,6 +37,7 @@ const styles = (theme) => ({
 
 function Header(props) {
   const { classes, onDrawerToggle } = props;
+ 
 
   return (
     <React.Fragment>
@@ -70,7 +71,7 @@ function Header(props) {
           <Grid container alignItems="center" spacing={1}>
             <Grid item xs>
               <Typography color="inherit" variant="h5" component="h1">
-                Pedidos
+                {props.name}
               </Typography>
             </Grid>
           </Grid>
@@ -83,10 +84,10 @@ function Header(props) {
         position="static"
         elevation={0}
       >
-        <Tabs value={0} textColor="inherit">
-          <Tab textColor="inherit" label="Em Espera" />
-          <Tab textColor="inherit" label="Em Andamento" />
-          <Tab textColor="inherit" label="Finalizados" />
+        <Tabs value={props.value} textColor="inherit">
+          <Tab textColor="inherit" label={props.tab1} href={props.htab1} />
+          <Tab textColor="inherit" label={props.tab2} href={props.htab2}/>
+          <Tab textColor="inherit" label={props.tab3} href={props.htab3}/>
         </Tabs>
       </AppBar>
     </React.Fragment>

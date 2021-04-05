@@ -5,9 +5,9 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Hidden from '@material-ui/core/Hidden';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
-import Navigator from '../functions/Navigator';
-import Header from '../components/Header';
-import Content from '../components/Content'
+import Navigator from '../../functions/Navigator';
+import Header from '../../components/Header';
+import AddressForm from './FormRegister';
 
 function Copyright() {
   return (
@@ -21,8 +21,6 @@ function Copyright() {
     </Typography>
   );
 }
-
-
 
 let theme = createMuiTheme({
   palette: {
@@ -163,7 +161,6 @@ const styles = {
   },
 };
 
-
 function Paperbase(props) {
   const { classes } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -190,15 +187,17 @@ function Paperbase(props) {
           </Hidden>
         </nav>
         <div className={classes.app}>
-       
         <Header onDrawerToggle={handleDrawerToggle}
-                name='Pedidos'
-                tab1='Em Espera'
-                tab2='Em Andamento'
-                tab3='Finalizados'
+                name='Produtos'
+                tab1='Lista'
+                tab2='Cadastrar'
+                htab1='/ItensList'
+                htab2='/ItemRegister'
+                value={1}
             />
+        
           <main className={classes.main}>
-              <Content name = "Pedidos" />
+              <AddressForm/>
           </main>
           <footer className={classes.footer}>
             <Copyright />

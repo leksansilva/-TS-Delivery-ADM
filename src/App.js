@@ -1,11 +1,11 @@
 import React from 'react';
 
-import Navigation from './Navigators/Navigation';
+import Routes from './Routes';
 
 
 function App() {
   return (
-      <Navigation/>
+      <Routes/>
   );
 }
 

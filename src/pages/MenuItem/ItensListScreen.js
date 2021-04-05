@@ -5,16 +5,16 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Hidden from '@material-ui/core/Hidden';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
-import Navigator from '../Navigation/Navigator';
-import Header from '../components/Header';
-import Routes from '../Routes'
+import Navigator from '../../functions/Navigator';
+import Header from '../../components/Header';
+import Content from '../../components/Content'
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-        Adm-Sushi Delivery
+        Sushi Delivery
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -187,10 +187,17 @@ function Paperbase(props) {
           </Hidden>
         </nav>
         <div className={classes.app}>
-          <Header onDrawerToggle={handleDrawerToggle} />
+        <Header onDrawerToggle={handleDrawerToggle}
+                name='Produtos'
+                tab1='Lista'
+                tab2='Cadastrar'
+                htab1='/ItensList'
+                htab2='/ItemRegister'
+                value={0}
+            />
+        
           <main className={classes.main}>
-          
-            <Routes />
+              <Content name="Produtos"/>
           </main>
           <footer className={classes.footer}>
             <Copyright />
