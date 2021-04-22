@@ -13,16 +13,16 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsIcon from '@material-ui/icons/Settings';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import ListAltIcon from '@material-ui/icons/ListAlt';
-
+import logo from '../assets/logo.png';
 
 const categories = [
   {
     id: 'Menu',
     children: [
-      { id: 'Pedidos', icon: <NotificationsIcon />, link: "/"},
-      { id: 'Usuários', icon: <PeopleIcon />, link: "/UsersList"},
-      { id: 'Produtos', icon: < ListAltIcon/>, link: "/ItensList", },
-    ],  
+      { id: 'Pedidos', icon: <NotificationsIcon />, link: "/" },
+      { id: 'Usuários', icon: <PeopleIcon />, link: "/UsersList" },
+      { id: 'Produtos', icon: < ListAltIcon />, link: "/ItensList", },
+    ],
   },
   {
     id: 'Opções',
@@ -30,7 +30,7 @@ const categories = [
       { id: 'Configurações', icon: <SettingsIcon /> },
       { id: 'Logout', icon: <ExitToAppIcon /> },
     ],
-    
+
   }
 ];
 
@@ -73,6 +73,9 @@ const styles = (theme) => ({
   divider: {
     marginTop: theme.spacing(2),
   },
+  img: {
+
+  }
 });
 
 function Navigator(props) {
@@ -82,7 +85,7 @@ function Navigator(props) {
     <Drawer variant="permanent" {...other}>
       <List disablePadding>
         <ListItem className={clsx(classes.firebase, classes.item, classes.itemCategory)}>
-          Sushi-Delivery
+          <img src={logo} />
         </ListItem>
         {categories.map(({ id, children }) => (
           <React.Fragment key={id}>
@@ -95,13 +98,13 @@ function Navigator(props) {
                 {id}
               </ListItemText>
             </ListItem>
-            {children.map(({ id: childId, icon, link,active }) => (
+            {children.map(({ id: childId, icon, link, active }) => (
               <ListItem
                 key={childId}
                 button
                 className={clsx(classes.item, active && classes.itemActiveItem)}
-                component = "a"
-                 href={link}
+                component="a"
+                href={link}
               >
                 <ListItemIcon className={classes.itemIcon}>{icon}</ListItemIcon>
                 <ListItemText

@@ -14,7 +14,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-        Sushi Delivery
+        Calide Bar & Restaurante
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -187,17 +187,17 @@ function Paperbase(props) {
           </Hidden>
         </nav>
         <div className={classes.app}>
-        <Header onDrawerToggle={handleDrawerToggle}
-                name='Produtos'
-                tab1='Lista'
-                tab2='Cadastrar'
-                htab1='/ItensList'
-                htab2='/ItemRegister'
-                value={0}
-            />
-        
+          <Header onDrawerToggle={handleDrawerToggle}
+            name='Produtos'
+            tab1='Lista'
+            tab2='Cadastrar'
+            htab1='/ItensList'
+            htab2='/ItemRegister'
+            value={0}
+          />
+
           <main className={classes.main}>
-              <Content name="Produtos"/>
+            <Content name="Produtos" />
           </main>
           <footer className={classes.footer}>
             <Copyright />
