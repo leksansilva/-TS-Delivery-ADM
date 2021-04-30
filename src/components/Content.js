@@ -35,8 +35,8 @@ function Content(props) {
   const { name } = props;
   return (
     <Paper className={classes.paper}>
-      {categories.map(({ List: id, item, img }) => (
-          <div className={classes.contentWrapper} numCollumns={3}>
+      {categories.map(({ List: id, link}) => (
+          <div className={classes.contentWrapper} numCollumns={3} key={link}>
             <Typography color="textSecondary" align="center">
               {name}
             </Typography>

@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import Navigator from '../../functions/Navigator';
 import Header from '../../components/Header';
-import AddressForm from './FormRegister';
+import AddressForm from '../../components/FormRegister';
 
 function Copyright() {
   return (

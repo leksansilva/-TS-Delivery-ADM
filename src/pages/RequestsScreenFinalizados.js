@@ -5,9 +5,9 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Hidden from '@material-ui/core/Hidden';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
-import Navigator from '../../functions/Navigator';
-import Header from '../../components/Header';
-import Content from '../../components/Content'
+import Navigator from '../functions/Navigator';
+import Header from '../components/Header';
+import Content from '../components/Content'
 
 function Copyright() {
   return (
@@ -163,6 +163,7 @@ const styles = {
   },
 };
 
+
 function Paperbase(props) {
   const { classes } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -191,18 +192,17 @@ function Paperbase(props) {
         <div className={classes.app}>
 
           <Header onDrawerToggle={handleDrawerToggle}
-            name='Usuários'
-            tab1='Clientes'
-            tab2='Funcionários'
-            tab3='Cadastrar'
-            htab1='/UsersList'
-            htab2='/UsersListEmployee'
-            htab3='/UserRegister'
-            value={0}
+            name='Pedidos'
+            tab1='Em Espera'
+            tab2='Em Andamento'
+            tab3='Finalizados'
+            htab1='/'
+            htab2='/emAndamento'
+            htab3='/Finalizados'
+            value={2}
           />
-
           <main className={classes.main}>
-            <Content name="Usúarios" />
+            <Content name="Pedidos" />
           </main>
           <footer className={classes.footer}>
             <Copyright />
