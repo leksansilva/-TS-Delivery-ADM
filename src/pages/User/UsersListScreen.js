@@ -194,10 +194,8 @@ function Paperbase(props) {
             name='Usuários'
             tab1='Clientes'
             tab2='Funcionários'
-            tab3='Cadastrar'
             htab1='/UsersList'
             htab2='/UsersListEmployee'
-            htab3='/UserRegister'
             value={0}
           />
 

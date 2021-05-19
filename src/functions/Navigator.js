@@ -11,7 +11,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import PeopleIcon from '@material-ui/icons/People';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import SettingsIcon from '@material-ui/icons/Settings';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import logo from '../assets/logo.png';
@@ -26,9 +25,7 @@ const categories = [
     ],
   },
   {
-    id: 'Opções',
     children: [
-      { id: 'Configurações', icon: <SettingsIcon /> },
       { id: 'Logout', icon: <ExitToAppIcon /> },
     ],
 

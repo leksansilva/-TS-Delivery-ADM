@@ -9,7 +9,6 @@ import Home3 from './pages/RequestsScreenFinalizados';
 import UserList from './pages/User/UsersListScreen';
 import UserListEmployee from './pages/User/UsersListScreenEmployee';
 import UserEdit from './pages/User/UserEditScreen';
-import UserRegister from './pages/User/UsersRegisterScreen';
 
 //Itens
 import ItensList from './pages/MenuItem/ItensListScreen';
@@ -28,7 +27,6 @@ export default function Routes(){
 
                 <Route path="/UsersList" exact component = {UserList}/>
                 <Route path="/UsersListEmployee" exact component = {UserListEmployee}/>
-                <Route path="/UserRegister" exact component = {UserRegister}/>
                 <Route path="/UserEdit/:IdUser" exact component = {UserEdit}/>
 
 
