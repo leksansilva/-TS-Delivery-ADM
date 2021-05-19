@@ -2,18 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { createMuiTheme, ThemeProvider, withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Hidden from '@material-ui/core/Hidden';
+
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
-import Navigator from '../../functions/Navigator';
+
 import Header from '../../components/Header';
-import Content from '../../components/Content'
+import Sidebar from '../../components/SideBar';
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
+      <Link color="inherit" href="">
         Calide Bar & Restaurante
       </Link>{' '}
       {new Date().getFullYear()}
@@ -151,6 +151,8 @@ const styles = {
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
+    width: 'calc(100vh - 256px)',
+    marginLeft: '256px',
   },
   main: {
     flex: 1,
@@ -163,7 +165,8 @@ const styles = {
   },
 };
 
-function Paperbase(props) {
+
+function RequestTemplate(props) {
   const { classes } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -175,32 +178,24 @@ function Paperbase(props) {
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
         <CssBaseline />
-        <nav className={classes.drawer}>
-          <Hidden smUp implementation="js">
-            <Navigator
-              PaperProps={{ style: { width: drawerWidth } }}
-              variant="temporary"
-              open={mobileOpen}
-              onClose={handleDrawerToggle}
-            />
-          </Hidden>
-          <Hidden xsDown implementation="css">
-            <Navigator PaperProps={{ style: { width: drawerWidth } }} />
-          </Hidden>
-        </nav>
         <div className={classes.app}>
-
-          <Header onDrawerToggle={handleDrawerToggle}
-            name='Usuários'
-            tab1='Clientes'
-            tab2='Funcionários'
-            htab1='/UsersList'
-            htab2='/UsersListEmployee'
-            value={0}
+          <Sidebar
+            mobileOpen={mobileOpen}
+            handleDrawerToggle={handleDrawerToggle}
+            classes={classes}     
           />
-
+          <Header onDrawerToggle={handleDrawerToggle}
+             name='Pedidos'
+             tab1='Em Espera'
+             tab2='Em Andamento'
+             tab3='Finalizados'
+             htab1='/'
+             htab2='/EmAndamento'
+             htab3='/Finalizados'
+            
+          />
           <main className={classes.main}>
-            <Content name="Usúarios" />
+            {props.content()}
           </main>
           <footer className={classes.footer}>
             <Copyright />
@@ -211,8 +206,9 @@ function Paperbase(props) {
   );
 }
 
-Paperbase.propTypes = {
+
+RequestTemplate.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Paperbase);
+export default withStyles(styles)(RequestTemplate);

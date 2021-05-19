@@ -1,16 +1,15 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import Home from './pages/RequestsScreen';
-import Home2 from './pages/RequestsScreenemAndamento';
-import Home3 from './pages/RequestsScreenFinalizados';
 
-//Usuários
-import UserList from './pages/User/UsersListScreen';
-import UserListEmployee from './pages/User/UsersListScreenEmployee';
-import UserEdit from './pages/User/UserEditScreen';
+//Pedidos
+import RequestsScreen from './pages/Request/RequestsScreen';
+import RequestsScreenemAndamento from './pages/Request/RequestsScreenemAndamento';
+import RequestsScreenFinalizados from './pages/Request/RequestsScreenFinalizados';
 
-//Itens
+
+
+//Cadastro
 import ItensList from './pages/MenuItem/ItensListScreen';
 import ItemEdit from './pages/MenuItem/ItemEditScreen';
 import ItemRegister from './pages/MenuItem/ItemRegisterScreen';
@@ -21,18 +20,19 @@ export default function Routes(){
         <BrowserRouter>
      
             <Switch>
-                <Route path="/" exact component = {Home}/>
-                <Route path="/emAndamento" exact component = {Home2}/>
-                <Route path="/Finalizados" exact component = {Home3}/>
+                <Route path="/" exact to component = {RequestsScreen}/>
+                <Route path="/EmAndamento" component = {RequestsScreenemAndamento}/>
+                <Route path="/Saiu"/>
+                <Route path="/Entregues"/>
+                <Route path="/NãoEntregues"/>
+                <Route path="/Finalizados" component = {RequestsScreenFinalizados}/>
 
-                <Route path="/UsersList" exact component = {UserList}/>
-                <Route path="/UsersListEmployee" exact component = {UserListEmployee}/>
-                <Route path="/UserEdit/:IdUser" exact component = {UserEdit}/>
 
 
-                <Route path="/ItensList" exact component = {ItensList}/>
-                <Route path="/ItemEdit/:IdItem" exact component = {ItemEdit}/>
-                <Route path="/ItemRegister" exact component = {ItemRegister}/>
+
+                <Route path="/ItensList" component = {ItensList}/>
+                <Route path="/ItemEdit/:IdItem" component = {ItemEdit}/>
+                <Route path="/ItemRegister" component = {ItemRegister}/>
             </Switch>
         </BrowserRouter>
    

@@ -10,6 +10,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
+import { Link, useLocation } from 'react-router-dom';
 
 const lightColor = 'rgba(255, 255, 255, 0.7)';
 
@@ -37,8 +38,12 @@ const styles = (theme) => ({
 
 function Header(props) {
   const { classes, onDrawerToggle } = props;
- 
-
+  const location = useLocation();
+  const currentTab = {
+    '/':0,
+    '/EmAndamento':1,
+    '/Finalizados':2,
+  }
   return (
     <React.Fragment>
       <AppBar color="primary" position="sticky" elevation={0}>
@@ -84,10 +89,21 @@ function Header(props) {
         position="static"
         elevation={0}
       >
-        <Tabs value={props.value} textColor="inherit">
-          <Tab textColor="inherit" label={props.tab1} href={props.htab1} />
-          <Tab textColor="inherit" label={props.tab2} href={props.htab2}/>
-          <Tab textColor="inherit" label={props.tab3} href={props.htab3}/>
+        <Tabs value={currentTab[location.pathname]} textColor="inherit">
+          
+         <Link to={props.htab1} className={classes.link} >
+            <Tab textColor="inherit" label={props.tab1} />
+         </Link>
+
+        <Link to={props.htab2} className={classes.link}>
+           <Tab textColor="inherit" label={props.tab2} />
+        </Link>
+          
+          <Link to={props.htab3} className={classes.link}>
+            <Tab textColor="inherit" label={props.tab3} />
+          </Link>
+          
+
         </Tabs>
       </AppBar>
     </React.Fragment>

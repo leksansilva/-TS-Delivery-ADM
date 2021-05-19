@@ -96,11 +96,11 @@ function Navigator(props) {
                 {id}
               </ListItemText>
             </ListItem>
-            {children.map(({ id: childId, icon, link, active }) => (
+            {children.map(({ id: childId, icon, link, }) => (
               <ListItem
                 key={childId}
                 button
-                className={clsx(classes.item, active && classes.itemActiveItem)}
+                className={clsx(classes.item, ['/','/emAdamento',] && classes.itemActiveItem)}
                 component="a"
                 href={link}
               >
