@@ -10,26 +10,23 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import PeopleIcon from '@material-ui/icons/People';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import logo from '../assets/logo.png';
+import FeedbackIcon from '@material-ui/icons/Feedback';
+import { Link } from 'react-router-dom';
+
 
 const categories = [
   {
     id: 'Menu',
     children: [
       { id: 'Pedidos', icon: <NotificationsIcon />, link: "/" },
-      { id: 'Usuários', icon: <PeopleIcon />, link: "/UsersList" },
-      { id: 'Produtos', icon: < ListAltIcon />, link: "/ItensList", },
+      { id: 'Usuários', icon: <PeopleIcon />, link: "/Usuario/Cliente" },
+      { id: 'Cadastrar', icon: < ListAltIcon />, link: "/Cadastrar/Comida" },
+      { id: 'Feedback', icon: < FeedbackIcon />, link: "/Feedback", },
     ],
   },
-  {
-    children: [
-      { id: 'Logout', icon: <ExitToAppIcon /> },
-    ],
-
-  }
 ];
 
 const styles = (theme) => ({
@@ -73,12 +70,16 @@ const styles = (theme) => ({
   },
   img: {
 
-  }
+  },
+  link: {
+    textDecoration: 'none',
+  },
 });
 
 function Navigator(props) {
   const { classes, ...other } = props;
-
+ 
+  
   return (
     <Drawer variant="permanent" {...other}>
       <List disablePadding>
@@ -96,23 +97,24 @@ function Navigator(props) {
                 {id}
               </ListItemText>
             </ListItem>
-            {children.map(({ id: childId, icon, link, }) => (
-              <ListItem
-                key={childId}
-                button
-                className={clsx(classes.item, ['/','/emAdamento',] && classes.itemActiveItem)}
-                component="a"
-                href={link}
-              >
-                <ListItemIcon className={classes.itemIcon}>{icon}</ListItemIcon>
-                <ListItemText
-                  classes={{
-                    primary: classes.itemPrimary,
-                  }}
+            {children.map(({ id: childId, icon, link, active }) => (
+              <Link  to={link} className={classes.link}>
+                <ListItem
+                  key={childId}
+                  button
+                  className={clsx(classes.item, active && classes.itemActiveItem)}
+                  component="a"
                 >
-                  {childId}
-                </ListItemText>
-              </ListItem>
+                  <ListItemIcon className={classes.itemIcon}>{icon}</ListItemIcon>
+                  <ListItemText
+                    classes={{
+                      primary: classes.itemPrimary,
+                    }}
+                  >
+                    {childId}
+                  </ListItemText>
+                </ListItem>
+              </Link>  
             ))}
 
             <Divider className={classes.divider} />

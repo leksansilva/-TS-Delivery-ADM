@@ -1,13 +1,13 @@
 import React from 'react';
 import Content from '../../components/Content';
-import MenuItemTemplate from './MenuItemTemplate';
+import RegisterTemplate from './RegisterTemplate';
 
 
 
 export default function MenuItemScreen(){
 
   return(
-    <MenuItemTemplate
+    <RegisterTemplate
       content={()=><Content name="Itens"/>}
     
     />

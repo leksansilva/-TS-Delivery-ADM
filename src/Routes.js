@@ -3,16 +3,27 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 
 //Pedidos
-import RequestsScreen from './pages/Request/RequestsScreen';
-import RequestsScreenemAndamento from './pages/Request/RequestsScreenemAndamento';
-import RequestsScreenFinalizados from './pages/Request/RequestsScreenFinalizados';
+import RequestsEmEspera from './pages/Request/RequestsEmEspera';
+import RequestsEmAndamento from './pages/Request/RequestsEmAndamento';
+import RequestsFinalizado from './pages/Request/RequestsFinalizado';
+import RequestsSaiuParaEntrega from'./pages/Request/RequestsSaiuParaEntrega';
+import RequestsPronto from './pages/Request/RequestsPronto';
+import RequestsEntregue from './pages/Request/RequestsEntregue';
+import RequestsNaoEntregue from './pages/Request/RequestsEntregue';
+import RequestsCancelado from './pages/Request/RequestsCancelado';
 
 
 
 //Cadastro
-import ItensList from './pages/MenuItem/ItensListScreen';
-import ItemEdit from './pages/MenuItem/ItemEditScreen';
-import ItemRegister from './pages/MenuItem/ItemRegisterScreen';
+import RegisterCategory from './pages/Register/RegisterCategory';
+import RegisterFood from './pages/Register/RegisterFood';
+import RegisterIngredient from './pages/Register/RegisterIngredient';
+
+
+
+import UserClient from './pages/User/UserClient';
+
+import Feedback from './pages/Feedback/Feedback';
 
 export default function Routes(){
     return(
@@ -20,19 +31,26 @@ export default function Routes(){
         <BrowserRouter>
      
             <Switch>
-                <Route path="/" exact to component = {RequestsScreen}/>
-                <Route path="/EmAndamento" component = {RequestsScreenemAndamento}/>
-                <Route path="/Saiu"/>
-                <Route path="/Entregues"/>
-                <Route path="/NãoEntregues"/>
-                <Route path="/Finalizados" component = {RequestsScreenFinalizados}/>
+                
+                <Route path="/" exact to component = {RequestsEmEspera}/>
+                <Route path="/EmAndamento" component = {RequestsEmAndamento}/>
+                <Route path="/SaiuParaEntrega" component = {RequestsSaiuParaEntrega}/>
+                <Route path="/Pronto" component = {RequestsPronto}/>
+                <Route path="/Entregue" component = {RequestsEntregue}/>
+                <Route path="/NaoEntregue" component ={RequestsNaoEntregue}/>
+                <Route path="/Finalizado" component = {RequestsFinalizado}/>
+                <Route path="/Cancelado" component = {RequestsCancelado}/>
 
 
+                <Route path="/Cadastrar/Categoria" component = {RegisterCategory}/>
+                <Route path="/Cadastrar/Comida" component = {RegisterFood}/>
+                <Route path="/Cadastrar/Ingrediente" component = {RegisterIngredient}/>
 
 
-                <Route path="/ItensList" component = {ItensList}/>
-                <Route path="/ItemEdit/:IdItem" component = {ItemEdit}/>
-                <Route path="/ItemRegister" component = {ItemRegister}/>
+                <Route path="/Usuario/Cliente" component = {UserClient}/>
+                
+                <Route path= "/Feedback" component = {Feedback}/>
+
             </Switch>
         </BrowserRouter>
    

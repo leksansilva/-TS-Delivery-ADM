@@ -166,7 +166,7 @@ const styles = {
 };
 
 
-function RequestTemplate(props) {
+function FeedbackTemplate(props) {
   const { classes } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -185,24 +185,10 @@ function RequestTemplate(props) {
             classes={classes}     
           />
           <Header onDrawerToggle={handleDrawerToggle}
-             name='Pedidos'
-             tab1='Em Espera'
-             tab2='Em Andamento'
-             tab3='Pronto'
-             tab4='Saiu Para Entrega'
-             tab5='Entregue'
-             tab6='Não Entregue'
-             tab7='Finalizado'
-             tab8='Cancelado'
+             name='Feedback'
+             tab1='Feedback'
+             htab1='/Feedback'
              
-             htab1='/'
-             htab2='/EmAndamento'
-             htab3='/Pronto'
-             htab4='/SaiuParaEntrega'
-             htab5='/Entregue'
-             htab6='/NaoEntregue'
-             htab7='/Finalizado'
-             htab8='/Cancelado'
             
           />
           <main className={classes.main}>
@@ -218,8 +204,8 @@ function RequestTemplate(props) {
 }
 
 
-RequestTemplate.propTypes = {
+FeedbackTemplate.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(RequestTemplate);
+export default withStyles(styles)(FeedbackTemplate);

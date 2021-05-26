@@ -42,7 +42,20 @@ function Header(props) {
   const currentTab = {
     '/':0,
     '/EmAndamento':1,
-    '/Finalizados':2,
+    '/Pronto':2,
+    '/SaiuParaEntrega':3,
+    '/Entregue':4,
+    '/NaoEntregue':5,
+    '/Finalizado':6,
+    '/Cancelado':7,
+
+    '/Cadastrar/Comida':0,
+    '/Cadastrar/Ingrediente':1,
+    '/Cadastrar/Categoria':2,
+
+    '/Usuario/Cliente': 0,
+
+    '/Feedback': 0,
   }
   return (
     <React.Fragment>
@@ -99,11 +112,29 @@ function Header(props) {
            <Tab textColor="inherit" label={props.tab2} />
         </Link>
           
-          <Link to={props.htab3} className={classes.link}>
-            <Tab textColor="inherit" label={props.tab3} />
-          </Link>
-          
+        <Link to={props.htab3} className={classes.link}>
+           <Tab textColor="inherit" label={props.tab3} />
+        </Link>
 
+        <Link to={props.htab4} className={classes.link}>
+            <Tab textColor="inherit" label={props.tab4} />
+        </Link>
+
+        <Link to={props.htab5} className={classes.link}>
+            <Tab textColor="inherit" label={props.tab5} />
+        </Link>
+
+        <Link to={props.htab6} className={classes.link}>
+            <Tab textColor="inherit" label={props.tab6} />
+        </Link>
+
+        <Link to={props.htab7} className={classes.link}>
+            <Tab textColor="inherit" label={props.tab7} />
+        </Link>
+
+        <Link to={props.htab8} className={classes.link}>
+            <Tab textColor="inherit" label={props.tab8} />
+        </Link>
         </Tabs>
       </AppBar>
     </React.Fragment>

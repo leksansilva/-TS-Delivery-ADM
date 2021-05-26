@@ -166,7 +166,7 @@ const styles = {
 };
 
 
-function MenuItemTemplate(props) {
+function UserTemplate(props) {
   const { classes } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -185,9 +185,10 @@ function MenuItemTemplate(props) {
             classes={classes}     
           />
           <Header onDrawerToggle={handleDrawerToggle}
-             name='Produtos'
-             tab1='Lista'
-             tab2='Cadastrar'
+             name='Cliente'
+             tab1='Cliente' 
+             htab1='/Usuario/Cliente'
+          
             
           />
           <main className={classes.main}>
@@ -203,8 +204,8 @@ function MenuItemTemplate(props) {
 }
 
 
-MenuItemTemplate.propTypes = {
+UserTemplate.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(MenuItemTemplate);
+export default withStyles(styles)(UserTemplate);

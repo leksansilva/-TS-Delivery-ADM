@@ -4,11 +4,12 @@ import RequestTemplate from './RequestTemplate';
 
 
 
-export default function RequestScreen(){
+export default function RequestSaiuParaEntrega(){
 
   return(
     <RequestTemplate
-      content={()=><Content name="Pedidos"/>}
+      content={()=><Content name="Saiu Para Entrega"/>}
+    
     
     />
   )
