@@ -9,7 +9,7 @@ import RequestsFinalizado from './pages/Request/RequestsFinalizado';
 import RequestsSaiuParaEntrega from'./pages/Request/RequestsSaiuParaEntrega';
 import RequestsPronto from './pages/Request/RequestsPronto';
 import RequestsEntregue from './pages/Request/RequestsEntregue';
-import RequestsNaoEntregue from './pages/Request/RequestsEntregue';
+import RequestsNaoEntregue from './pages/Request/RequestsNaoEntregue';
 import RequestsCancelado from './pages/Request/RequestsCancelado';
 
 

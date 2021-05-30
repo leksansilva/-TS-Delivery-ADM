@@ -3,17 +3,10 @@ import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
+import { TextField } from '@material-ui/core';
 
 
-const categories = [
-  {
-    List:[
-      { id: 'Pedidos',  link: "/"},
-      { id: 'Usuários', link: "/UsersList"},
-      { id: 'Produtos', link: "/ItensList" },
-    ]
-  }
-];
+
 
 const styles = (theme) => ({
   paper: {
@@ -35,13 +28,14 @@ function Content(props) {
   const { name } = props;
   return (
     <Paper className={classes.paper}>
-      {categories.map(({ List: id, link}) => (
-          <div className={classes.contentWrapper} numCollumns={3} key={link}>
+      
+          <div className={classes.contentWrapper} >
             <Typography color="textSecondary" align="center">
               {name}
             </Typography>
+            <TextField id="standard-basic" label="Standard" />
         </div>
-      ))} 
+      
     </Paper>
   );
 }
