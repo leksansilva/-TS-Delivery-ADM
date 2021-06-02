@@ -1,14 +1,23 @@
-import React from 'react';
-import Content from '../../components/Content';
+import React, { useEffect, useState } from 'react';
+import Table from '../../components/Table';
+import api from '../../services/api';
 import UserTemplate from './UserTemplate';
 
 
 
-export default function UserClient(){
 
+export default function UserClient(){
+  const [users, setUsers] = useState([]);
+
+  useEffect (() => {
+    api.get('/api/Users').then((response) => {
+      setUsers(response.data)
+      console.log(response.data)
+    });
+  }, []);
   return(
     <UserTemplate
-      content={()=><Content name="Cliente"/>}
+      content={()=><Table users={users} name="Cliente"/>}
     
     
     />

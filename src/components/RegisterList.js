@@ -10,7 +10,8 @@ import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 import Fab from '@material-ui/core/Fab';
 import { green } from '@material-ui/core/colors';
-import { Link } from 'react-router-dom';
+
+
 
 
 
@@ -28,6 +29,10 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     alignContent: "center",
+  },
+  root2: {
+    flexGrow: 1,
+    display: 'block',
   },
   paper: {
     padding: theme.spacing(1),
@@ -57,46 +62,50 @@ export default function RegisterList({categories,link, onClickDelete}) {
   const classes = useStyles();
   console.log(categories)
   return (
-    <Grid>
-      <Grid item container xs sm   >
+    <Grid> 
+      <Grid item container xs={12} sm={12} className={classes.root}  >
       {categories.map(({id, name}) => (
-      <Grid  className={classes.root} item xs sm={6} key={id} >
-            <Paper className={classes.paper}  elevation= {4} >
-              <Grid item container xs={12} sm>
+         <Grid item xs={12} sm={6} className={classes.root2} key={id} >
+            <Paper className={classes.paper}  elevation= {4}  >
+           <Grid item>
+           <Grid container item xs={12} sm={12}>
                 <Grid item xs sm={4}>
                     <img className={classes.img} alt="complex" src={imagem} />
                 </Grid>
-                    <Grid item container xs sm={6}>
-                    <Grid item xs sm={1}/>
-                    <Grid item xs sm={2}>
+                <Grid item container xs sm={4}>
+                  <Grid item xs sm={1}/>
+                  <Grid item xs sm={2}>
                       <Typography  gutterBottom className={classes.font}>
                         {name}
                       </Typography>
-                      </Grid>  
-                    </Grid>
-                    <Grid item container xs sm>
-                    <Grid item xs sm={5}/>
-                    <Grid item container  direction='column' xs sm={2} >
+                  </Grid>  
+                </Grid>
+
+                    <Grid item container xs sm={4}>
+                    <Grid item xs sm={7}/>
+                    <Grid item container xs sm={2} >
                     <Grid item xs={12} sm>
-                      <IconButton component={Link} to={`${link}/${id}`} variant="outlined" >
-                        <DeleteIcon onClick={onClickDelete} fontSize='large' color="secondary"/>
+                      <IconButton onClick={onClickDelete} variant="outlined" >
+                      
+                        <DeleteIcon  fontSize='large' color="secondary"/>
                       </IconButton> 
                     </Grid>  
                     <Grid item xs sm>
                       <IconButton variant="outlined" color="primary">
                         <EditIcon fontSize='large'/>
                       </IconButton>
-                    </Grid>  
-                    </Grid>
-                    </Grid>
-              </Grid>
-            </Paper>  
-          </Grid>   
-        ))}   
-        
-      </Grid> 
-      <Fab component={Link} to={`${link}/Nova`}   aria-label="add" className={classes.floatbutton}>
-        <AddIcon/>
+                   </Grid>  
+                </Grid>
+             </Grid>
+             </Grid>
+             </Grid>
+            </Paper> 
+            </Grid> 
+        ))} 
+ 
+      </Grid>   
+      <Fab  aria-label="add" className={classes.floatbutton}>
+      <AddIcon/>
       </Fab>  
     </Grid>
      

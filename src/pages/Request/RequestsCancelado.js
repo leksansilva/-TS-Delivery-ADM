@@ -25,7 +25,7 @@ export default class RequestScreenCancelado extends Component{
  
   return(
     <RequestTemplate
-      content={()=><OrderList count={Orders} button1="Ver avaliações" button2="Bloquear"/>}
+      content={()=><OrderList count={Orders.length} button1="Ver avaliações" button2="Bloquear"/>}
     
     />
   )}
