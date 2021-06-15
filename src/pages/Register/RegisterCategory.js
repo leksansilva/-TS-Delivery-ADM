@@ -1,27 +1,20 @@
-import React,{ useEffect, useState } from 'react';
+import React from 'react';
+
 import RegisterTemplate from './RegisterTemplate';
-import RegisterList from '../../components/RegisterList'
-import api from '../../services/api';
+import CardGrid from '../../components/CardGrid'
+import { useParams } from 'react-router';
 
 
 
-export default function MenuItemScreen(){
-  const [categories, setCategories] = useState([]);
-
-  useEffect (() => {
-    api.get('/api/Categories').then((response) => {
-      setCategories(response.data)
-    });
-  }, []);
-
+export default function RegisterCategory(){
   
+  const { id } = useParams();
   
   return(
     <RegisterTemplate
-      content={()=><RegisterList
-        categories={categories}
-        onClickDelete={() => console.log('Delete')} 
-        link='/Cadastrar/Categoria'/>}
+      content={()=><CardGrid
+        id={id}
+        />}
     /> 
   )
 }

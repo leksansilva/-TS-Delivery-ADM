@@ -166,7 +166,7 @@ const styles = {
 };
 
 
-function RegisterTemplate(props) {
+function RequestTemplate(props) {
   const { classes } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -185,13 +185,24 @@ function RegisterTemplate(props) {
             classes={classes}     
           />
           <Header onDrawerToggle={handleDrawerToggle}
-             name='Cadastrar'
-             tab1='Comida'
-             tab2='Ingrediente'
-             tab3='Categoria'
-             htab1='/Cadastrar/Comidas'
-             htab2='/Cadastrar/Ingredientes'
-             htab3='/Cadastrar/Categorias'
+             name='Pedidos'
+             tab1='Em Espera'
+             tab2='Em Andamento'
+             tab3='Pronto'
+             tab4='Saiu Para Entrega'
+             tab5='Entregue'
+             tab6='Não Entregue'
+             tab7='Finalizado'
+             tab8='Cancelado'
+             
+             htab1='/Pedidos/EmEspera'
+             htab2='/Pedidos/EmAndamento'
+             htab3='/Pedidos/Pronto'
+             htab4='/Pedidos/SaiuParaEntrega'
+             htab5='/Pedidos/Entregue'
+             htab6='/Pedidos/NaoEntregue'
+             htab7='/Pedidos/Finalizado'
+             htab8='/Pedidos/Cancelado'
             
           />
           <main className={classes.main}>
@@ -207,8 +218,8 @@ function RegisterTemplate(props) {
 }
 
 
-RegisterTemplate.propTypes = {
+RequestTemplate.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(RegisterTemplate);
+export default withStyles(styles)(RequestTemplate);

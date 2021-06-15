@@ -44,20 +44,20 @@ function Header(props) {
   const { classes, onDrawerToggle } = props;
   const location = useLocation();
   const currentTab = {
-    '/':0,
-    '/EmAndamento':1,
-    '/Pronto':2,
-    '/SaiuParaEntrega':3,
-    '/Entregue':4,
-    '/NaoEntregue':5,
-    '/Finalizado':6,
-    '/Cancelado':7,
+    '/Pedidos/EmEspera':0,
+    '/Pedidos/EmAndamento':1,
+    '/Pedidos/Pronto':2,
+    '/Pedidos/SaiuParaEntrega':3,
+    '/Pedidos/Entregue':4,
+    '/Pedidos/NaoEntregue':5,
+    '/Pedidos/Finalizado':6,
+    '/Pedidos/Cancelado':7,
 
-    '/Cadastrar/Comida':0,
-    '/Cadastrar/Ingrediente':1,
-    '/Cadastrar/Categoria':2,
+    '/Cadastrar/Comidas':0,
+    '/Cadastrar/Ingredientes':1,
+    '/Cadastrar/Categorias':2,
 
-    '/Usuario/Cliente': 0,
+    '/Usuario/Clientes': 0,
 
     '/Feedback': 0,
   }

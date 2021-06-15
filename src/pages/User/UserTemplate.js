@@ -185,9 +185,9 @@ function UserTemplate(props) {
             classes={classes}     
           />
           <Header onDrawerToggle={handleDrawerToggle}
-             name='Cliente'
-             tab1='Cliente' 
-             htab1='/Usuario/Cliente'
+             name='Clientes'
+             tab1='Clientes' 
+             htab1='/Usuario/Clientes'
           
             
           />

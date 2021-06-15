@@ -166,7 +166,7 @@ const styles = {
 };
 
 
-function RequestTemplate(props) {
+function Home(props) {
   const { classes } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -185,28 +185,11 @@ function RequestTemplate(props) {
             classes={classes}     
           />
           <Header onDrawerToggle={handleDrawerToggle}
-             name='Pedidos'
-             tab1='Em Espera'
-             tab2='Em Andamento'
-             tab3='Pronto'
-             tab4='Saiu Para Entrega'
-             tab5='Entregue'
-             tab6='Não Entregue'
-             tab7='Finalizado'
-             tab8='Cancelado'
-             
-             htab1='/'
-             htab2='/EmAndamento'
-             htab3='/Pronto'
-             htab4='/SaiuParaEntrega'
-             htab5='/Entregue'
-             htab6='/NaoEntregue'
-             htab7='/Finalizado'
-             htab8='/Cancelado'
+             name='Home'
             
           />
           <main className={classes.main}>
-            {props.content()}
+            
           </main>
           <footer className={classes.footer}>
             <Copyright />
@@ -218,8 +201,8 @@ function RequestTemplate(props) {
 }
 
 
-RequestTemplate.propTypes = {
+Home.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(RequestTemplate);
+export default withStyles(styles)(Home);

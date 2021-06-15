@@ -3,27 +3,33 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 
 //Pedidos
-import RequestsEmEspera from './pages/Request/RequestsEmEspera';
-import RequestsEmAndamento from './pages/Request/RequestsEmAndamento';
-import RequestsFinalizado from './pages/Request/RequestsFinalizado';
-import RequestsSaiuParaEntrega from'./pages/Request/RequestsSaiuParaEntrega';
-import RequestsPronto from './pages/Request/RequestsPronto';
-import RequestsEntregue from './pages/Request/RequestsEntregue';
-import RequestsNaoEntregue from './pages/Request/RequestsNaoEntregue';
-import RequestsCancelado from './pages/Request/RequestsCancelado';
+import OrdersEmEspera from './pages/Orders/OrdersEmEspera';
+import OrdersEmAndamento from './pages/Orders/OrdersEmAndamento';
+import OrdersFinalizado from './pages/Orders/OrdersFinalizado';
+import OrdersSaiuParaEntrega from'./pages/Orders/OrdersSaiuParaEntrega';
+import OrdersPronto from './pages/Orders/OrdersPronto';
+import OrdersEntregue from './pages/Orders/OrdersEntregue';
+import OrdersNaoEntregue from './pages/Orders/OrdersNaoEntregue';
+import OrdersCancelado from './pages/Orders/OrdersCancelado';
 
 
+import Home from './pages/Home/Homepage';
 
 //Cadastro
 import RegisterCategory from './pages/Register/RegisterCategory';
+import RegisterCategoryForm from './pages/Register/RegisterCategoryForm';
+
 import RegisterFood from './pages/Register/RegisterFood';
 import RegisterIngredient from './pages/Register/RegisterIngredient';
+
 
 
 
 import UserClient from './pages/User/UserClient';
 
 import Feedback from './pages/Feedback/Feedback';
+
+
 
 export default function Routes(){
     return(
@@ -32,22 +38,26 @@ export default function Routes(){
      
             <Switch>
                 
-                <Route path="/" exact to component = {RequestsEmEspera}/>
-                <Route path="/EmAndamento" component = {RequestsEmAndamento}/>
-                <Route path="/SaiuParaEntrega" component = {RequestsSaiuParaEntrega}/>
-                <Route path="/Pronto" component = {RequestsPronto}/>
-                <Route path="/Entregue" component = {RequestsEntregue}/>
-                <Route path="/NaoEntregue" component ={RequestsNaoEntregue}/>
-                <Route path="/Finalizado" component = {RequestsFinalizado}/>
-                <Route path="/Cancelado" component = {RequestsCancelado}/>
+                <Route path="/" exact to component = {Home}/>
+                <Route path="/Pedidos/EmEspera" component = {OrdersEmEspera}/>
+                <Route path="/Pedidos/EmAndamento" component = {OrdersEmAndamento}/>
+                <Route path="/Pedidos/SaiuParaEntrega" component = {OrdersSaiuParaEntrega}/>
+                <Route path="/Pedidos/Pronto" component = {OrdersPronto}/>
+                <Route path="/Pedidos/Entregue" component = {OrdersEntregue}/>
+                <Route path="/Pedidos/NaoEntregue" component ={OrdersNaoEntregue}/>
+                <Route path="/Pedidos/Finalizado" component = {OrdersFinalizado}/>
+                <Route path="/Pedidos/Cancelado" component = {OrdersCancelado}/>
 
 
-                <Route path="/Cadastrar/Categoria" component = {RegisterCategory}/>
-                <Route path="/Cadastrar/Comida" component = {RegisterFood}/>
-                <Route path="/Cadastrar/Ingrediente" component = {RegisterIngredient}/>
+                <Route path="/Cadastrar/Categorias" component = {RegisterCategory}/>
+                <Route path="/Cadastrar/Categoria/:id" component = {RegisterCategoryForm}/>
+                <Route path="/Cadastrar/Categoria/Nova" component = {RegisterCategoryForm}/>
+
+                <Route path="/Cadastrar/Comidas" component = {RegisterFood}/>
+                <Route path="/Cadastrar/Ingredientes" component = {RegisterIngredient}/>
 
 
-                <Route path="/Usuario/Cliente" component = {UserClient}/>
+                <Route path="/Usuario/Clientes" component = {UserClient}/>
                 
                 <Route path= "/Feedback" component = {Feedback}/>
 

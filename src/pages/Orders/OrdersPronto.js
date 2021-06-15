@@ -1,10 +1,10 @@
 import React,{ Component } from 'react';
-import RequestTemplate from './RequestTemplate';
+import RequestTemplate from './OrdersTemplate';
 import OrderList from '../../components/OrderList'
 import api from '../../services/api';
 
 
-export default class RequestScreenCancelado extends Component{
+export default class RequestScreenPronto extends Component{
 
   state ={
     Orders:[]
@@ -22,10 +22,9 @@ export default class RequestScreenCancelado extends Component{
   render(){
     const {Orders} = this.state;
 
- 
   return(
     <RequestTemplate
-      content={()=><OrderList count={Orders.length} button1="Ver avaliações" button2="Bloquear"/>}
+      content={()=><OrderList requests = {Orders} button1="Entregar" button2="Cancelar" />}
     
     />
   )}

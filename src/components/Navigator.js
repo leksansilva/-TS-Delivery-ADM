@@ -17,17 +17,10 @@ import FeedbackIcon from '@material-ui/icons/Feedback';
 import { Link } from 'react-router-dom';
 
 
-const categories = [
-  {
-    id: 'Menu',
-    children: [
-      { id: 'Pedidos', icon: <NotificationsIcon />, link: "/" },
-      { id: 'Usuários', icon: <PeopleIcon />, link: "/Usuario/Cliente" },
-      { id: 'Cadastrar', icon: < ListAltIcon />, link: "/Cadastrar/Comida" },
-      { id: 'Feedback', icon: < FeedbackIcon />, link: "/Feedback", },
-    ],
-  },
-];
+
+
+
+
 
 const styles = (theme) => ({
   categoryHeader: {
@@ -79,7 +72,17 @@ const styles = (theme) => ({
 function Navigator(props) {
   const { classes, ...other } = props;
  
-  
+  const categories = [
+  {
+    id: 'Menu',
+    children: [
+      { id: 'Pedidos', icon: <NotificationsIcon />, link: "/Pedidos/EmEspera" },
+      { id: 'Usuários', icon: <PeopleIcon />, link: "/Usuario/Clientes" },
+      { id: 'Cadastrar', icon: < ListAltIcon />, link: "/Cadastrar/Comidas" },
+      { id: 'Feedback', icon: < FeedbackIcon />, link: "/Feedback", },
+    ],
+  },
+];
   return (
     <Drawer variant="permanent" {...other}>
       <List disablePadding>
@@ -87,7 +90,7 @@ function Navigator(props) {
           <img src={logo} />
         </ListItem>
         {categories.map(({ id, children }) => (
-          <React.Fragment key={id}>
+          <React.Fragment >
             <ListItem className={classes.categoryHeader}>
               <ListItemText
                 classes={{

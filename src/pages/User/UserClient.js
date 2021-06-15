@@ -12,7 +12,6 @@ export default function UserClient(){
   useEffect (() => {
     api.get('/api/Users').then((response) => {
       setUsers(response.data)
-      console.log(response.data)
     });
   }, []);
   return(
