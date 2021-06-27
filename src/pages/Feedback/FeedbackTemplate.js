@@ -151,8 +151,6 @@ const styles = {
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
-    width: 'calc(100vh - 256px)',
-    marginLeft: '256px',
   },
   main: {
     flex: 1,
@@ -178,17 +176,15 @@ function FeedbackTemplate(props) {
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
         <CssBaseline />
+        <Sidebar
+          mobileOpen={mobileOpen}
+          handleDrawerToggle={handleDrawerToggle}
+          drawer={classes.drawer}      
+        />
         <div className={classes.app}>
-          <Sidebar
-            mobileOpen={mobileOpen}
-            handleDrawerToggle={handleDrawerToggle}
-            classes={classes}     
-          />
           <Header onDrawerToggle={handleDrawerToggle}
              name='Feedback'
-             tab1='Feedback'
-             htab1='/Feedback'
-             
+             tabs={[]}
             
           />
           <main className={classes.main}>

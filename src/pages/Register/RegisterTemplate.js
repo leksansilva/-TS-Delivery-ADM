@@ -151,8 +151,6 @@ const styles = {
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
-    width: 'calc(100vh - 256px)',
-    marginLeft: '256px',
   },
   main: {
     flex: 1,
@@ -165,7 +163,11 @@ const styles = {
   },
 };
 
-
+const tabs = [
+  {name:'Comida', link:'/Cadastrar/Comidas'},
+  {name:'Ingredientes', link:'/Cadastrar/Ingredientes'},
+  {name:'Categorias', link:'/Cadastrar/Categorias'},
+  ]
 function RegisterTemplate(props) {
   const { classes } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -178,21 +180,15 @@ function RegisterTemplate(props) {
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
         <CssBaseline />
+        <Sidebar
+          mobileOpen={mobileOpen}
+          handleDrawerToggle={handleDrawerToggle}
+          drawer={classes.drawer}      
+        />
         <div className={classes.app}>
-          <Sidebar
-            mobileOpen={mobileOpen}
-            handleDrawerToggle={handleDrawerToggle}
-            classes={classes}     
-          />
           <Header onDrawerToggle={handleDrawerToggle}
              name='Cadastrar'
-             tab1='Comida'
-             tab2='Ingrediente'
-             tab3='Categoria'
-             htab1='/Cadastrar/Comidas'
-             htab2='/Cadastrar/Ingredientes'
-             htab3='/Cadastrar/Categorias'
-            
+             tabs={tabs}
           />
           <main className={classes.main}>
             {props.content()}

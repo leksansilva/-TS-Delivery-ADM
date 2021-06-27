@@ -2,12 +2,14 @@ import React,{ useEffect, useState } from 'react';
 import RequestTemplate from './OrdersTemplate';
 import OrderList from '../../components/OrderList'
 import api from '../../services/api';
+import { getToken } from '../../services/auth';
 
 export default function RequestScreenEmAndamento(){
   const [orders, setOrders] = useState([]);
 
   useEffect (() => {
-    api.get('/api/Orders').then((response) => {
+    const headers = {'Authorization':`Bearer ${getToken()}`};
+    api.get('/api/Orders',{headers: headers}).then((response) => {
       setOrders(response.data)
     });
   }, []);

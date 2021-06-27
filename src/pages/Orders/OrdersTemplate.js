@@ -151,8 +151,6 @@ const styles = {
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
-    width: 'calc(100vh - 256px)',
-    marginLeft: '256px',
   },
   main: {
     flex: 1,
@@ -164,7 +162,16 @@ const styles = {
     background: '#eaeff1',
   },
 };
-
+const tabs = [
+  {name:'Em Espera', link:'/Pedidos/EmEspera'},
+  {name:'Em Andamento', link:'/Pedidos/EmAndamento'},
+  {name:'Pronto', link:'/Pedidos/Pronto'},
+  {name:'Saiu p/ Entrega', link:'/Pedidos/SaiuParaEntrega'},
+  {name:'Entregue', link:'/Pedidos/Entregue'},
+  {name:'Não Entregue', link:'/Pedidos/NaoEntregue'},
+  {name:'Finalizado', link:'/Pedidos/Finalizado'},
+  {name:'Cancelado',link:'/Pedidos/Cancelado'}
+  ]
 
 function RequestTemplate(props) {
   const { classes } = props;
@@ -178,31 +185,15 @@ function RequestTemplate(props) {
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
         <CssBaseline />
+        <Sidebar
+          mobileOpen={mobileOpen}
+          handleDrawerToggle={handleDrawerToggle}
+          drawer={classes.drawer}    
+        />
         <div className={classes.app}>
-          <Sidebar
-            mobileOpen={mobileOpen}
-            handleDrawerToggle={handleDrawerToggle}
-            classes={classes}     
-          />
           <Header onDrawerToggle={handleDrawerToggle}
              name='Pedidos'
-             tab1='Em Espera'
-             tab2='Em Andamento'
-             tab3='Pronto'
-             tab4='Saiu Para Entrega'
-             tab5='Entregue'
-             tab6='Não Entregue'
-             tab7='Finalizado'
-             tab8='Cancelado'
-             
-             htab1='/Pedidos/EmEspera'
-             htab2='/Pedidos/EmAndamento'
-             htab3='/Pedidos/Pronto'
-             htab4='/Pedidos/SaiuParaEntrega'
-             htab5='/Pedidos/Entregue'
-             htab6='/Pedidos/NaoEntregue'
-             htab7='/Pedidos/Finalizado'
-             htab8='/Pedidos/Cancelado'
+             tabs={tabs}
             
           />
           <main className={classes.main}>

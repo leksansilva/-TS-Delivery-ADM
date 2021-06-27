@@ -1,31 +1,26 @@
-import React,{ Component } from 'react';
+import React,{ useEffect, useState } from 'react';
 import RequestTemplate from './OrdersTemplate';
 import OrderList from '../../components/OrderList'
 import api from '../../services/api';
+import { getToken } from '../../services/auth';
 
+export default function OrdersPronto(){
+  const [orders, setOrders] = useState([]);
 
-export default class RequestScreenPronto extends Component{
+  useEffect (() => {
+    const headers = {'Authorization':`Bearer ${getToken()}`};
+    api.get('/api/Orders',{headers: headers}).then((response) => {
+      setOrders(response.data)
+    });
+  }, []);
 
-  state ={
-    Orders:[]
-  }
   
-
-  async componentDidMount(){
-    const response = await api.get('/api/Orders')
-
-   
-    
-    this.setState({Orders: response.data})
-  }
-
-  render(){
-    const {Orders} = this.state;
-
+  
   return(
-    <RequestTemplate
-      content={()=><OrderList requests = {Orders} button1="Entregar" button2="Cancelar" />}
     
-    />
-  )}
+      <RequestTemplate
+        content={()=><OrderList count={orders.length}button1="Tentar Novamente" button2="Cancelar" />}    
+      />
+    
+  )
 }

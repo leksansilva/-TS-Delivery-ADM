@@ -1,27 +1,29 @@
 import React from 'react';
 import Hidden from '@material-ui/core/Hidden';
 import Navigator from '../components/Navigator';
+import { CssBaseline } from '@material-ui/core';
 
 
-
-export default function Sidebar(props){
+const drawerWidth = 256;
+export default function Sidebar({drawer, mobileOpen,handleDrawerToggle }){
 
 
     return(
-      
-        <nav className={props.classes.drawer}>
+      <>
+        <CssBaseline/>
+        <nav className={drawer}>
           <Hidden smUp implementation="js">
             <Navigator
-              PaperProps={{ style: { width: 256 } }}
+              PaperProps={{ style: { width: drawerWidth } }}
               variant="temporary"
-              open={props.mobileOpen}
-              onClose={props.handleDrawerToggle}
+              open={mobileOpen}
+              onClose={handleDrawerToggle}
             />
           </Hidden>
           <Hidden xsDown implementation="css">
-            <Navigator PaperProps={{ style: { width: 256 } }} />
+            <Navigator PaperProps={{ style: { width: drawerWidth} }} />
           </Hidden>
         </nav>
-
+      </>
     )
 }

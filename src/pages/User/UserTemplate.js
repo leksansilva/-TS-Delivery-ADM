@@ -151,8 +151,6 @@ const styles = {
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
-    width: 'calc(100vh - 256px)',
-    marginLeft: '256px',
   },
   main: {
     flex: 1,
@@ -178,16 +176,15 @@ function UserTemplate(props) {
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
         <CssBaseline />
+        <Sidebar
+          mobileOpen={mobileOpen}
+          handleDrawerToggle={handleDrawerToggle}
+          drawer={classes.drawer}      
+        />
         <div className={classes.app}>
-          <Sidebar
-            mobileOpen={mobileOpen}
-            handleDrawerToggle={handleDrawerToggle}
-            classes={classes}     
-          />
           <Header onDrawerToggle={handleDrawerToggle}
              name='Clientes'
-             tab1='Clientes' 
-             htab1='/Usuario/Clientes'
+             tabs={[]}
           
             
           />

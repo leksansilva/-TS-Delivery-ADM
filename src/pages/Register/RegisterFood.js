@@ -1,5 +1,5 @@
 import React from 'react';
-import Content from '../../components/Content';
+import Form from '../../components/Form';
 import RegisterTemplate from './RegisterTemplate';
 
 
@@ -8,7 +8,7 @@ export default function MenuItemScreen(){
 
   return(
     <RegisterTemplate
-      content={()=><Content name="Itens"/>}
+      content={()=><Form name="Itens"/>}
     
     />
   )

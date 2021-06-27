@@ -28,7 +28,9 @@ import RegisterIngredient from './pages/Register/RegisterIngredient';
 import UserClient from './pages/User/UserClient';
 
 import Feedback from './pages/Feedback/Feedback';
+import Login from './pages/Login/Login';
 
+import PrivateRoute from './services/wAuth';
 
 
 export default function Routes(){
@@ -37,29 +39,30 @@ export default function Routes(){
         <BrowserRouter>
      
             <Switch>
+
+                <Route path="/Login" component = {Login}/>
+
+                <PrivateRoute path="/" exact to component = {Home}/>
+                <PrivateRoute path="/Pedidos/EmEspera" component = {OrdersEmEspera}/>
+                <PrivateRoute path="/Pedidos/EmAndamento" component = {OrdersEmAndamento}/>
+                <PrivateRoute path="/Pedidos/SaiuParaEntrega" component = {OrdersSaiuParaEntrega}/>
+                <PrivateRoute path="/Pedidos/Pronto" component = {OrdersPronto}/>
+                <PrivateRoute path="/Pedidos/Entregue" component = {OrdersEntregue}/>
+                <PrivateRoute path="/Pedidos/NaoEntregue" component ={OrdersNaoEntregue}/>
+                <PrivateRoute path="/Pedidos/Finalizado" component = {OrdersFinalizado}/>
+                <PrivateRoute path="/Pedidos/Cancelado" component = {OrdersCancelado}/>
+
+
+                <PrivateRoute path="/Cadastrar/Categorias" component = {RegisterCategory}/>
+                <PrivateRoute path="/Cadastrar/Categoria/:id" component = {RegisterCategoryForm}/>
+                <PrivateRoute path="/Cadastrar/Categoria/Nova" component = {RegisterCategoryForm}/>
+                <PrivateRoute path="/Cadastrar/Comidas" component = {RegisterFood}/>
+                <PrivateRoute path="/Cadastrar/Ingredientes" component = {RegisterIngredient}/>
+
+
+                <PrivateRoute path="/Usuario/Clientes" component = {UserClient}/>
                 
-                <Route path="/" exact to component = {Home}/>
-                <Route path="/Pedidos/EmEspera" component = {OrdersEmEspera}/>
-                <Route path="/Pedidos/EmAndamento" component = {OrdersEmAndamento}/>
-                <Route path="/Pedidos/SaiuParaEntrega" component = {OrdersSaiuParaEntrega}/>
-                <Route path="/Pedidos/Pronto" component = {OrdersPronto}/>
-                <Route path="/Pedidos/Entregue" component = {OrdersEntregue}/>
-                <Route path="/Pedidos/NaoEntregue" component ={OrdersNaoEntregue}/>
-                <Route path="/Pedidos/Finalizado" component = {OrdersFinalizado}/>
-                <Route path="/Pedidos/Cancelado" component = {OrdersCancelado}/>
-
-
-                <Route path="/Cadastrar/Categorias" component = {RegisterCategory}/>
-                <Route path="/Cadastrar/Categoria/:id" component = {RegisterCategoryForm}/>
-                <Route path="/Cadastrar/Categoria/Nova" component = {RegisterCategoryForm}/>
-
-                <Route path="/Cadastrar/Comidas" component = {RegisterFood}/>
-                <Route path="/Cadastrar/Ingredientes" component = {RegisterIngredient}/>
-
-
-                <Route path="/Usuario/Clientes" component = {UserClient}/>
-                
-                <Route path= "/Feedback" component = {Feedback}/>
+                <PrivateRoute path= "/Feedback" component = {Feedback}/>
 
             </Switch>
         </BrowserRouter>

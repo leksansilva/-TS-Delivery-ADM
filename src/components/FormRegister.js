@@ -3,10 +3,12 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
-import { PhotoCamera } from '@material-ui/icons';
-import { Button, IconButton, makeStyles } from '@material-ui/core';
+
+import { Button, makeStyles } from '@material-ui/core';
 import { useHistory } from 'react-router';
 import api from '../services/api';
+import { getToken } from '../services/auth';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -35,7 +37,7 @@ export default function FormRegister({id}) {
   const history = useHistory();
   
   const url = '/api/Categories';
-  
+  const headers = {'Authorization':`Bearer ${getToken()}`};
     
    useEffect(() =>{
       if(id){
@@ -59,13 +61,13 @@ export default function FormRegister({id}) {
   function onSubmit (ev) {
     
     const method = id ? 'put' : 'post';
-
-    
+    const link = id ? `${url}/${id}`: url;
+    console.log(link);
 
 
     ev.preventDefault();
     console.log(values);
-    api[method](url, values)
+    api[method](link, values, {headers: headers})
     .then((response) => {
       
       history.push('/Cadastrar/Categorias');
@@ -83,43 +85,41 @@ export default function FormRegister({id}) {
         {id ? 'Editar Categoria:' : 'Cadastrar Categoria:'}
       </Typography>
         <Paper elevation={4} className={classes.paper} component='form'onSubmit={onSubmit} >
-      
-      <Grid item   >
-            <input accept="image/*" className={classes.input} name="image" onChange={onChange} id="image" type="file" />
-            <label htmlFor="icon-button-file">
-                    <IconButton   color="primary" aria-label="upload picture" component="span">
-                    <PhotoCamera  />
-                    </IconButton>
-            </label>
-      </Grid>  
-      <Grid container spacing={3}>
-            <Grid item sm={12}>
-              
-                    <Grid container spacing={3}>
-                        <Grid item xs={12} sm={12}>
-                            <TextField
-                                required
-                                id="name"
-                                name="name"
-                                label="Nome do Produto"
-                                fullWidth
-                                autoComplete="given-name"
-                                onChange={onChange}
-                                value={values.name}
-                            />
+          <Grid container spacing={3}>
+                <Grid item sm={12}>
+                          <Grid container spacing={3}>
+                            <Grid item xs={12} sm={12}>
+                              <Typography variant="h6" gutterBottom>
+                                Nome da Categoria:
+                              </Typography>
                             </Grid>
-                                       
-                    </Grid>
-               
-            </Grid>
-            <Grid item sm={12}>
-             
-                <Button   className={classes.buttons} type='submit'  variant="outlined" color="primary">
-                    Salvar
-                </Button>
+                                          
+                        </Grid>
+                        <Grid container spacing={3}>
+                            <Grid item xs={12} sm={12}>
+                                
+                                <TextField
+                                    required
+                                    id="name"
+                                    name="name"
+                                    fullWidth
+                                    autoComplete="given-name"
+                                    onChange={onChange}
+                                    value={values.name}
+                                />
+                                </Grid>
+                                          
+                        </Grid>
+                  
+                </Grid>
+                <Grid item sm={12}>
                 
+                    <Button   className={classes.buttons} type='submit'  variant="outlined" color="primary">
+                        Salvar
+                    </Button>
+                    
+                </Grid>
             </Grid>
-        </Grid>
         </Paper>  
     </React.Fragment>
   );

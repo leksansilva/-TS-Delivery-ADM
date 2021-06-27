@@ -15,6 +15,7 @@ import ListAltIcon from '@material-ui/icons/ListAlt';
 import logo from '../assets/logo.png';
 import FeedbackIcon from '@material-ui/icons/Feedback';
 import { Link } from 'react-router-dom';
+import { Button } from '@material-ui/core';
 
 
 
@@ -76,7 +77,7 @@ function Navigator(props) {
   {
     id: 'Menu',
     children: [
-      { id: 'Pedidos', icon: <NotificationsIcon />, link: "/Pedidos/EmEspera" },
+      { id: 'Pedidos', icon: <NotificationsIcon />, link: "/Pedidos/EmEspera", },
       { id: 'Usuários', icon: <PeopleIcon />, link: "/Usuario/Clientes" },
       { id: 'Cadastrar', icon: < ListAltIcon />, link: "/Cadastrar/Comidas" },
       { id: 'Feedback', icon: < FeedbackIcon />, link: "/Feedback", },
@@ -87,10 +88,12 @@ function Navigator(props) {
     <Drawer variant="permanent" {...other}>
       <List disablePadding>
         <ListItem className={clsx(classes.firebase, classes.item, classes.itemCategory)}>
-          <img src={logo} />
+          <Button component={Link} to='/'>
+            <img src={logo}  />
+          </Button>
         </ListItem>
         {categories.map(({ id, children }) => (
-          <React.Fragment >
+          <React.Fragment key={id} >
             <ListItem className={classes.categoryHeader}>
               <ListItemText
                 classes={{
@@ -100,13 +103,15 @@ function Navigator(props) {
                 {id}
               </ListItemText>
             </ListItem>
-            {children.map(({ id: childId, icon, link, active }) => (
-              <Link  to={link} className={classes.link}>
+            {children.map(({ id: childId, icon, link, active}) => (
+        
                 <ListItem
+                component={Link}
+                to={link}
                   key={childId}
                   button
                   className={clsx(classes.item, active && classes.itemActiveItem)}
-                  component="a"
+                
                 >
                   <ListItemIcon className={classes.itemIcon}>{icon}</ListItemIcon>
                   <ListItemText
@@ -117,7 +122,7 @@ function Navigator(props) {
                     {childId}
                   </ListItemText>
                 </ListItem>
-              </Link>  
+        
             ))}
 
             <Divider className={classes.divider} />

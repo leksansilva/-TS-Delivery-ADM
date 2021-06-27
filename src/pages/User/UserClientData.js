@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import Table from '../../components/Table';
 import api from '../../services/api';
-import { getToken } from '../../services/auth';
 import UserTemplate from './UserTemplate';
 
 
 
 
-export default function UserClient(){
+export default function UserClientData(){
   const [users, setUsers] = useState([]);
- 
+
   useEffect (() => {
-    const headers = {'Authorization':`Bearer ${getToken()}`};
-    api.get('/api/Users', {headers:  headers}).then((response) => {
+    api.get('/api/Users').then((response) => {
       setUsers(response.data)
-  
     });
   }, []);
   return(

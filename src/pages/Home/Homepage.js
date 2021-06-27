@@ -151,8 +151,6 @@ const styles = {
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
-    width: 'calc(100vh - 256px)',
-    marginLeft: '256px',
   },
   main: {
     flex: 1,
@@ -164,7 +162,6 @@ const styles = {
     background: '#eaeff1',
   },
 };
-
 
 function Home(props) {
   const { classes } = props;
@@ -178,22 +175,23 @@ function Home(props) {
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
         <CssBaseline />
+        <Sidebar
+          mobileOpen={mobileOpen}
+          handleDrawerToggle={handleDrawerToggle}
+          drawer={classes.drawer}     
+        />       
         <div className={classes.app}>
-          <Sidebar
-            mobileOpen={mobileOpen}
-            handleDrawerToggle={handleDrawerToggle}
-            classes={classes}     
-          />
           <Header onDrawerToggle={handleDrawerToggle}
-             name='Home'
+              name='Home'
+              tabs={[]}
             
           />
-          <main className={classes.main}>
-            
-          </main>
-          <footer className={classes.footer}>
-            <Copyright />
-          </footer>
+            <main className={classes.main}>
+              
+            </main>
+            <footer className={classes.footer}>
+              <Copyright />
+            </footer>
         </div>
       </div>
     </ThemeProvider>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Grid from '@material-ui/core/Grid';
@@ -10,7 +10,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import Badge from '@material-ui/core/Badge';
 
 
@@ -24,25 +24,23 @@ const styles = (theme) => ({
   menuButton: {
     marginLeft: -theme.spacing(1),
   },
-  iconButtonAvatar: {
-    padding: 4,
-  },
-  link: {
-    
+  badge: {
+    right:2,
+    position: 'fixed',
   },
   button: {
     borderColor: lightColor,
-  }
-  ,badge: {
-    top: 10,
-  }
+  }, 
 });
 
 
 function Header(props) {
-  const count = props.count;
-  const { classes, onDrawerToggle } = props;
+
+  const { classes, onDrawerToggle} = props;
+  const tabs = props.tabs;
   const location = useLocation();
+  const params = useParams();
+  console.log(params);
   const currentTab = {
     '/Pedidos/EmEspera':0,
     '/Pedidos/EmAndamento':1,
@@ -56,11 +54,14 @@ function Header(props) {
     '/Cadastrar/Comidas':0,
     '/Cadastrar/Ingredientes':1,
     '/Cadastrar/Categorias':2,
-
-    '/Usuario/Clientes': 0,
-
-    '/Feedback': 0,
+    '/Cadastrar/Categoria/Nova':2,
+    '/Cadastrar/Categoria/':2,
   }
+  const [value, setValue] = useState(currentTab[location.pathname]);
+
+  const handleChange = ( event, newValue) => {
+    setValue(newValue);
+  };
   return (
     <React.Fragment>
       <AppBar color="primary" position="sticky" elevation={0}>
@@ -106,35 +107,24 @@ function Header(props) {
         position="static"
         elevation={0}
       >
-        <Tabs value={currentTab[location.pathname]} textColor="inherit">
-         <Badge  badgeContent={count} className={classes.badge}  color="error">
-            <Tab component={Link} to={props.htab1}  textColor="inherit" label={props.tab1} />
-          </Badge>
-
-         <Badge  badgeContent={0} className={classes.badge}   color="error">
-           <Tab component={Link} to={props.htab2} textColor="inherit" label={props.tab2} />
-          </Badge>
-        <Badge  badgeContent={0} className={classes.badge}  color="error">
-           <Tab component={Link} to={props.htab3}  textColor="inherit" label={props.tab3} />
-        </Badge> 
-
-        <Badge  badgeContent={0} className={classes.badge}  color="error">
-            <Tab component={Link} to={props.htab4}  textColor="inherit" label={props.tab4} />
-        </Badge>   
-        <Badge  badgeContent={0} className={classes.badge}  color="error">
-            <Tab component={Link} to={props.htab5}  textColor="inherit" label={props.tab5} />
-          </Badge> 
-        <Badge  badgeContent={0} className={classes.badge}  color="error">
-            <Tab component={Link} to={props.htab6}  textColor="inherit" label={props.tab6} />
-          </Badge>  
-        <Badge  badgeContent={0} className={classes.badge}  color="error">
-            <Tab component={Link} to={props.htab7}  textColor="inherit" label={props.tab7} />
-        </Badge>  
-
-        <Badge  badgeContent={0} className={classes.badge}  color="error"> 
-            <Tab component={Link} to={props.htab8}  textColor="inherit" label={props.tab8} />
-        </Badge>    
-        </Tabs>
+      <Tabs value={value}onChange={handleChange} variant="fullWidth" >
+        {tabs.map((tab) =>(
+          <Tab component={Link}
+          key={tab.name} 
+          to={tab.link}  
+          className={classes.tab}
+          label={<Badge 
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }} 
+          badgeContent={3}
+          >
+          <Typography variant="body2"> {tab.name} </Typography>
+        </Badge>} 
+          textColor='inherit'/>
+        ))}
+      </Tabs>
       </AppBar>
     </React.Fragment>
   );
