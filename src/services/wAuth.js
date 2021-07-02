@@ -23,14 +23,15 @@ export default function Wauth ({component: Component, ...rest}){
                     setRedirect(false);
                 }
             }).catch(err =>{
-                if(err){
-                    console.log(err)
-                    logout();
-                    setLoading(false);
-                    setRedirect(true);
-                }
+                console.log(err)
+                
+                logout();
+                setLoading(false);
+                setRedirect(true);
+                
             })
         }
+       
         verify();
         
     },[])

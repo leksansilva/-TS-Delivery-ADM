@@ -79,7 +79,7 @@ function Navigator(props) {
     children: [
       { id: 'Pedidos', icon: <NotificationsIcon />, link: "/Pedidos/EmEspera", },
       { id: 'Usuários', icon: <PeopleIcon />, link: "/Usuario/Clientes" },
-      { id: 'Cadastrar', icon: < ListAltIcon />, link: "/Cadastrar/Comidas" },
+      { id: 'Cadastrar', icon: < ListAltIcon />, link: "/Cadastrar/Pratos" },
       { id: 'Feedback', icon: < FeedbackIcon />, link: "/Feedback", },
     ],
   },

@@ -8,6 +8,7 @@ import Link from '@material-ui/core/Link';
 
 import Header from '../../components/Header';
 import Sidebar from '../../components/SideBar';
+import HomeInfos from '../../components/HomeInfos';
 
 function Copyright() {
   return (
@@ -187,7 +188,7 @@ function Home(props) {
             
           />
             <main className={classes.main}>
-              
+              <HomeInfos/>
             </main>
             <footer className={classes.footer}>
               <Copyright />

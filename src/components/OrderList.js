@@ -4,91 +4,83 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
-import imagem from '../assets/images/default.jpg';
-import requests from '../teste/requests';
-
+import NoResults from './NoResults';
+import { useLocation } from 'react-router-dom';
+import { Box } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     alignContent: "center",
   },
   paper: {
-    padding: theme.spacing(1),
+    maxWidth: 800,
     margin: 'auto',
-    maxWidth: 300,
-    
-    marginLeft:'30px',
-    marginBottom: '40px',
+    marginBottom: "20px",
+    overflow: 'hidden',
   },
   img: {
+    borderRadius: 5,
     margin: 'auto',
     display: 'block',
-    maxWidth: '100%',
-    maxHeight: '100%',
-    borderRadius: "5px",
+    maxWidth: '200px',
+    maxHeight: '150px',
   },
-  buttons:{
-    alignContent: "center",
-  },
-  border:{
-    marginLeft: "60px",
+  info:{
+    marginLeft:'10px',
   }
 }));
 
 
 export default function OrderList(props) {
   const classes = useStyles();
-  return (
-    <Grid className={classes.root}  item container  >
-  
-    {requests.map(({id, Name, Preço, Adress}) => (  
-      <Paper className={classes.paper} elevation= {4} key={id} >
-        <Grid item container  xs= {12} >
-          <Grid item  >
-              <img className={classes.img} alt="complex" src={imagem} />
-          </Grid>
-          <Grid item xs={12} sm container>
-            <Grid item xs  >
-              <Grid item container> 
-              <Grid item xs sm={6} > 
-                  <Typography  variant="h5">
-                     {Name}
-                   </Typography>
-               </Grid>
-               <Grid item  sm={6}>   
-                  <Typography className={classes.border} variant="h6" >
-                    {Preço}
-                  </Typography>
-                </Grid>
-                <Grid item xs={6} sm={12}>   
-                <Typography variant="body2" gutterBottom>
-                 Cliente:
-                </Typography>
-                </Grid>
-                <Grid item xs={6} sm={12}> 
-                <Typography variant= "body2" gutterBottom>
-                Endereço: {Adress}
-                </Typography>
-                </Grid>
-                <Grid item xs={6} sm>
-                <Typography variant= "body2" gutterBottom>
-                Telefone:
-                </Typography>
-                </Grid>
-              </Grid>
-              <Grid item align="center">
-                <ButtonGroup className={classes.buttons}  aria-label="outlined primary button group">
-                    <Button color="primary" disabled= {props.ability}>{props.button1}</Button>
-                    <Button color="secondary">{props.button2}</Button>
-                </ButtonGroup>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
+  const orders = props.orders;
+  const location = useLocation();
 
-      </Paper> 
-    ))}  
-    </Grid>  
+  const currentTab = {
+    '/Pedidos/EmEspera':1,
+    '/Pedidos/EmAndamento':2,
+    '/Pedidos/Pronto':3,
+    '/Pedidos/SaiuParaEntrega':4,
+    '/Pedidos/Entregue':5,
+    '/Pedidos/NaoEntregue':6,
+    '/Pedidos/Cancelado':7,
+  }
+  const set = currentTab[location.pathname];
+  return (
+    orders.length>0?
+      orders.map((order) => (  
+        set===order.status?
+        <Paper className={classes.paper} elevation= {2} key={order.id} >
+          <Box component="fieldset" mb={0} borderColor="transparent">
+          <Grid  container>
+                  <Grid item >
+                    <img className={classes.img} alt="complex" src={order.img} />
+                  </Grid>
+                  <Grid item container xs direction="column"className={classes.info}>
+                    <Grid item xs container >
+                      <Grid item xs  >
+                        <Typography  variant="h6"component="legend">{order.order}</Typography>
+                        <Typography  variant="subtitle1">{order.name}</Typography>
+                        <Typography variant="subtitle2" >{order.address}</Typography>          
+                      </Grid>
+                      <Grid  item>
+                          <Typography variant="h6">{order.price}R$</Typography>               
+                      </Grid>
+                    </Grid>
+                    <Grid item container>
+                      <Grid item xs/>
+                      <Grid item>
+                      <Button color="primary">{props.button1}</Button>
+                        <Button color="secondary">{props.button2}</Button> 
+                      </Grid>     
+                    </Grid>  
+                  </Grid>  
+                </Grid>
+          </Box>
+            
+        </Paper>
+        :''    
+      ))  
+    :<NoResults/>
   );
 }

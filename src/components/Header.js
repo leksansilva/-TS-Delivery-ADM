@@ -10,9 +10,11 @@ import Tabs from '@material-ui/core/Tabs';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import Badge from '@material-ui/core/Badge';
-
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { Tooltip } from '@material-ui/core';
+import { getToken, logout } from '../services/auth';
 
 const lightColor = 'rgba(255, 255, 255, 0.7)';
 
@@ -20,6 +22,7 @@ const lightColor = 'rgba(255, 255, 255, 0.7)';
 const styles = (theme) => ({
   secondaryBar: {
     zIndex: 0,
+    width:'100%',
   },
   menuButton: {
     marginLeft: -theme.spacing(1),
@@ -35,12 +38,11 @@ const styles = (theme) => ({
 
 
 function Header(props) {
-
+  
   const { classes, onDrawerToggle} = props;
   const tabs = props.tabs;
   const location = useLocation();
-  const params = useParams();
-  console.log(params);
+  const history = useHistory();
   const currentTab = {
     '/Pedidos/EmEspera':0,
     '/Pedidos/EmAndamento':1,
@@ -48,10 +50,9 @@ function Header(props) {
     '/Pedidos/SaiuParaEntrega':3,
     '/Pedidos/Entregue':4,
     '/Pedidos/NaoEntregue':5,
-    '/Pedidos/Finalizado':6,
-    '/Pedidos/Cancelado':7,
+    '/Pedidos/Cancelado':6,
 
-    '/Cadastrar/Comidas':0,
+    '/Cadastrar/Pratos':0,
     '/Cadastrar/Ingredientes':1,
     '/Cadastrar/Categorias':2,
     '/Cadastrar/Categoria/Nova':2,
@@ -62,6 +63,12 @@ function Header(props) {
   const handleChange = ( event, newValue) => {
     setValue(newValue);
   };
+  function onClickLogout (){
+    logout();
+    if(!getToken()){
+      history.push('/Login');
+    }  
+  }
   return (
     <React.Fragment>
       <AppBar color="primary" position="sticky" elevation={0}>
@@ -80,6 +87,13 @@ function Header(props) {
               </Grid>
             </Hidden>
             <Grid item xs />
+            <Grid item>
+              <Tooltip title="Sair">
+                <IconButton onClick={onClickLogout} color="inherit">
+                  <ExitToAppIcon />
+                </IconButton>
+              </Tooltip>
+            </Grid>
           </Grid>
         </Toolbar>
       </AppBar>
@@ -107,21 +121,22 @@ function Header(props) {
         position="static"
         elevation={0}
       >
-      <Tabs value={value}onChange={handleChange} variant="fullWidth" >
+      <Tabs value={value} onChange={handleChange}  variant="scrollable" scrollButtons="auto" >
         {tabs.map((tab) =>(
           <Tab component={Link}
           key={tab.name} 
           to={tab.link}  
           className={classes.tab}
-          label={<Badge 
+          label={<div>&nbsp;&nbsp;<Badge 
           anchorOrigin={{
             vertical: 'top',
             horizontal: 'right',
           }} 
-          badgeContent={3}
+          badgeContent={tab.count}
+          color="secondary"
           >
           <Typography variant="body2"> {tab.name} </Typography>
-        </Badge>} 
+        </Badge>&nbsp;&nbsp;&nbsp;</div>} 
           textColor='inherit'/>
         ))}
       </Tabs>

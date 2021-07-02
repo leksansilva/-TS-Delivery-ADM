@@ -151,6 +151,7 @@ const styles = {
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
+    width: '100%',
   },
   main: {
     flex: 1,
@@ -162,19 +163,32 @@ const styles = {
     background: '#eaeff1',
   },
 };
-const tabs = [
-  {name:'Em Espera', link:'/Pedidos/EmEspera'},
-  {name:'Em Andamento', link:'/Pedidos/EmAndamento'},
-  {name:'Pronto', link:'/Pedidos/Pronto'},
-  {name:'Saiu p/ Entrega', link:'/Pedidos/SaiuParaEntrega'},
-  {name:'Entregue', link:'/Pedidos/Entregue'},
-  {name:'Não Entregue', link:'/Pedidos/NaoEntregue'},
-  {name:'Finalizado', link:'/Pedidos/Finalizado'},
-  {name:'Cancelado',link:'/Pedidos/Cancelado'}
-  ]
+
 
 function RequestTemplate(props) {
-  const { classes } = props;
+  const { classes} = props;
+  const orders = props.count;
+  function count(tam,i,cont,status){
+    if(i<tam){  
+      if(orders[i].status===status){    
+        return count(tam,i+1,cont+1,status);
+      }else{
+        return count(tam,i+1,cont,status);
+      }
+    }
+    
+      return cont;
+  }
+
+  const tabs = [
+      {name:'Em Espera', link:'/Pedidos/EmEspera', count: count(orders.length,0,0,1)},
+      {name:'Em Andamento', link:'/Pedidos/EmAndamento', count: count(orders.length,0,0,2)},
+      {name:'Pronto', link:'/Pedidos/Pronto', count: count(orders.length,0,0,3)},
+      {name:'Saiu para Entrega', link:'/Pedidos/SaiuParaEntrega', count: count(orders.length,0,0,4)},
+      {name:'Entregue', link:'/Pedidos/Entregue', count: count(orders.length,0,0,5)},
+      {name:'Não Entregue', link:'/Pedidos/NaoEntregue', count: count(orders.length,0,0,6)},
+      {name:'Cancelado',link:'/Pedidos/Cancelado', count: count(orders.length,0,0,7)},
+    ]
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -197,7 +211,7 @@ function RequestTemplate(props) {
             
           />
           <main className={classes.main}>
-            {props.content()}
+            {props.orders()}
           </main>
           <footer className={classes.footer}>
             <Copyright />

@@ -5,7 +5,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { Button, ButtonGroup, Typography } from '@material-ui/core';
+import { Button} from '@material-ui/core';
 import { green } from '@material-ui/core/colors';
 
 
@@ -27,27 +27,23 @@ export default function Orders({users}) {
   const classes = useStyles();
   return (
     <React.Fragment>
-      <Typography component="h2" variant="h6" color="primary" gutterBottom>
-        Usuários
-      </Typography>
+    
       <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell>Nome</TableCell>
-            <TableCell>E-mail</TableCell>
-            <TableCell align='right'>Opções</TableCell>
+            <TableCell align='center'>Nome</TableCell>
+            <TableCell align='center'>E-mail</TableCell>
+            <TableCell align='center'>Opções</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {users.map((row) => (
             <TableRow key={row.id}>
-              <TableCell>{row.name}</TableCell>
-              <TableCell>{row.email}</TableCell>
-              <TableCell align="right">
-                <ButtonGroup  aria-label="outlined primary button group">
-                    <Button color="primary" >Dados</Button>
-                    <Button className={classes.color}>Feedbacks</Button>
-                </ButtonGroup></TableCell>
+              <TableCell align='center'>{row.name}</TableCell>
+              <TableCell align='center'>{row.email}</TableCell>
+              <TableCell align="center">
+                    <Button className={classes.color} >Dados</Button>
+                </TableCell>
             </TableRow>
           ))}
         </TableBody>

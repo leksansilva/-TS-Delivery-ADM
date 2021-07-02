@@ -58,8 +58,8 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "24px",
   },
   cardGrid: {
-    paddingTop: theme.spacing(8),
-    paddingBottom: theme.spacing(8),
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
   },
   cardMedia: {
     paddingTop: '56.25%', // 16:9
@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
  
 }));
 
-export default function CardGrid({id}) {
+export default function CategoryList({id}) {
   const classes = useStyles();
   const history = useHistory();
   const [categories, setCategories] = useState([]);
@@ -113,7 +113,7 @@ export default function CardGrid({id}) {
   
 
   return (
-   <Container className={classes.cardGrid} maxWidth="md">
+    <Container className={classes.cardGrid} maxWidth="md">
            {loading?<Loading />:info?
           <Grid container spacing={4}>
              {categories.map((categorie) => (
@@ -140,22 +140,22 @@ export default function CardGrid({id}) {
                     </Button>
                   </CardActions>
                 </Card>
-                <Dialog
-                  open={open}
-                  onClose={handleClose}
-                  aria-labelledby="alert-dialog-title"
-                  aria-describedby="alert-dialog-description"
-                >
-                  <DialogTitle id="alert-dialog-title">  Deseja realmente apagar essa categoria?</DialogTitle>
-                  <DialogActions>
-                    <Button onClick={handleClose} color="primary">
-                      Não
-                    </Button>
-                    <Button onClick={() => handleDelete(categorie.id)} color="primary" autoFocus>
-                      Sim
-                    </Button>
-                  </DialogActions>
-                </Dialog>
+                  <Dialog
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                  >
+                    <DialogTitle id="alert-dialog-title"> "Deseja realmente apagar essa categoria?"</DialogTitle>
+                    <DialogActions>
+                      <Button onClick={handleClose} color="primary">
+                        Não
+                      </Button>
+                      <Button onClick={() => handleDelete(categorie.id)} color="primary" autoFocus>
+                        Sim
+                      </Button>
+                    </DialogActions>
+                  </Dialog>
               </Grid>
             
             ))}

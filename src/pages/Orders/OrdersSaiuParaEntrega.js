@@ -1,25 +1,23 @@
-import React,{ useEffect, useState } from 'react';
-import RequestTemplate from './OrdersTemplate';
+import React from 'react';
+import OrdersTemplate from './OrdersTemplate';
 import OrderList from '../../components/OrderList'
-import api from '../../services/api';
-import { getToken } from '../../services/auth';
 
+import  { orders } from '../../teste/orders';
 export default function OrdersSaiuParaEntrega(){
-  const [orders, setOrders] = useState([]);
+  /* const [orders, setOrders] = useState([]);
 
   useEffect (() => {
     const headers = {'Authorization':`Bearer ${getToken()}`};
     api.get('/api/Orders',{headers: headers}).then((response) => {
       setOrders(response.data)
     });
-  }, []);
+  }, []); */
 
-  
-  
+
   return(
     
-      <RequestTemplate
-        content={()=><OrderList count={orders.length}button1="Tentar Novamente" button2="Cancelar" />}    
+    <OrdersTemplate count={orders} 
+        orders={()=><OrderList orders={orders} count={orders.length}button1="Entregue" button2="Cancelar" />}    
       />
     
   )

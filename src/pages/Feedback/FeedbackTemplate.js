@@ -188,7 +188,7 @@ function FeedbackTemplate(props) {
             
           />
           <main className={classes.main}>
-            {props.content()}
+            {props.feedback()}
           </main>
           <footer className={classes.footer}>
             <Copyright />

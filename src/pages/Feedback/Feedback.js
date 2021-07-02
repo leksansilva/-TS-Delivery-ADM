@@ -9,7 +9,7 @@ export default function Feedback(){
 
   return(
     <FeedbackTemplate
-      content={()=><FeedBackList name="Feedback"/>}
+      feedback={()=><FeedBackList name="Feedback"/>}
     
     
     />

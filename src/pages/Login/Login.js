@@ -3,8 +3,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
@@ -57,10 +55,7 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();
-  const [open, setOpen] = React.useState(false);
-
-
- 
+  const [open, setOpen] = useState(false);
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -69,6 +64,9 @@ export default function Login() {
 
     setOpen(false);
   };
+ 
+
+  
   async function handleSubimit(){
       await api.post('/api/Auth/SignIn',{email, password})
       .then(response =>{
@@ -79,10 +77,11 @@ export default function Login() {
         } 
       })
       .catch( err =>{
+        console.log(err);
         err ?  setOpen(true) : setOpen(false);
       })
   }
-
+  
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -129,25 +128,15 @@ export default function Login() {
           >
             Entrar
           </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Esqueceu sua senha?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link href="#" variant="body2">
-                {"Você não tem uma conta? "}
-              </Link>
-            </Grid>
-          </Grid>
           
       </div>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="error">
-          Senha ou usuário incorreto!
-        </Alert>
-      </Snackbar>
+      <Box mt={8}>
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="error">
+            Senha ou usuário incorreto!
+          </Alert>
+        </Snackbar>
+      </Box>
       <Box mt={8}>
         <Copyright />
       </Box>

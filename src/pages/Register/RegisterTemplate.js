@@ -164,7 +164,7 @@ const styles = {
 };
 
 const tabs = [
-  {name:'Comida', link:'/Cadastrar/Comidas'},
+  {name:'Pratos', link:'/Cadastrar/Pratos'},
   {name:'Ingredientes', link:'/Cadastrar/Ingredientes'},
   {name:'Categorias', link:'/Cadastrar/Categorias'},
   ]
@@ -191,7 +191,7 @@ function RegisterTemplate(props) {
              tabs={tabs}
           />
           <main className={classes.main}>
-            {props.content()}
+            {props.register()}
           </main>
           <footer className={classes.footer}>
             <Copyright />
