@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Table from '../../components/Table';
+import UserTable from '../../components/UserTable';
 import api from '../../services/api';
 import { getToken } from '../../services/auth';
 import UserTemplate from './UserTemplate';
@@ -19,7 +19,7 @@ export default function UserClient(){
   }, []);
   return(
     <UserTemplate
-      content={()=><Table users={users} name="Cliente"/>}
+      content={()=><UserTable users={users} name="Cliente"/>}
     
     
     />

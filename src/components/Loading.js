@@ -8,12 +8,14 @@ const useStyles = makeStyles((theme) => ({
     height: '50px',
     lineHeight: '50px',
     textAlign:'center',
-    color: 'white',
     position: 'absolute',
     top: '50%', 
     marginTop: '-25px', 
     left: '50%', 
-    marginLeft: '-100px', 
+    marginLeft: '-100px',
+    flexGrow: 1,
+    alignContent: "center",
+    
   },
 }));
 

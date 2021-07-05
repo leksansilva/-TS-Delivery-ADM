@@ -42,7 +42,7 @@ export default function Deposits() {
     <React.Fragment>
       <Title>Vendas por delivery</Title>
       <Typography component="p" variant="h4">
-        {accumulate(orders.length,0,0,5)}R$
+        {accumulate(orders.length,0,0,5).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}
       </Typography>
       <Typography color="textSecondary" className={classes.depositContext}>
         {count(orders.length,0,0,5)} pedidos Entregues!

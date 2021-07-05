@@ -14,7 +14,7 @@ import  { orders } from '../teste/orders';
 
 
 
-export default function Orders() {
+export default function HistoryOrders() {
 
   return (
     <React.Fragment>
@@ -25,7 +25,7 @@ export default function Orders() {
             <TableCell>Pedido</TableCell>
             <TableCell>Nome</TableCell>
             <TableCell>Endereço</TableCell>
-            <TableCell align="right">R$</TableCell>
+            <TableCell align="right">Preço</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -34,8 +34,8 @@ export default function Orders() {
             <TableRow key={order.id}>
               <TableCell>{order.order}</TableCell>
               <TableCell>{order.name}</TableCell>
-              <TableCell>{order.address}</TableCell>
-              <TableCell align="right">{order.price}</TableCell>
+              <TableCell>{order.neighborhood}, {order.number}</TableCell>
+              <TableCell align="right">{order.price.toLocaleString('pt-BR', {style:'currency', currency: 'BRL'})}</TableCell>
             </TableRow>:<TableRow key={order.id}></TableRow>
           ))}
         </TableBody>

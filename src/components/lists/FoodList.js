@@ -8,12 +8,13 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 import { green, red } from '@material-ui/core/colors';
-import image from '../assets/images/default.jpg'
-import {  Button, Dialog, DialogActions, DialogTitle, Grid,  Paper, Switch, Tooltip } from '@material-ui/core';
+import image from '../../assets/images/default.jpg'
+import {  Button, Dialog, DialogActions, DialogTitle, Grid,  Paper, Tooltip } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
-import api from '../services/api';
-
+import api from '../../services/api';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 //import { getToken } from '../services/auth';
 
 
@@ -55,19 +56,7 @@ const useStyles = makeStyles((theme) => ({
     right:theme.spacing(5),
   }
 }));
-/* function createData(id, name, price, available,categoryId) {
-  return { id, name, price, available,categoryId };
-} */
-/* const foods = [
-  createData(1,'Pizza',39.99, true, 'Salgados'),
-  createData(2,'Fritas',39.99, false, 'Quentes'),
-  createData(3,'Yakisoba',39.99, false, 'Quentes'),
-  createData(4,'Feijoada',39.99, true, 'Quentes'),
-  createData(5,'Frango Rush',39.99, true, 'Salgados'),
-  createData(6,'Steak',39.99, true, 'Quentes'),
 
-
-]; */
 
 export default function RecipeReviewCard() {
   const classes = useStyles();
@@ -80,7 +69,6 @@ export default function RecipeReviewCard() {
     setOpen(false);
   };
   const [foods, setFoods] = useState([]);
-  //const headers = {'Authorization':`Bearer ${getToken()}`};
 
  
   useEffect (() => {
@@ -90,14 +78,7 @@ export default function RecipeReviewCard() {
   }, []);
   
  
-  const [state, setState] = useState({
-    checkedA: true,
-    checkedB: true,
-  });
-
-  const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
-  };
+  
   
   return (
     <Grid   item container xs sm spacing={1} >
@@ -109,14 +90,8 @@ export default function RecipeReviewCard() {
           <Paper elevation={4}>
             <CardHeader
               action={
-                <Tooltip title="Habilitar/Desabilitar comida">
-                  <Switch
-                    checked={food.available}
-                    onChange={handleChange}
-                    color="primary"
-                    name="checkedB"
-                    inputProps={{ 'aria-label': 'primary checkbox' }}
-                  />
+                <Tooltip title={food.available?'Habilitado':'Desabilitado'}>
+                 {food.available?<Visibility/>:<VisibilityOff/>}
                 </Tooltip>
               }
               title={food.name}
@@ -129,13 +104,13 @@ export default function RecipeReviewCard() {
             />
             <CardContent>
               <Typography variant="h6" component="p">
-                {food.price} R$
+                {food.price.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}
               </Typography>  
           
             </CardContent>
             <CardActions disableSpacing>
-              <Button onClick={handleOpen} size="small" color="secondary">Apagar</Button>
-              <Button size="small" color="primary">Editar</Button>
+              <Button onClick={handleOpen} size="large" color="secondary">Apagar</Button>
+              <Button size="large" component={Link} to={`/Cadastrar/Prato/${food.id}`} color="primary">Editar</Button>
             </CardActions>
             </Paper>
           </Card>

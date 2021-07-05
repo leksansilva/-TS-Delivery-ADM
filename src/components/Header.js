@@ -10,7 +10,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
 import Badge from '@material-ui/core/Badge';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { Tooltip } from '@material-ui/core';
@@ -42,6 +42,7 @@ function Header(props) {
   const { classes, onDrawerToggle} = props;
   const tabs = props.tabs;
   const location = useLocation();
+  const { id } = useParams();
   const history = useHistory();
   const currentTab = {
     '/Pedidos/EmEspera':0,
@@ -53,12 +54,18 @@ function Header(props) {
     '/Pedidos/Cancelado':6,
 
     '/Cadastrar/Pratos':0,
+    '/Cadastrar/Prato/Novo':0,
     '/Cadastrar/Ingredientes':1,
+    '/Cadastrar/Ingrediente/Novo':1,
     '/Cadastrar/Categorias':2,
     '/Cadastrar/Categoria/Nova':2,
-    '/Cadastrar/Categoria/':2,
   }
-  const [value, setValue] = useState(currentTab[location.pathname]);
+  
+  const [value, setValue] = useState(currentTab[location.pathname]?
+    currentTab[location.pathname]
+    :location.pathname===`/Cadastrar/Ingrediente/${id}`?1
+    :location.pathname===`/Cadastrar/Categoria/${id}`?2
+    :location.pathname===`/Cadastrar/Prato/${id}`?0:currentTab[location.pathname]);
 
   const handleChange = ( event, newValue) => {
     setValue(newValue);

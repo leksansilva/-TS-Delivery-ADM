@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FeedBackList from '../../components/FeedbackList';
+import FeedBackList from '../../components/lists/FeedbackList';
 import FeedbackTemplate from './FeedbackTemplate';
 
 

@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/alt-text */
-import React from 'react';
+import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
@@ -14,7 +14,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import logo from '../assets/logo.png';
 import FeedbackIcon from '@material-ui/icons/Feedback';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 
 
@@ -40,17 +40,17 @@ const styles = (theme) => ({
     },
   },
   itemCategory: {
-    backgroundColor: '#232f3e',
+    backgroundColor: '#1D1F2A',
     boxShadow: '0 -1px 0 #404854 inset',
-    paddingTop: theme.spacing(2),
+    paddingTop: theme.spacing(3),
     paddingBottom: theme.spacing(2),
   },
   firebase: {
-    fontSize: 24,
+    fontSize: 200,
     color: theme.palette.common.white,
   },
   itemActiveItem: {
-    color: '#4fc3f7',
+    color: '#BD9B60',
   },
   itemPrimary: {
     fontSize: 'inherit',
@@ -72,18 +72,48 @@ const styles = (theme) => ({
 
 function Navigator(props) {
   const { classes, ...other } = props;
- 
+  const location = useLocation();
+  const { id } = useParams();
   const categories = [
+  
   {
     id: 'Menu',
     children: [
-      { id: 'Pedidos', icon: <NotificationsIcon />, link: "/Pedidos/EmEspera", },
-      { id: 'Usuários', icon: <PeopleIcon />, link: "/Usuario/Clientes" },
+      { id: 'Pedidos', icon: <NotificationsIcon />, link: "/Pedidos/EmEspera" },
+      { id: 'Usuários', icon: <PeopleIcon />, link: "/Usuários"  },
       { id: 'Cadastrar', icon: < ListAltIcon />, link: "/Cadastrar/Pratos" },
-      { id: 'Feedback', icon: < FeedbackIcon />, link: "/Feedback", },
+      { id: 'Feedbacks', icon: < FeedbackIcon />, link: "/Feedback"},
     ],
   },
-];
+  ];
+  const currentTab = {
+    '/Pedidos/EmEspera':'Pedidos',
+    '/Pedidos/EmAndamento':'Pedidos',
+    '/Pedidos/Pronto':'Pedidos',
+    '/Pedidos/SaiuParaEntrega':'Pedidos',
+    '/Pedidos/Entregue':'Pedidos',
+    '/Pedidos/NaoEntregue':'Pedidos',
+    '/Pedidos/Cancelado':'Pedidos',
+
+    '/Cadastrar/Pratos':'Cadastrar',
+    '/Cadastrar/Prato/Novo':'Cadastrar',
+    '/Cadastrar/Ingredientes':'Cadastrar',
+    '/Cadastrar/Ingrediente/Novo':'Cadastrar',
+    '/Cadastrar/Categorias':'Cadastrar',
+    '/Cadastrar/Categoria/Nova':'Cadastrar',
+    '/Cadastrar/Categoria/':'Cadastrar',
+    
+    '/Usuários': 'Usuários',
+    
+    '/Feedback': 'Feedbacks',
+  }
+  const [active, setActive] = useState(currentTab[location.pathname]?currentTab[location.pathname]
+    :location.pathname===`/Cadastrar/Ingrediente/${id}`?'Cadastrar'
+    :location.pathname===`/Cadastrar/Categoria/${id}`?'Cadastrar'
+    :location.pathname===`/Cadastrar/Prato/${id}`?'Cadastrar':'');
+  const handleChange = ( event, newValue) => {
+    setActive(newValue);
+  }
   return (
     <Drawer variant="permanent" {...other}>
       <List disablePadding>
@@ -93,7 +123,7 @@ function Navigator(props) {
           </Button>
         </ListItem>
         {categories.map(({ id, children }) => (
-          <React.Fragment key={id} >
+          <Fragment key={id} >
             <ListItem className={classes.categoryHeader}>
               <ListItemText
                 classes={{
@@ -103,14 +133,15 @@ function Navigator(props) {
                 {id}
               </ListItemText>
             </ListItem>
-            {children.map(({ id: childId, icon, link, active}) => (
-        
+            {children.map(({ id: childId, icon, link}) => (
+
                 <ListItem
-                component={Link}
-                to={link}
+                  onChange={handleChange}
+                  component={Link}
+                  to={link}
                   key={childId}
-                  button
-                  className={clsx(classes.item, active && classes.itemActiveItem)}
+                  
+                  className={clsx(classes.item, childId===active && classes.itemActiveItem)}
                 
                 >
                   <ListItemIcon className={classes.itemIcon}>{icon}</ListItemIcon>
@@ -126,7 +157,7 @@ function Navigator(props) {
             ))}
 
             <Divider className={classes.divider} />
-          </React.Fragment>
+          </Fragment>
         ))}
       </List>
     </Drawer>

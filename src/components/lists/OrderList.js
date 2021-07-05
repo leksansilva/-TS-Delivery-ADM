@@ -4,30 +4,18 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import NoResults from './NoResults';
+import NoResults from '../NoResults';
 import { useLocation } from 'react-router-dom';
 import { Box } from '@material-ui/core';
+
+
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    alignContent: "center",
-  },
   paper: {
-    maxWidth: 800,
+    maxWidth: 700,
     margin: 'auto',
     marginBottom: "20px",
     overflow: 'hidden',
   },
-  img: {
-    borderRadius: 5,
-    margin: 'auto',
-    display: 'block',
-    maxWidth: '200px',
-    maxHeight: '150px',
-  },
-  info:{
-    marginLeft:'10px',
-  }
 }));
 
 
@@ -53,25 +41,26 @@ export default function OrderList(props) {
         <Paper className={classes.paper} elevation= {2} key={order.id} >
           <Box component="fieldset" mb={0} borderColor="transparent">
           <Grid  container>
-                  <Grid item >
-                    <img className={classes.img} alt="complex" src={order.img} />
-                  </Grid>
-                  <Grid item container xs direction="column"className={classes.info}>
+                  <Grid item container xs direction="column">
                     <Grid item xs container >
                       <Grid item xs  >
-                        <Typography  variant="h6"component="legend">{order.order}</Typography>
-                        <Typography  variant="subtitle1">{order.name}</Typography>
-                        <Typography variant="subtitle2" >{order.address}</Typography>          
+                        <Typography variant="h5"component="legend">{order.order}</Typography>
+                        <Typography variant="h6">{order.name}, {order.tel}</Typography>
+                        <Typography variant="subtitle2" >{order.city}-{order.state}</Typography>
+                        <Typography variant="subtitle2" >{order.neighborhood}, {order.number}</Typography>
+                        <Typography variant="subtitle2" >{order.addressType} {order.addon?', '+order.addon:''}</Typography>         
                       </Grid>
                       <Grid  item>
-                          <Typography variant="h6">{order.price}R$</Typography>               
+                          <Typography variant="h6">{order.price.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}</Typography>               
                       </Grid>
                     </Grid>
                     <Grid item container>
-                      <Grid item xs/>
+                      <Grid item xs>
+                      <Typography variant="overline" >sem salsa e cebolas</Typography>
+                      </Grid>
                       <Grid item>
-                      <Button color="primary">{props.button1}</Button>
-                        <Button color="secondary">{props.button2}</Button> 
+                      {props.button1?<Button size="large" color="primary">{props.button1}</Button>:''}
+                      <Button size="large" color="secondary">{props.button2}</Button>
                       </Grid>     
                     </Grid>  
                   </Grid>  

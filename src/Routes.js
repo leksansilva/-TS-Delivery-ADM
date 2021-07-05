@@ -12,7 +12,7 @@ import OrdersNaoEntregue from './pages/Orders/OrdersNaoEntregue';
 import OrdersCancelado from './pages/Orders/OrdersCancelado';
 
 
-import Home from './pages/Home/Homepage';
+import Home from './pages/Home/Home';
 
 //Cadastro
 import RegisterCategory from './pages/Register/Category/RegisterCategory';
@@ -20,7 +20,7 @@ import RegisterCategoryForm from './pages/Register/Category/RegisterCategoryForm
 
 import RegisterFood from './pages/Register/Food/RegisterFood';
 import RegisterFoodForm from './pages/Register/Food/RegisterFoodForm';
-import RegisterIngredient from './pages/Register/RegisterIngredient';
+import RegisterIngredient from './pages/Register/Ingredient/RegisterIngredient';
 
 
 
@@ -34,6 +34,7 @@ import Feedback from './pages/Feedback/Feedback';
 import Login from './pages/Login/Login';
 
 import PrivateRoute from './services/wAuth';
+import RegisterIngredientForm from './pages/Register/Ingredient/RegisterIngredientForm';
 
 
 
@@ -62,13 +63,15 @@ export default function Routes(){
 
                 {/* Pratos */}
                 <PrivateRoute path="/Cadastrar/Pratos" component = {RegisterFood}/>
+                <PrivateRoute path="/Cadastrar/Prato/:id" exact to component = {RegisterFoodForm}/>
+                
                 <PrivateRoute path="/Cadastrar/Prato/Novo" component = {RegisterFoodForm}/>
-
                 {/* Ingredientes */}
                 <PrivateRoute path="/Cadastrar/Ingredientes" component = {RegisterIngredient}/>
-
+                <PrivateRoute path="/Cadastrar/Ingrediente/:id" component = {RegisterIngredientForm}/>
+                <PrivateRoute path="/Cadastrar/Ingrediente/Novo" component = {RegisterIngredientForm}/>
                 {/* Clientes */}
-                <PrivateRoute path="/Usuario/Clientes" component = {UserClient}/>
+                <PrivateRoute path="/Usuários" component = {UserClient}/>
                 
                 {/* FeedBback */}
                 <PrivateRoute path= "/Feedback" component = {Feedback}/>

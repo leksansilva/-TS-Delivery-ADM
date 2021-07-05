@@ -20,12 +20,7 @@ export const foods =  {
     {
       foodId: 0,
       ingredientId: 0,
-      ingredient: {
-        id: 0,
-        name: '',
-        price: 0,
-        unity: '',
-      }
+
     }
   ]    
 }

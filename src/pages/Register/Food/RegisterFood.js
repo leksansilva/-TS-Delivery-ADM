@@ -1,5 +1,5 @@
 import React from 'react';
-import FoodList from '../../../components/FoodList';
+import FoodList from '../../../components/lists/FoodList';
 import RegisterTemplate from '../RegisterTemplate';
 
 

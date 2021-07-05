@@ -1,7 +1,6 @@
 import React from 'react';
 import OrdersTemplate from './OrdersTemplate';
-import OrderList from '../../components/OrderList'
-
+import OrderList from '../../components/lists/OrderList';
 import  { orders } from '../../teste/orders';
 
 export default function RequestScreenEntregue(){

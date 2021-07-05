@@ -2,16 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import imagem from '../assets/images/default.jpg';
+import imagem from '../../assets/images/default.jpg';
 import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
 import { green } from '@material-ui/core/colors';
 import { Button, Card, CardActions, CardContent, CardMedia, Container, Dialog, DialogActions, DialogTitle} from '@material-ui/core';
 import { Link, useHistory } from 'react-router-dom';
-import api from '../services/api';
-import { getToken } from '../services/auth';
-import Loading from './Loading';
-import NoResults from './NoResults';
+import api from '../../services/api';
+import { getToken } from '../../services/auth';
+import Loading from '../Loading';
+import NoResults from '../NoResults';
 
 
 
@@ -132,10 +132,10 @@ export default function CategoryList({id}) {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="medium" onClick={handleOpen} color="secondary">
+                    <Button size="large" onClick={handleOpen} color="secondary">
                      Apagar
                     </Button>
-                    <Button size="medium" component={Link} to={`/Cadastrar/Categoria/${categorie.id}`} color="primary">
+                    <Button size="large" component={Link} to={`/Cadastrar/Categoria/${categorie.id}`} color="primary">
                       Editar
                     </Button>
                   </CardActions>
@@ -144,7 +144,7 @@ export default function CategoryList({id}) {
                     open={open}
                     onClose={handleClose}
                     aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description"
+                  
                   >
                     <DialogTitle id="alert-dialog-title"> "Deseja realmente apagar essa categoria?"</DialogTitle>
                     <DialogActions>
@@ -163,11 +163,12 @@ export default function CategoryList({id}) {
              
           </Grid>
           : <NoResults name={'Categoria'}/>}  
+          {loading?'':
           <Fab  aria-label="add" component={Link} to={('Categoria/Nova')} className={classes.floatbutton}>
              
                   <AddIcon/>
           
-            </Fab> 
+            </Fab>}
     </Container>
       
   )}

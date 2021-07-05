@@ -1,14 +1,19 @@
 import React from 'react';
-import FoodList from '../../../components/FoodList';
+
 import RegisterTemplate from '../RegisterTemplate';
+import { useParams } from 'react-router-dom';
+import FormRegisterFood from '../../../components/forms/FormRegisterFood';
 
 
-
-export default function RegisterFood(){
-
+export default function RegisterFoodForm(){
+ 
+  const { id } = useParams();
+  
   return(
     <RegisterTemplate
-      register={()=><FoodList name="Itens"/>}
+      register={()=><FormRegisterFood
+        id={id ? Number.parseInt(id, 10) : null} 
+        />}
     
     />
   )

@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
-import { Box, Button, Dialog, DialogActions, DialogTitle, Grid, IconButton, Typography} from '@material-ui/core';
+import { Box, Button, Dialog, DialogActions, DialogTitle, Grid, Typography} from '@material-ui/core';
 import { Rating } from '@material-ui/lab';
-import DeleteIcon from '@material-ui/icons/Delete';
+
 
 
 
@@ -37,10 +37,7 @@ const styles = (theme) => ({
     margin: '20px 16px',
    
   },
-  button: {
-    left: '40%',
-   
-  },
+  
 });
 function createData(id, order, avaliation, name,coments) {
   return { id, order, avaliation, name,coments };
@@ -81,10 +78,10 @@ function FeedbackList(props) {
                     <Typography  variant="h6"component="legend">{feedback.name}</Typography>
                     <Typography variant="subtitle2" >Comentário:</Typography>   
                   </Grid>
-                  <Grid item>
-                  <IconButton  onClick={handleOpen} className={classes.button} color="secondary" aria-label="delete" >
-                    <DeleteIcon />
-                  </IconButton> 
+                    <Grid item>
+                    <Button  onClick={handleOpen} color="secondary" aria-label="delete" size="large">
+                    Apagar
+                  </Button> 
                   </Grid>
                 </Grid>
                 <Paper className={classes.paper3} >
