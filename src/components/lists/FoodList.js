@@ -8,7 +8,11 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 import { green, red } from '@material-ui/core/colors';
+<<<<<<< HEAD
 import {  Button, Dialog, DialogActions, DialogTitle, Grid,   ImageList,   Paper, Tooltip } from '@material-ui/core';
+=======
+import {  Button, Dialog, DialogActions, DialogTitle, Grid,  GridList,  Paper, Tooltip } from '@material-ui/core';
+>>>>>>> parent of 0105d14 (Carousel)
 import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
 import api from '../../services/api';
@@ -16,6 +20,10 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { getToken } from '../../services/auth';
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> parent of 0105d14 (Carousel)
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 300,
@@ -107,16 +115,27 @@ export default function FoodList() {
               title={name}
               subheader={categoryId}
             />       
+<<<<<<< HEAD
             <ImageList className={classes.media} cols={1}>
             {images.map((image) => (
+=======
+              <GridList className={classes.media} cols={1} >
+                {images.map((image) => (
+>>>>>>> parent of 0105d14 (Carousel)
                   <CardMedia
                   key={image.id}
                   
                   image={image.type+","+image.data}
                   title="Paella dish"
                   />    
+<<<<<<< HEAD
             ))} 
             </ImageList >               
+=======
+                )) }
+             
+            </GridList>
+>>>>>>> parent of 0105d14 (Carousel)
             <CardContent>
               <Typography variant="h6" component="p">
                 {price.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}
