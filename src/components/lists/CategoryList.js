@@ -163,7 +163,7 @@ export default function CategoryList({id}) {
              
           </Grid>
           : <NoResults name={'Categoria'}/>}  
-          {loading?'':
+          {loading?null:
           <Fab  aria-label="add" component={Link} to={('Categoria/Nova')} className={classes.floatbutton}>
              
                   <AddIcon/>

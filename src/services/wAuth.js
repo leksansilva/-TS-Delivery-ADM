@@ -16,7 +16,7 @@ export default function Wauth ({component: Component, ...rest}){
        
         async function verify(){
             const headers = {'Authorization':`Bearer ${getToken()}`};
-           
+           console.log(getToken());
             await api.get('/api/Auth', {headers:headers}).then( res =>{
                 if(res.status===200){
                     setLoading(false);

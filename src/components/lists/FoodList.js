@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -8,14 +8,13 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 import { green, red } from '@material-ui/core/colors';
-import image from '../../assets/images/default.jpg'
-import {  Button, Dialog, DialogActions, DialogTitle, Grid,  Paper, Tooltip } from '@material-ui/core';
+import {  Button, Dialog, DialogActions, DialogTitle, Grid,  GridList,  Paper, Tooltip } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
 import api from '../../services/api';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-//import { getToken } from '../services/auth';
+import { getToken } from '../../services/auth';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -58,9 +57,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function RecipeReviewCard() {
+export default function FoodList() {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const history = useHistory();
   const handleOpen= () => {
     setOpen(true);
   }
@@ -69,48 +69,64 @@ export default function RecipeReviewCard() {
     setOpen(false);
   };
   const [foods, setFoods] = useState([]);
-
+  const headers = {'Authorization':`Bearer ${getToken()}`};
  
   useEffect (() => {
-    api.get('api/Foods').then((response) => {
+    api.get('api/Foods',  headers).then((response) => {
       setFoods(response.data);
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  
- 
-  
+
+  async function handleDelete(id){
+    const headers = {'Authorization':`Bearer ${getToken()}`};
+    const result = await api.delete(`api/Foods?id=${id}`,{headers: headers});
+    console.log(id)
+    if(result.status === 200){
+      history.push('/');
+      history.push('/Cadastrar/Pratos');
+    }else{
+      alert("Ocorreu um erro, por favor, tente novamente!");
+    }
+    setOpen(false);
+  }
   
   return (
     <Grid   item container xs sm spacing={1} >
-      {foods.map((food)=>(
+      {foods.map(({id, available,name,categoryId, images, price})=>(
         
-        <Grid key={food.id} item xs sm={4} >
+        <Grid key={id} item xs sm={4} >
           
           <Card  className={classes.root}>
           <Paper elevation={4}>
             <CardHeader
               action={
-                <Tooltip title={food.available?'Habilitado':'Desabilitado'}>
-                 {food.available?<Visibility/>:<VisibilityOff/>}
+                <Tooltip title={available?'Habilitado':'Desabilitado'}>
+                 {available?<Visibility/>:<VisibilityOff/>}
                 </Tooltip>
               }
-              title={food.name}
-              subheader={food.categoryId}
-            />
-            <CardMedia
-              className={classes.media}
-              image={image}
-              title="Paella dish"
-            />
+              title={name}
+              subheader={categoryId}
+            />       
+              <GridList className={classes.media} cols={1} >
+                {images.map((image) => (
+                  <CardMedia
+                  
+                  image={"data:image/png;base64,"+image.data}
+                  title="Paella dish"
+                  />    
+                )) }
+             
+            </GridList>
             <CardContent>
               <Typography variant="h6" component="p">
-                {food.price.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}
+                {price.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}
               </Typography>  
           
             </CardContent>
             <CardActions disableSpacing>
               <Button onClick={handleOpen} size="large" color="secondary">Apagar</Button>
-              <Button size="large" component={Link} to={`/Cadastrar/Prato/${food.id}`} color="primary">Editar</Button>
+              <Button size="large" component={Link} to={`/Cadastrar/Prato/${id}`} color="primary">Editar</Button>
             </CardActions>
             </Paper>
           </Card>
@@ -125,7 +141,7 @@ export default function RecipeReviewCard() {
                 <Button onClick={handleClose} color="primary">
                   Não
                 </Button>
-                <Button onClick={handleClose} color="primary" autoFocus>
+                <Button onClick={() => handleDelete(id)} color="primary" autoFocus>
                   Sim
                 </Button>
               </DialogActions>
