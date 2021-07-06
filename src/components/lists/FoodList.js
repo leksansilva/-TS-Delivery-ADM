@@ -7,16 +7,15 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
-import { blue, green, red } from '@material-ui/core/colors';
-import {  Button, Dialog, DialogActions, DialogTitle, Grid,  GridList,  Paper, Tooltip } from '@material-ui/core';
+import { green, red } from '@material-ui/core/colors';
+import {  Button, Dialog, DialogActions, DialogTitle, Grid,   ImageList,   Paper, Tooltip } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
 import api from '../../services/api';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { getToken } from '../../services/auth';
-import Slide from '../teste/Slide';
-import AutoRotatingCarousel from '../teste/AutoRotatingCarousel';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 300,
@@ -108,30 +107,16 @@ export default function FoodList() {
               title={name}
               subheader={categoryId}
             />       
-              {/* <GridList className={classes.media} cols={1} >
-                {images.map((image) => (
+            <ImageList className={classes.media} cols={1}>
+            {images.map((image) => (
                   <CardMedia
+                  key={image.id}
                   
-                  image={"data:image/png;base64,"+image.data}
+                  image={image.type+","+image.data}
                   title="Paella dish"
                   />    
-                )) } */}
-                <AutoRotatingCarousel
-                label='Get started'
-                
-                style={{ position: 'absolute' }}
-              >
-                  <Slide
-                  media={<img src=''/>}
-                  mediaBackgroundStyle={{ backgroundColor: blue[400] }}
-                  style={{ backgroundColor: blue[600] }}
-                  title='Ever wanted to be popular?'
-                  subtitle='Well just mix two colors and your are good to go!'
-                /> 
-                  
-              </AutoRotatingCarousel>
-                
-            {/* </GridList> */}
+            ))} 
+            </ImageList >               
             <CardContent>
               <Typography variant="h6" component="p">
                 {price.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}
