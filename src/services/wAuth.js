@@ -22,6 +22,7 @@ export default function Wauth ({component: Component, ...rest}){
                     setLoading(false);
                     setRedirect(false);
                 }
+                
             }).catch(err =>{
                 console.log(err)
                 

@@ -12,10 +12,9 @@ import api from '../../services/api';
 import { getToken } from '../../services/auth';
 import Loading from '../Loading';
 import NoResults from '../NoResults';
-
-
-
-
+import SwipeableViews from 'react-swipeable-views';
+import { autoPlay } from 'react-swipeable-views-utils';
+const AutoSwipeableViews = autoPlay(SwipeableViews);
 
 
 const useStyles = makeStyles((theme) => ({
@@ -75,7 +74,7 @@ export default function CategoryList({id}) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading ] = useState(true);
   const [info, setInfo] = useState(true);
-
+  const [foods, setFoods] = useState([]);
   const handleOpen= () => {
     setOpen(true);
   }
@@ -84,6 +83,7 @@ export default function CategoryList({id}) {
     setOpen(false);
   };
   useEffect (() => {
+    
     api.get('/api/Categories').then((response) => {
       if(response.status===200){
         setCategories(response.data);
@@ -95,7 +95,11 @@ export default function CategoryList({id}) {
         setInfo(true);
       }
     });
+    api.get('api/Foods').then((response) => {
+      setFoods(response.data);
+    });
   }, []);
+  
   
 
   async function handleDelete(id){
@@ -116,15 +120,39 @@ export default function CategoryList({id}) {
     <Container className={classes.cardGrid} maxWidth="md">
            {loading?<Loading />:info?
           <Grid container spacing={4}>
-             {categories.map((categorie) => (
-               
+             {categories.map((categorie) => (      
               <Grid item key={categorie.id} xs={12} sm={6} md={4}>
                 <Card className={classes.card}>
-                <CardMedia
+                <AutoSwipeableViews>
+                    {foods.length>0?foods.map(({categoryId, id, images})=>(
+                    categoryId===categorie.id?
+                      images.length>0?
+                        images.map((image) => (
+                          <CardMedia
+                          className={classes.cardMedia}
+                          key={image.id}
+                          image={image.type+","+image.data}
+                          title={image.name}
+                          />    
+                        )):<CardMedia
+                              key={id}
+                            className={classes.cardMedia}
+                            image={imagem}
+                            title="Sem imagem"
+                          />
+                    :<CardMedia
+                    key={id}
                     className={classes.cardMedia}
                     image={imagem}
-                    title="Image title"
-                  />
+                    title="Sem imagem"
+                      />  
+                      ))
+                      :<CardMedia
+                      className={classes.cardMedia}
+                      image={imagem}
+                      title="Sem imagem"
+                        /> }
+                  </AutoSwipeableViews> 
                   
                   <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h5" component="h2">

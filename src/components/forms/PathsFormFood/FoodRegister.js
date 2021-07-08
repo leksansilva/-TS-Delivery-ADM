@@ -5,7 +5,6 @@ import api from '../../services/api';
 import { getToken } from '../../services/auth';
 import { 
         Button, 
-        CardMedia, 
         FormControl,  
         Grid, InputLabel, 
         MenuItem, 
@@ -14,7 +13,6 @@ import {
         TextField, 
         Typography } from '@material-ui/core';
 import Loading from '../Loading';
-import InputMask from 'react-input-mask';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,15 +32,6 @@ const useStyles = makeStyles((theme) => ({
     formControl: {
       minWidth: '100%',
     },
-    imageSpace: {
-      minWidth: '500px',
-      minHeight: '200px',
-    },
-    media: {
-      height: 0,
-      paddingTop: '56.25%', // 16:9
-      borderRadius: 5,
-    },
 }));
 
 const initialValues = {
@@ -50,28 +39,18 @@ const initialValues = {
   price: 0,
   available: false,
   categoryId: 0 ,
-  images:[],
     
 }
- const initialVAluesImage ={
-  name:'' ,
-  type:'' ,
-  data:'' ,
-  size:'' , 
-} 
 export default function FormRegisterFood({id}) {
   const classes = useStyles();
   const [values, setValues] = useState(id ? null: initialValues);
-  const [image, setImage] = useState(id ? null:  initialVAluesImage);
   console.log(values);
   const history = useHistory();
   const [categories, setCategories] = useState([]);
   
    const url = '/api/Foods';
   const headers = {'Authorization':`Bearer ${getToken()}`};
-  
-
- 
+    
    useEffect(() =>{
       if(id){
         api.get(`${url}/${id}`)
@@ -129,24 +108,12 @@ export default function FormRegisterFood({id}) {
           <Grid container spacing={3}>
                 <Grid item sm={12}>
                   <Grid container spacing={5}>
-                      <Grid className={classes.imageSpace} item xs={12} sm={12}>
-                      {values.images?values.images.map(image => (
-                          <CardMedia
-                          className={classes.media}
-                          key={image.id}
-                          image={image.type+","+image.data}
-                          title={image.name}
-                          /> 
-                         )):<CardMedia
-                         className={classes.media}
-                         key={image.id}
-                         image={image.type+","+image.data}
-                         title={image.name}
-                         /> }
+                      <Grid item xs={12} sm={12}>
+                       
                       </Grid>                 
                   </Grid>
                   <Grid container spacing={3}>
-                      <Grid item  xs={12} sm={12}>
+                      <Grid item xs={12} sm={12}>
                           
                           <TextField
                               required
@@ -176,14 +143,18 @@ export default function FormRegisterFood({id}) {
                   <Grid container spacing={3}>
                       <Grid item xs={12} sm={6}>
                           
-                          <InputMask
-                             mask="99.99"
-                             maskChar=""
+                          <TextField
+                             required
+                             id="price"
+                             name="price"
+                             fullWidth
+                             autoComplete="given-price"
                              onChange={onChange}
                              value={values.price}
-                             disabled={false}
-                             type="text"
-                          >{()=><TextField required  variant="filled" label="Preço:" fullWidth id="price" name="price"/>}</InputMask>
+                             variant="filled"
+                             label="Preço:"
+                             type="number"
+                          />
                       </Grid>
                       <Grid item xs={12} sm={6}>
                       <FormControl required variant="filled" className={classes.formControl}>
@@ -237,7 +208,7 @@ export default function FormRegisterFood({id}) {
                     
                 </Grid>
             </Grid>
-        </Paper> )}
+        </Paper> )} 
     </React.Fragment>
 );
 }

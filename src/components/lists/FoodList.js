@@ -8,22 +8,14 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 import { green, red } from '@material-ui/core/colors';
-<<<<<<< HEAD
-import {  Button, Dialog, DialogActions, DialogTitle, Grid,   ImageList,   Paper, Tooltip } from '@material-ui/core';
-=======
-import {  Button, Dialog, DialogActions, DialogTitle, Grid,  GridList,  Paper, Tooltip } from '@material-ui/core';
->>>>>>> parent of 0105d14 (Carousel)
+import {  Button, Dialog, DialogActions, DialogTitle, Grid,   Paper, Tooltip } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
 import api from '../../services/api';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { getToken } from '../../services/auth';
-
-<<<<<<< HEAD
-=======
-
->>>>>>> parent of 0105d14 (Carousel)
+import image from '../../assets/images/default.jpg'
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 300,
@@ -76,14 +68,19 @@ export default function FoodList() {
     setOpen(false);
   };
   const [foods, setFoods] = useState([]);
-  const headers = {'Authorization':`Bearer ${getToken()}`};
- 
+  const [categories, setCategories] = useState([]);
+  
+  
   useEffect (() => {
-    api.get('api/Foods',  headers).then((response) => {
+    api.get('api/Categories').then((response) => {
+      setCategories(response.data);
+    });
+    api.get('api/Foods').then((response) => {
       setFoods(response.data);
     });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   }, []);
+  
 
   async function handleDelete(id){
     const headers = {'Authorization':`Bearer ${getToken()}`};
@@ -106,36 +103,31 @@ export default function FoodList() {
           
           <Card  className={classes.root}>
           <Paper elevation={4}>
-            <CardHeader
+            {categories.map((categorie)=> (
+              categorie.id===categoryId?
+              <CardHeader
+              key={categorie.id}
               action={
                 <Tooltip title={available?'Habilitado':'Desabilitado'}>
                  {available?<Visibility/>:<VisibilityOff/>}
                 </Tooltip>
               }
               title={name}
-              subheader={categoryId}
-            />       
-<<<<<<< HEAD
-            <ImageList className={classes.media} cols={1}>
-            {images.map((image) => (
-=======
-              <GridList className={classes.media} cols={1} >
-                {images.map((image) => (
->>>>>>> parent of 0105d14 (Carousel)
-                  <CardMedia
-                  key={image.id}
-                  
-                  image={image.type+","+image.data}
-                  title="Paella dish"
-                  />    
-<<<<<<< HEAD
-            ))} 
-            </ImageList >               
-=======
-                )) }
-             
-            </GridList>
->>>>>>> parent of 0105d14 (Carousel)
+              subheader={categorie.name}
+              />:''))}
+            {images.length>0?
+            images.map((image) => (
+              <CardMedia
+              className={classes.media}
+              key={image.id}
+              image={image.type+","+image.data}
+              title={image.name}
+              />    
+            )):<CardMedia
+            className={classes.media}
+            image={image}
+            title="Sem imagem"
+            />   }
             <CardContent>
               <Typography variant="h6" component="p">
                 {price.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}

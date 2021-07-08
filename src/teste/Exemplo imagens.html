@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="form-row col-4">
+                <div class="mb-3 row">
+                    <label for="staticEmail" class="col-sm-2 col-form-label">Food</label>
+                    <select class="form-select" id="foods"></select>
+                </div>
+                <div class="mb-3 row">
+                    <label for="staticEmail" class="col-sm-2 col-form-label">Images</label>
+                    <input type="file" class="form-control" id="image" multiple>
+                </div>
+                <div class="col-4">
+                    <input type="button" class="btn btn-primary" value="enviar imagem">
+                </div>
+            </div>
+        </div>
+        <div class="mt-5 row justify-content-center">
+            <div class="form-row col-4" id="images">
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script>
+        const token = `bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbFZlcmlmaWVkIjoiVHJ1ZSIsImVtYWlsIjoibGVjLmJhMjAwMUBnbWFpbC5jb20iLCJzdWIiOiIxIiwibmJmIjoxNjI1NjEyNjYyLCJleHAiOjE2MjU2MTk4NjIsImlhdCI6MTYyNTYxMjY2Mn0.bF4hPQXhuhcFi_VONh8s0GN17xOM1PZEd2eblb7maZ8`
+        const inputFiles = document.querySelector('input#image')
+        const selectFood = document.querySelector('Select#foods');
+
+        const pegaAscomidas = async () => {
+            fetch("https://www.rokugan.fun/api/Foods/")
+                .then(response => response.json())
+                .then(foods => {
+                    foods.map(food => selectFood.add(new Option(food.name, food.id)))
+                });
+        }
+        const pegaAscomidasPorId = async () => {
+            response = await fetch("https://www.rokugan.fun/api/Foods/" + selectFood.value);
+            data = await response.json();
+            return data;
+        }
+        const atualizaImgs = async () => {
+            const food = await pegaAscomidasPorId();
+            const divImgs = document.querySelector('div#images');
+            divImgs.innerHTML = "";
+            food.images.map(image => {
+                divImgs.innerHTML += `<img src="${image.type},${image.data}" width="120px"/>`;
+            })
+        }
+        const enviarImagemServidor = async () => {
+            const files = inputFiles.files;
+            Array.from(files).forEach((file, index) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = async () => {
+                    const type = reader.result.split(',')[0]
+                    const blob = reader.result.split(',')[1]
+                    const obj = {
+                        name: "img" + ("000" + index).slice(-3),
+                        type: type,
+                        data: blob,
+                        size: file.size,
+                        foodid: Number(selectFood.value)
+                    }
+                    const request = new Request("https://rokugan.fun/api/Images/", {
+                        method: "post",
+                        headers: { authorization: token, "content-type": "application/json" },
+                        body: JSON.stringify(obj)
+                    })
+                    response = await fetch(request);
+                    data = await response.json();
+                    await atualizaImgs();
+                    console.info(data);
+                }
+            })
+        }
+
+
+        pegaAscomidas();
+        document.querySelector('input[type="button"]').addEventListener('click', enviarImagemServidor, false)
+        selectFood.addEventListener('change', atualizaImgs, false)
+    </script>
+</body>
+
+</html>
