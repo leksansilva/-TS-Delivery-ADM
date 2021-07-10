@@ -1414,7 +1414,7 @@
     "@types/yargs" "^15.0.0"
     "chalk" "^4.0.0"
 
-"@material-ui/core@^4.12.0", "@material-ui/core@^4.9.10":
+"@material-ui/core@^4.12.0", "@material-ui/core@^4.9.10", "@material-ui/core@>= 4.3.0":
   "integrity" "sha512-PB6gJdCLCgVdbCwBZgseKEP0zp+WiYao+YcEyJBLy3mTJ6sKoovmkI0fG/EjJ/S4mnjHlWl35T3SHxEBOVPztA=="
   "resolved" "https://registry.npmjs.org/@material-ui/core/-/core-4.12.0.tgz"
   "version" "4.12.0"
@@ -2083,6 +2083,13 @@
     "@typescript-eslint/types" "4.19.0"
     "eslint-visitor-keys" "^2.0.0"
 
+"@unicef/material-ui-currency-textfield@^0.8.6":
+  "integrity" "sha512-zXhwJbz8mRa4xVZ6zkkyn9UyXHT4CXFn1JuvkVhDFqtqPkjQXBg+/dWMlJAfX6m1CvwfxwiF9giJxJqFEsTUqg=="
+  "resolved" "https://registry.npmjs.org/@unicef/material-ui-currency-textfield/-/material-ui-currency-textfield-0.8.6.tgz"
+  "version" "0.8.6"
+  dependencies:
+    "autonumeric" "^4.5.4"
+
 "@webassemblyjs/ast@1.9.0":
   "integrity" "sha512-C6wW5L+b7ogSDVqymbkkvuW9kruN//YisMED04xzeBBqjHa2FYnmvOlS6Xj68xWQRgWvI9cIglsjFowH/RJyEA=="
   "resolved" "https://registry.npmjs.org/@webassemblyjs/ast/-/ast-1.9.0.tgz"
@@ -2602,6 +2609,11 @@
   "integrity" "sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg=="
   "resolved" "https://registry.npmjs.org/atob/-/atob-2.1.2.tgz"
   "version" "2.1.2"
+
+"autonumeric@^4.5.4":
+  "integrity" "sha512-bYnD2oD9UMZBTxSWcvXH1MTcp0w+CUBfXe4HI1QJLGzJu+O27Ny5gqzRcFuDsZB9jrZ5SJjqAG0PieJsaUdTcg=="
+  "resolved" "https://registry.npmjs.org/autonumeric/-/autonumeric-4.6.0.tgz"
+  "version" "4.6.0"
 
 "autoprefixer@^9.6.1":
   "integrity" "sha512-XrvP4VVHdRBCdX1S3WXVD8+RyG9qeb1D5Sn1DeLiG2xfSpzellk5k54xbUERJ3M5DggQxes39UGOTP8CFrEGbg=="
@@ -9443,6 +9455,13 @@
     "regenerator-runtime" "^0.13.7"
     "whatwg-fetch" "^3.4.1"
 
+"react-currency-format@^1.0.0":
+  "integrity" "sha1-m+nJhMNXv46Ec2jFQitfTUqoGbM="
+  "resolved" "https://registry.npmjs.org/react-currency-format/-/react-currency-format-1.0.0.tgz"
+  "version" "1.0.0"
+  dependencies:
+    "prop-types" "^15.6.0"
+
 "react-currency-masked-input@^2.5.0":
   "integrity" "sha512-ezFGzc0fK/ncXxf1SUO7y5gvmrVXX/dI30MEP7l1SNlXJM52jqPU7eYe1qFZ8zDrgxyyFmAjN+jx6BLq6bLJ1g=="
   "resolved" "https://registry.npmjs.org/react-currency-masked-input/-/react-currency-masked-input-2.5.0.tgz"
@@ -9481,7 +9500,7 @@
     "strip-ansi" "6.0.0"
     "text-table" "0.2.0"
 
-"react-dom@^16.8.0 || ^17.0.0", "react-dom@^17.0.2", "react-dom@>=0.14.0":
+"react-dom@^0.14 || ^15.0.0-0 || ^16.0.0-0 || ^17.0.0-0", "react-dom@^0.14 || ^15.0.0-rc || ^15.0.0 || ^16.0.0-rc || ^16.0.0", "react-dom@^16.8.0 || ^17.0.0", "react-dom@^16.8.6", "react-dom@^17.0.2", "react-dom@>=0.14.0":
   "integrity" "sha512-s4h96KtLDUQlsENhMn1ar8t2bEa+q/YAtj8pPPdIjPDGBDIVNsrD9aXNWqspUe6AzKCIG0C1HZZLqLV7qpOBGA=="
   "resolved" "https://registry.npmjs.org/react-dom/-/react-dom-17.0.2.tgz"
   "version" "17.0.2"
@@ -9536,6 +9555,13 @@
   "integrity" "sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ=="
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
   "version" "16.13.1"
+
+"react-number-format@^4.6.4":
+  "integrity" "sha512-xHUtaN5wXBiFL4C2v2Sgn3Fut76UxHqJH3rzuVMwZvHZA8HkHtCZBvflvqAgmcEkFC2eoS27Iqpa0vNXrdt8GQ=="
+  "resolved" "https://registry.npmjs.org/react-number-format/-/react-number-format-4.6.4.tgz"
+  "version" "4.6.4"
+  dependencies:
+    "prop-types" "^15.7.2"
 
 "react-refresh@^0.8.3":
   "integrity" "sha512-X8jZHc7nCMjaCqoU+V2I0cOhNW+QMBwSUkeXnTi8IPe6zaRWfn60ZzvFDZqWPfmSJfjub7dDW1SP0jaHWLu/hg=="
@@ -9678,7 +9704,7 @@
     "loose-envify" "^1.4.0"
     "prop-types" "^15.6.2"
 
-"react@^15.3.0 || ^16.0.0 || ^17.0.0", "react@^16.8.0 || ^17.0.0", "react@^17.0.2", "react@>=0.14.0":
+"react@^0.14 || ^15.0.0-0 || ^16.0.0-0 || ^17.0.0-0", "react@^0.14 || ^15.0.0-rc || ^15.0.0 || ^16.0.0-rc || ^16.0.0", "react@^15.3.0 || ^16.0.0 || ^17.0.0", "react@^16.8.0 || ^17.0.0", "react@^16.8.6", "react@^17.0.2", "react@>=0.14.0":
   "integrity" "sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA=="
   "resolved" "https://registry.npmjs.org/react/-/react-17.0.2.tgz"
   "version" "17.0.2"
@@ -9687,15 +9713,6 @@
     "object-assign" "^4.1.1"
 
 "react@^16.3.0":
-  "integrity" "sha512-0X2CImDkJGApiAlcf0ODKIneSwBPhqJawOa5wCtKbu7ZECrmS26NvtSILynQ66cgkT/RJ4LidJOc3bUESwmU8g=="
-  "resolved" "https://registry.npmjs.org/react/-/react-16.14.0.tgz"
-  "version" "16.14.0"
-  dependencies:
-    "loose-envify" "^1.1.0"
-    "object-assign" "^4.1.1"
-    "prop-types" "^15.6.2"
-
-"react@^16.8.6":
   "integrity" "sha512-0X2CImDkJGApiAlcf0ODKIneSwBPhqJawOa5wCtKbu7ZECrmS26NvtSILynQ66cgkT/RJ4LidJOc3bUESwmU8g=="
   "resolved" "https://registry.npmjs.org/react/-/react-16.14.0.tgz"
   "version" "16.14.0"

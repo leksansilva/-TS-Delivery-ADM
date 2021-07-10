@@ -45,7 +45,6 @@
         const token = `bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbFZlcmlmaWVkIjoiVHJ1ZSIsImVtYWlsIjoibGVjLmJhMjAwMUBnbWFpbC5jb20iLCJzdWIiOiIxIiwibmJmIjoxNjI1NjEyNjYyLCJleHAiOjE2MjU2MTk4NjIsImlhdCI6MTYyNTYxMjY2Mn0.bF4hPQXhuhcFi_VONh8s0GN17xOM1PZEd2eblb7maZ8`
         const inputFiles = document.querySelector('input#image')
         const selectFood = document.querySelector('Select#foods');
-
         const pegaAscomidas = async () => {
             fetch("https://www.rokugan.fun/api/Foods/")
                 .then(response => response.json())

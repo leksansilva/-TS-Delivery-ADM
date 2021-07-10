@@ -14,7 +14,6 @@ import {
         TextField, 
         Typography } from '@material-ui/core';
 import Loading from '../Loading';
-import InputMask from 'react-input-mask';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,6 +42,9 @@ const useStyles = makeStyles((theme) => ({
       paddingTop: '56.25%', // 16:9
       borderRadius: 5,
     },
+    inputPrice: {
+      textAlign: 'right',
+    }
 }));
 
 const initialValues = {
@@ -53,23 +55,15 @@ const initialValues = {
   images:[],
     
 }
- const initialVAluesImage ={
-  name:'' ,
-  type:'' ,
-  data:'' ,
-  size:'' , 
-} 
+
 export default function FormRegisterFood({id}) {
   const classes = useStyles();
   const [values, setValues] = useState(id ? null: initialValues);
-  const [image, setImage] = useState(id ? null:  initialVAluesImage);
-  console.log(values);
   const history = useHistory();
   const [categories, setCategories] = useState([]);
-  
-   const url = '/api/Foods';
+  const url = '/api/Foods';
   const headers = {'Authorization':`Bearer ${getToken()}`};
-  
+
 
  
    useEffect(() =>{
@@ -80,8 +74,15 @@ export default function FormRegisterFood({id}) {
         })
       }
    }, [id]);
- 
   
+  const handleRemove = async () => {
+   if(id){
+     const image = values.images[0].id;
+     const result = await api.delete(`api/Images?id=${image}`, {headers: headers});
+     console.log(result.status);
+   }
+    setValues({...values,images: []})
+  }
 
   function onChange (ev) {
 
@@ -90,12 +91,48 @@ export default function FormRegisterFood({id}) {
     setValues({...values,[name]: value});
 
   }
+  function onChangeImage () {
+    const file = document.querySelector('input[type=file]').files[0];
+    const reader = new FileReader();
+     if(file){ 
+      reader.readAsDataURL(file);
+      reader.onload = async () => {
+      const type = reader.result.split(',')[0]
+      const blob = reader.result.split(',')[1]     
+      if(id){
+        const obj = [{
+          name: file.name,
+          type: type,
+          data: blob,
+          size: file.size,
+          foodId: values.id,
+        }]
+        const image = values.images[0].id;
+        const result = await api.delete(`api/Images?id=${image}`, {headers: headers});
+        console.log(result.status)
+        api.post('api/Images', obj[0], {headers: headers} )
+        .then( response => {
+            console.log(response.status)
+        })
+        
+        setValues({...values,images: obj});
+      }else{
+        const obj = [{
+          name: file.name,
+          type: type,
+          data: blob,
+          size: file.size,
+        }]
+        setValues({...values,images: obj});
+      }
+      
+      }}
+    }
 
   function onSubmit (ev) {
     
     const method = id ? 'put' : 'post';
     const link = id ? `${url}/${id}`: url;
-    console.log(link);
 
 
     ev.preventDefault();
@@ -130,21 +167,17 @@ export default function FormRegisterFood({id}) {
                 <Grid item sm={12}>
                   <Grid container spacing={5}>
                       <Grid className={classes.imageSpace} item xs={12} sm={12}>
-                      {values.images?values.images.map(image => (
+                      {values.images.length>0&&values.images.map(image => (
                           <CardMedia
                           className={classes.media}
-                          key={image.id}
+                          key={image.name}
                           image={image.type+","+image.data}
                           title={image.name}
                           /> 
-                         )):<CardMedia
-                         className={classes.media}
-                         key={image.id}
-                         image={image.type+","+image.data}
-                         title={image.name}
-                         /> }
+                         ))}
+                         
                       </Grid>                 
-                  </Grid>
+                  </Grid>             
                   <Grid container spacing={3}>
                       <Grid item  xs={12} sm={12}>
                           
@@ -174,16 +207,14 @@ export default function FormRegisterFood({id}) {
                       </Grid>                 
                   </Grid>
                   <Grid container spacing={3}>
-                      <Grid item xs={12} sm={6}>
-                          
-                          <InputMask
-                             mask="99.99"
-                             maskChar=""
-                             onChange={onChange}
-                             value={values.price}
-                             disabled={false}
-                             type="text"
-                          >{()=><TextField required  variant="filled" label="Preço:" fullWidth id="price" name="price"/>}</InputMask>
+                      <Grid item xs={12} sm={6}>                        
+                          <TextField         
+                          onChange={onChange}
+                          value={values.price}
+                          required
+                          variant="filled" label="Preço:" fullWidth id="price" name="price" 
+                          type="number"           
+                          />
                       </Grid>
                       <Grid item xs={12} sm={6}>
                       <FormControl required variant="filled" className={classes.formControl}>
@@ -231,9 +262,29 @@ export default function FormRegisterFood({id}) {
                       </FormControl>
                     
                     </Grid>
+                    
+                    <Grid item>
+                    {values.images.length>0&&
+                    <Button color="secondary" onClick={handleRemove} component="span">
+                       Remover imagem
+                      </Button>}
+                    <input
+                      accept="image/*"
+                      className={classes.input}
+                      id="contained-button-file"
+                      multiple
+                      onChange={onChangeImage}
+                      type="file"
+                    />
+                    <label className={classes.buttons} htmlFor="contained-button-file">
+                      <Button color="primary" component="span">
+                        {values.images.length>0?'Alterar':'Adicionar'} imagem
+                      </Button>
+                    </label>
                     <Button size="large"  className={classes.buttons} type='submit'  color="primary">
                         Salvar
                     </Button>
+                      </Grid>
                     
                 </Grid>
             </Grid>

@@ -18,7 +18,7 @@ function RegisterTemplate(props) {
     setMobileOpen(!mobileOpen);
   };
   const tabs = [
-    {name:'Pratos', link:'/Cadastrar/Pratos'},
+    {name:'Comidas', link:'/Cadastrar/Pratos'},
     {name:'Ingredientes', link:'/Cadastrar/Ingredientes'},
     {name:'Categorias', link:'/Cadastrar/Categorias'},
     ]

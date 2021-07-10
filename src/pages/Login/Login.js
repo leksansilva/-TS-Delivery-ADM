@@ -63,7 +63,7 @@ export default function Login() {
 
   
   async function handleSubimit(){
-      await api.post('/api/Auth/SignIn',{email, password})
+     await api.post('/api/Auth/SignIn',{email, password})
       .then(response =>{
         if(response.status===200){
             
@@ -75,6 +75,7 @@ export default function Login() {
         console.log(err);
         err ?  setOpen(true) : setOpen(false);
       })
+  
   }
   
   return (
@@ -113,6 +114,7 @@ export default function Login() {
               autoComplete="current-password"
               value={password}
               onChange={e => setPassword(e.target.value)}
+              
             />
           
             <Button

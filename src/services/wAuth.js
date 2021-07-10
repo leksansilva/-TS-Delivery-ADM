@@ -18,13 +18,13 @@ export default function Wauth ({component: Component, ...rest}){
             const headers = {'Authorization':`Bearer ${getToken()}`};
            console.log(getToken());
             await api.get('/api/Auth', {headers:headers}).then( res =>{
+              
                 if(res.status===200){
                     setLoading(false);
                     setRedirect(false);
                 }
                 
             }).catch(err =>{
-                console.log(err)
                 
                 logout();
                 setLoading(false);
