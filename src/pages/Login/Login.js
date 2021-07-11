@@ -15,6 +15,9 @@ import { useHistory } from 'react-router-dom';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import Copyright from '../../components/Copyright';
+import { IconButton, InputAdornment } from '@material-ui/core';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -51,7 +54,7 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const history = useHistory();
   const [open, setOpen] = useState(false);
-
+  const [visibility,setVisbility] = useState(false);
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -59,7 +62,10 @@ export default function Login() {
 
     setOpen(false);
   };
- 
+  const handleClickShowPassword = ( click) => {
+
+    click?setVisbility(false):setVisbility(true);
+  }
 
   
   async function handleSubimit(){
@@ -109,12 +115,22 @@ export default function Login() {
               fullWidth
               name="password"
               label="Digite sua senha"
-              type="password"
+              type={visibility?"text":"password"}
               id="password"
               autoComplete="current-password"
               value={password}
               onChange={e => setPassword(e.target.value)}
+              InputProps={{
+                endAdornment: <InputAdornment position="end">
+                   <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={() =>handleClickShowPassword(visibility)}
               
+                >
+                  {visibility ? <Visibility color="primary"/> : <VisibilityOff color="primary" />}
+                </IconButton>
+                </InputAdornment>,
+              }}
             />
           
             <Button

@@ -107,13 +107,17 @@ export default function FormRegisterFood({id}) {
           size: file.size,
           foodId: values.id,
         }]
-        const image = values.images[0].id;
-        const result = await api.delete(`api/Images?id=${image}`, {headers: headers});
-        console.log(result.status)
-        api.post('api/Images', obj[0], {headers: headers} )
-        .then( response => {
-            console.log(response.status)
-        })
+       
+       if(values.images.length>0){ 
+          const image = values.images[0].id;
+          const result = await api.delete(`api/Images?id=${image}`, {headers: headers});
+          console.log(result.status)
+          
+      }
+      api.post('api/Images', obj[0], {headers: headers} )
+          .then( response => {
+              console.log(response.status)
+          })
         
         setValues({...values,images: obj});
       }else{

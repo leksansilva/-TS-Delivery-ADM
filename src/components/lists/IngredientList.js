@@ -132,13 +132,13 @@ export default function Ingredients() {
             </Paper>
           </Grid>
           
-        )) : <NoResults name={'Categoria'}/>};
-        {loading?'':
+        )) : <NoResults name={'Ingredientes'}/>};
+        {!loading&&(
           <Fab  aria-label="add" component={Link} to={('Ingrediente/Novo')} className={classes.floatbutton}>
              
                   <AddIcon/>
           
-            </Fab>}
+            </Fab>)}
     </Grid>
   );
 }

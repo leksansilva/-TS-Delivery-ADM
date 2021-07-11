@@ -8,7 +8,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 import { green, red } from '@material-ui/core/colors';
-import {  Button, Dialog, DialogActions, DialogTitle, Grid,   Paper, Tooltip } from '@material-ui/core';
+import {  Button, Dialog, DialogActions, DialogTitle, Grid,   IconButton,   Paper, Tooltip } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
 import api from '../../services/api';
@@ -60,6 +60,8 @@ export default function FoodList() {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const history = useHistory();
+  const headers = {'Authorization':`Bearer ${getToken()}`};
+  
   const handleOpen= () => {
     setOpen(true);
   }
@@ -80,10 +82,34 @@ export default function FoodList() {
     });
    
   }, []);
-  
+  async function handleStatus(id, available,name,categoryId, images, price){
+    const editAvailable=available?{
+      id:id,
+      name:name,
+      available:false,
+      categoryId:categoryId,
+      images:images,
+      price:price,
+    }:{
+      id:id,
+      name:name,
+      available:true,
+      categoryId:categoryId,
+      images:images,
+      price:price,
+    }
+    api.put(`api/Foods/${id}`,editAvailable,{headers: headers})
+    .then(response =>{
+      if(response.status===200){
+        history.push('/');
+        history.push('/Cadastrar/Pratos');
+      }
+    });
+
+  }
 
   async function handleDelete(id){
-    const headers = {'Authorization':`Bearer ${getToken()}`};
+    
     const result = await api.delete(`api/Foods?id=${id}`,{headers: headers});
     console.log(id)
     if(result.status === 200){
@@ -109,7 +135,11 @@ export default function FoodList() {
               key={categorie.id}
               action={
                 <Tooltip title={available?'Habilitado':'Desabilitado'}>
-                 {available?<Visibility/>:<VisibilityOff/>}
+                 <IconButton 
+                 onClick={()=> handleStatus(id, available,name,categoryId, images, price)} 
+                 color={available?"primary":"secondary"}>
+                   {available?<Visibility/>:<VisibilityOff/>}
+                   </IconButton>
                 </Tooltip>
               }
               title={name}

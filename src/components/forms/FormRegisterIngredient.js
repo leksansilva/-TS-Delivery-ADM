@@ -62,7 +62,7 @@ export default function FormRegisterIngredient({id}) {
 
 
     ev.preventDefault();
-    console.log(values);
+
     api[method](link, values, {headers: headers})
     .then((response) => {
       
