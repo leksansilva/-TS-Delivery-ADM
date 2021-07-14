@@ -10,8 +10,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import api from '../../services/api';
-import {login} from '../../services/auth';
-import { useHistory } from 'react-router-dom';
+import {getToken, login, setExpiration, setExpirationRefreshToken, setRefreshToken} from '../../services/auth';
+import { Redirect, useHistory } from 'react-router-dom';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import Copyright from '../../components/Copyright';
@@ -66,25 +66,37 @@ export default function Login() {
 
     click?setVisbility(false):setVisbility(true);
   }
+  const onError = function(error) {
+         console.log('Request Failed:', error.config);
+         if (error.response) {
+             console.log(error.response.status);
+             if(error.response.status===404){
+              setOpen(true)
+             };
+         } else {
+              setOpen(false);
+             console.log('Error Message:', error.message);
+         }
 
+         return Promise.reject(error.response || error.message);
+  }
   
   async function handleSubimit(){
      await api.post('/api/Auth/SignIn',{email, password})
       .then(response =>{
         if(response.status===200){
-            
-            login(response.data);
+            login(response.data.token);
+            setExpiration(response.data.expiration);
+            setRefreshToken(response.data.refreshToken);
+            setExpirationRefreshToken(response.data.expirationRefreshToken);
             history.push('/');       
-        } 
+        }
       })
-      .catch( err =>{
-        console.log(err);
-        err ?  setOpen(true) : setOpen(false);
-      })
-  
+      .catch(onError);
   }
   
   return (
+    getToken()?<Redirect to="/"/>:
     <MuiThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -156,5 +168,7 @@ export default function Login() {
         </Box>
       </Container>
     </MuiThemeProvider>
+   
+
   );
 }

@@ -53,8 +53,8 @@ function Header(props) {
     '/Pedidos/NaoEntregue':5,
     '/Pedidos/Cancelado':6,
 
-    '/Cadastrar/Pratos':0,
-    '/Cadastrar/Prato/Novo':0,
+    '/Cadastrar/Comidas':0,
+    '/Cadastrar/Comida/Nova':0,
     '/Cadastrar/Ingredientes':1,
     '/Cadastrar/Ingrediente/Novo':1,
     '/Cadastrar/Categorias':2,
@@ -65,7 +65,8 @@ function Header(props) {
     currentTab[location.pathname]
     :location.pathname===`/Cadastrar/Ingrediente/${id}`?1
     :location.pathname===`/Cadastrar/Categoria/${id}`?2
-    :location.pathname===`/Cadastrar/Prato/${id}`?0:currentTab[location.pathname]);
+    :location.pathname===`/Cadastrar/Comida/${id}`?0
+    :currentTab[location.pathname]);
 
   const handleChange = ( event, newValue) => {
     setValue(newValue);

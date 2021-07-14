@@ -16,6 +16,8 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { getToken } from '../../services/auth';
 import image from '../../assets/images/default.jpg'
+import NoResults from '../NoResults';
+import Loading from '../Loading';
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 300,
@@ -61,9 +63,12 @@ export default function FoodList() {
   const [open, setOpen] = useState(false);
   const history = useHistory();
   const headers = {'Authorization':`Bearer ${getToken()}`};
-  
-  const handleOpen= () => {
+  const [idDelete, setIdDelete] = useState();
+  const [loading, setLoading ] = useState(true);
+  const [info, setInfo] = useState(true);
+  const handleOpen= (id) => {
     setOpen(true);
+    setIdDelete(id);
   }
 
   const handleClose = () => {
@@ -74,14 +79,26 @@ export default function FoodList() {
   
   
   useEffect (() => {
-    api.get('api/Categories').then((response) => {
-      setCategories(response.data);
-    });
-    api.get('api/Foods').then((response) => {
+     api.get('api/Foods').then((response) => {
       setFoods(response.data);
+      dataCategories();
+      setLoading(false)
+      if(response.data.length===0){
+        setInfo(false);
+      }else{
+        setInfo(true);
+      }
     });
+    return () =>{
+      setFoods([]);
+    }
    
   }, []);
+  async function dataCategories(){
+    const result = await api.get('api/Categories');
+    if(result.status===200)
+    setCategories(result.data);
+  }
   async function handleStatus(id, available,name,categoryId, images, price){
     const editAvailable=available?{
       id:id,
@@ -102,7 +119,7 @@ export default function FoodList() {
     .then(response =>{
       if(response.status===200){
         history.push('/');
-        history.push('/Cadastrar/Pratos');
+        history.push('/Cadastrar/Comidas');
       }
     });
 
@@ -111,19 +128,19 @@ export default function FoodList() {
   async function handleDelete(id){
     
     const result = await api.delete(`api/Foods?id=${id}`,{headers: headers});
-    console.log(id)
     if(result.status === 200){
       history.push('/');
-      history.push('/Cadastrar/Pratos');
+      history.push('/Cadastrar/Comidas');
     }else{
       alert("Ocorreu um erro, por favor, tente novamente!");
     }
     setOpen(false);
   }
   
+  
   return (
     <Grid   item container xs sm spacing={1} >
-      {foods.map(({id, available,name,categoryId, images, price})=>(
+      {loading?<Loading />:info?foods.map(({id, available,name,categoryId, images, price})=>(
         
         <Grid key={id} item xs sm={4} >
           
@@ -165,35 +182,36 @@ export default function FoodList() {
           
             </CardContent>
             <CardActions disableSpacing>
-              <Button onClick={handleOpen} size="large" color="secondary">Apagar</Button>
-              <Button size="large" component={Link} to={`/Cadastrar/Prato/${id}`} color="primary">Editar</Button>
+              <Button onClick={() => handleOpen(id)} size="large" color="secondary">Apagar</Button>
+              <Button size="large" component={Link} to={`/Cadastrar/Comida/${id}`} color="primary">Editar</Button>
             </CardActions>
             </Paper>
           </Card>
-          <Dialog
+          
+        </Grid> 
+        
+      )): <NoResults name={'Comidas'}/>} 
+      {loading?null:<Fab  aria-label="add" component={Link} to={('Comida/Nova')} className={classes.floatbutton}>
+             
+             <AddIcon />
+     
+       </Fab>}
+       <Dialog
             open={open}
             onClose={handleClose}
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
             >
-              <DialogTitle id="alert-dialog-title">  Deseja realmente apagar esse Prato?</DialogTitle>
+              <DialogTitle id="alert-dialog-title">  Deseja realmente apagar esse Comida?</DialogTitle>
               <DialogActions>
                 <Button onClick={handleClose} color="primary">
                   Não
                 </Button>
-                <Button onClick={() => handleDelete(id)} color="primary" autoFocus>
+                <Button onClick={() => handleDelete(idDelete)} color="primary" autoFocus>
                   Sim
                 </Button>
               </DialogActions>
-            </Dialog>
-        </Grid> 
-        
-      ))}
-      <Fab  aria-label="add" component={Link} to={('Prato/Novo')} className={classes.floatbutton}>
-             
-             <AddIcon />
-     
-       </Fab> 
+         </Dialog>
     </Grid>
 );
 }

@@ -144,7 +144,7 @@ export default function FormRegisterFood({id}) {
     api[method](link, values, {headers: headers})
     .then((response) => {
       
-      history.push('/Cadastrar/Pratos');
+      history.push('/Cadastrar/Comidas');
       
     })
 
@@ -170,7 +170,7 @@ export default function FormRegisterFood({id}) {
           <Grid container spacing={3}>
                 <Grid item sm={12}>
                   <Grid container spacing={5}>
-                      <Grid className={classes.imageSpace} item xs={12} sm={12}>
+                      <Grid  item xs={12} sm={12}>
                       {values.images.length>0&&values.images.map(image => (
                           <CardMedia
                           className={classes.media}

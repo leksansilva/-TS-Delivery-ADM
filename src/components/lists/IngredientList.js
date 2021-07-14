@@ -52,12 +52,14 @@ const useStyles = makeStyles((theme)=> ({
 export default function Ingredients() {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const [ingredients, SetIngredients] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
   const [loading, setLoading ] = useState(true);
   const [info, setInfo] = useState(true);
+  const [idDelete, setIdDelete] = useState();
   const history = useHistory();
-  const handleOpen= () => {
+  const handleOpen= (id) => {
     setOpen(true);
+    setIdDelete(id);
   }
 
   const handleClose = () => {
@@ -66,7 +68,7 @@ export default function Ingredients() {
   useEffect (() => {
     api.get('/api/Ingredients').then((response) => {
       if(response.status===200){
-        SetIngredients(response.data);
+        setIngredients(response.data);
         setLoading(false);
       }
       if(response.data.length===0){
@@ -75,6 +77,9 @@ export default function Ingredients() {
         setInfo(true);
       }
     });
+    return () =>{
+      setIngredients([]);
+    }
   }, []);
   async function handleDelete(id){
     const headers = {'Authorization':`Bearer ${getToken()}`};
@@ -109,11 +114,22 @@ export default function Ingredients() {
                   </Typography>
               </CardContent>
               <CardActions>
-                  <Button size="large" onClick={handleOpen} color="secondary">Apagar</Button>
+                  <Button size="large" onClick={() => handleOpen(ingredient.id)} color="secondary">Apagar</Button>
                   <Button size="large" component={Link} to={`/Cadastrar/Ingrediente/${ingredient.id}`} color="primary">Editar</Button>
               </CardActions>
               </Card>
-              <Dialog
+              
+            </Paper>
+          </Grid>
+          
+        )) : <NoResults name={'Ingredientes'}/>}
+        {!loading&&(
+          <Fab  aria-label="add" component={Link} to={('Ingrediente/Novo')} className={classes.floatbutton}>
+             
+                  <AddIcon/>
+          
+            </Fab>)}
+            <Dialog
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="alert-dialog-title"
@@ -124,21 +140,11 @@ export default function Ingredients() {
                   <Button onClick={handleClose} color="primary">
                     Não
                   </Button>
-                  <Button onClick={() => handleDelete(ingredient.id)} color="primary" autoFocus>
+                  <Button onClick={() => handleDelete(idDelete)} color="primary" autoFocus>
                     Sim
                   </Button>
                 </DialogActions>
               </Dialog>
-            </Paper>
-          </Grid>
-          
-        )) : <NoResults name={'Ingredientes'}/>};
-        {!loading&&(
-          <Fab  aria-label="add" component={Link} to={('Ingrediente/Novo')} className={classes.floatbutton}>
-             
-                  <AddIcon/>
-          
-            </Fab>)}
     </Grid>
   );
 }

@@ -3,17 +3,16 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import imagem from '../../assets/images/default.jpg';
-import AddIcon from '@material-ui/icons/Add';
-import Fab from '@material-ui/core/Fab';
+
 import { green } from '@material-ui/core/colors';
-import { Button, Card, CardActions, CardContent, CardMedia, Container, Dialog, DialogActions, DialogTitle} from '@material-ui/core';
-import { Link, useHistory } from 'react-router-dom';
+import {  Card, CardActions, CardContent, CardMedia, Container} from '@material-ui/core';
+
 import api from '../../services/api';
-import { getToken } from '../../services/auth';
 import Loading from '../Loading';
 import NoResults from '../NoResults';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
+
 const AutoSwipeableViews = autoPlay(SwipeableViews);
 
 
@@ -69,24 +68,27 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CategoryList({id}) {
   const classes = useStyles();
-  const history = useHistory();
+  //const history = useHistory();
   const [categories, setCategories] = useState([]);
-  const [open, setOpen] = useState(false);
+  //const [open, setOpen] = useState(false);
   const [loading, setLoading ] = useState(true);
   const [info, setInfo] = useState(true);
   const [foods, setFoods] = useState([]);
-  const handleOpen= () => {
+  /* const [idDelete, setIdDelete] = useState();
+  const handleOpen= (id) => {
     setOpen(true);
-  }
+    setIdDelete(id);
+  } */
 
-  const handleClose = () => {
+  /* const handleClose = () => {
     setOpen(false);
-  };
+  }; */
   useEffect (() => {
     
     api.get('/api/Categories').then((response) => {
       if(response.status===200){
         setCategories(response.data);
+        dataFoods();
         setLoading(false);
       }
       if(response.data.length===0){
@@ -95,17 +97,20 @@ export default function CategoryList({id}) {
         setInfo(true);
       }
     });
-    api.get('api/Foods').then((response) => {
-      setFoods(response.data);
-    });
+    return () =>{
+      setCategories([]);
+    }
   }, []);
+  async function dataFoods(){
+    const result = await api.get('api/Foods');
+    if(result.status===200)
+      setFoods(result.data);
+  }
+   
   
-  
-
-  async function handleDelete(id){
+ /*  async function handleDelete(id){
     const headers = {'Authorization':`Bearer ${getToken()}`};
     const result = await api.delete(`api/Categories?id=${id}`,{headers: headers});
-    
     if(result.status === 200){
       history.push('/');
       history.push('/Cadastrar/Categorias');
@@ -113,9 +118,9 @@ export default function CategoryList({id}) {
       alert("Ocorreu um erro, por favor, tente novamente!");
     }
     setOpen(false);
-  }
+  } */
   
-
+  
   return (
     <Container className={classes.cardGrid} maxWidth="md">
            {loading?<Loading />:info?
@@ -160,15 +165,29 @@ export default function CategoryList({id}) {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="large" onClick={handleOpen} color="secondary">
+                    {/* <Button size="large" onClick={() => handleOpen(categorie.id)} color="secondary">
                      Apagar
                     </Button>
                     <Button size="large" component={Link} to={`/Cadastrar/Categoria/${categorie.id}`} color="primary">
                       Editar
-                    </Button>
+                    </Button> */}
                   </CardActions>
                 </Card>
-                  <Dialog
+                  
+              </Grid>
+            
+            ))}
+               
+             
+          </Grid>
+          : <NoResults name={'Categoria'}/>}  
+          {/* {loading?null:
+          <Fab  aria-label="add" component={Link} to={('Categoria/Nova')} className={classes.floatbutton}>
+             
+                  <AddIcon/>
+          
+            </Fab>} */}
+           {/*  <Dialog
                     open={open}
                     onClose={handleClose}
                     aria-labelledby="alert-dialog-title"
@@ -179,24 +198,11 @@ export default function CategoryList({id}) {
                       <Button onClick={handleClose} color="primary">
                         Não
                       </Button>
-                      <Button onClick={() => handleDelete(categorie.id)} color="primary" autoFocus>
+                      <Button onClick={() => handleDelete(idDelete)} color="primary" autoFocus>
                         Sim
                       </Button>
                     </DialogActions>
-                  </Dialog>
-              </Grid>
-            
-            ))}
-               
-             
-          </Grid>
-          : <NoResults name={'Categoria'}/>}  
-          {loading?null:
-          <Fab  aria-label="add" component={Link} to={('Categoria/Nova')} className={classes.floatbutton}>
-             
-                  <AddIcon/>
-          
-            </Fab>}
+                  </Dialog> */}
     </Container>
       
   )}

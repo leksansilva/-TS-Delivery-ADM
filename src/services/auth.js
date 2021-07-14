@@ -1,17 +1,17 @@
 export const TOKEN_KEY = '&token';
-export const ID_USUARIO = '&id-usuario';
-export const NOME_USUARIO ='&nome-usuario';
-export const USER_TYPE = '&user-type'; 
+export const EXPIRATION_TOKEN = '&expiration';
+export const REFRESH_TOKEN ='&refreshToken';
+export const EXPIRATION_REFRESH_TOKEN = '&expirationRefreshToken'; 
 
 export const login = token =>{  localStorage.setItem(TOKEN_KEY,token)};
 export const logout = () => {localStorage.clear()};
 export const getToken = () => localStorage.getItem(TOKEN_KEY);
 
-export const setIdUsuario = id => localStorage.setItem(ID_USUARIO, id);
-export const getIdUsuario = () => localStorage.setItem(ID_USUARIO);
+export const setExpiration = expiration => localStorage.setItem(EXPIRATION_TOKEN, expiration);
+export const expiration = () => localStorage.getItem(EXPIRATION_TOKEN);
 
-export const setNomeUsuario = nome => localStorage.setItem(NOME_USUARIO, nome);
-export const getNomeUsuario = () => localStorage.setItem(NOME_USUARIO);
+export const setRefreshToken = refreshToken => localStorage.setItem(REFRESH_TOKEN, refreshToken);
+export const refreshToken = () => localStorage.getItem(REFRESH_TOKEN);
 
-export const setTipoUsuario = tipo => localStorage.setItem(USER_TYPE, tipo);
-export const getTipoUsuario = () => localStorage.setItem(USER_TYPE);
+export const setExpirationRefreshToken = expirationRefreshToken => localStorage.setItem(EXPIRATION_REFRESH_TOKEN, expirationRefreshToken);
+export const expirationRefreshToken = () => localStorage.getItem(EXPIRATION_REFRESH_TOKEN);

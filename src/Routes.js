@@ -62,10 +62,10 @@ export default function Routes(){
                 <PrivateRoute path="/Cadastrar/Categoria/Nova" component = {RegisterCategoryForm}/>
 
                 {/* Pratos */}
-                <PrivateRoute path="/Cadastrar/Pratos" component = {RegisterFood}/>
-                <PrivateRoute path="/Cadastrar/Prato/:id" exact to component = {RegisterFoodForm}/>
+                <PrivateRoute path="/Cadastrar/Comidas" component = {RegisterFood}/>
+                <PrivateRoute path="/Cadastrar/Comida/:id" exact to component = {RegisterFoodForm}/>
                 
-                <PrivateRoute path="/Cadastrar/Prato/Novo" component = {RegisterFoodForm}/>
+                <PrivateRoute path="/Cadastrar/Comida/Nova" component = {RegisterFoodForm}/>
                 {/* Ingredientes */}
                 <PrivateRoute path="/Cadastrar/Ingredientes" component = {RegisterIngredient}/>
                 <PrivateRoute path="/Cadastrar/Ingrediente/:id" component = {RegisterIngredientForm}/>

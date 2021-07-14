@@ -63,11 +63,7 @@ export default function FormRegisterCategory({id}) {
     
     const method = id ? 'put' : 'post';
     const link = id ? `${url}/${id}`: url;
-    console.log(link);
-
-
     ev.preventDefault();
-    console.log(values);
     api[method](link, values, {headers: headers})
     .then((response) => {
       

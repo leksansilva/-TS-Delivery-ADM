@@ -81,7 +81,7 @@ function Navigator(props) {
     children: [
       { id: 'Pedidos', icon: <NotificationsIcon />, link: "/Pedidos/EmEspera" },
       { id: 'Usuários', icon: <PeopleIcon />, link: "/Usuários"  },
-      { id: 'Cadastrar', icon: < ListAltIcon />, link: "/Cadastrar/Pratos" },
+      { id: 'Cadastrar', icon: < ListAltIcon />, link: "/Cadastrar/Comidas" },
       { id: 'Feedbacks', icon: < FeedbackIcon />, link: "/Feedback"},
     ],
   },
@@ -95,8 +95,8 @@ function Navigator(props) {
     '/Pedidos/NaoEntregue':'Pedidos',
     '/Pedidos/Cancelado':'Pedidos',
 
-    '/Cadastrar/Pratos':'Cadastrar',
-    '/Cadastrar/Prato/Novo':'Cadastrar',
+    '/Cadastrar/Comidas':'Cadastrar',
+    '/Cadastrar/Comida/Nova':'Cadastrar',
     '/Cadastrar/Ingredientes':'Cadastrar',
     '/Cadastrar/Ingrediente/Novo':'Cadastrar',
     '/Cadastrar/Categorias':'Cadastrar',
@@ -110,7 +110,7 @@ function Navigator(props) {
   const [active, setActive] = useState(currentTab[location.pathname]?currentTab[location.pathname]
     :location.pathname===`/Cadastrar/Ingrediente/${id}`?'Cadastrar'
     :location.pathname===`/Cadastrar/Categoria/${id}`?'Cadastrar'
-    :location.pathname===`/Cadastrar/Prato/${id}`?'Cadastrar':'');
+    :location.pathname===`/Cadastrar/Comida/${id}`?'Cadastrar':'');
   const handleChange = ( event, newValue) => {
     setActive(newValue);
   }
