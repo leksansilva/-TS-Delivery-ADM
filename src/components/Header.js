@@ -55,15 +55,15 @@ function Header(props) {
 
     '/Cadastrar/Comidas':0,
     '/Cadastrar/Comida/Nova':0,
-    '/Cadastrar/Ingredientes':1,
-    '/Cadastrar/Ingrediente/Novo':1,
+    '/Cadastrar/Adicionais':1,
+    '/Cadastrar/Adicional/Novo':1,
     '/Cadastrar/Categorias':2,
     '/Cadastrar/Categoria/Nova':2,
   }
   
   const [value, setValue] = useState(currentTab[location.pathname]?
     currentTab[location.pathname]
-    :location.pathname===`/Cadastrar/Ingrediente/${id}`?1
+    :location.pathname===`/Cadastrar/Adicional/${id}`?1
     :location.pathname===`/Cadastrar/Categoria/${id}`?2
     :location.pathname===`/Cadastrar/Comida/${id}`?0
     :currentTab[location.pathname]);

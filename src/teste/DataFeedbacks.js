@@ -1,23 +1,8 @@
-export const feedbacks = {
-    price: 0,
-    deliveryStatusId: 5,
-    userId: 0,
-    user: {
-      name: '',
-    },
-    suborders: [
-      {
-        foodId: 0,
-        food: {
-      
-          name: '',
-          price: 0,
-          available: true,
-          suborders: [],
-        },
-      }
-    ],
-    feedbacks: [
-        null
-      ],
+export const Feedback =   [
+  {
+    "userId": 0,
+    "orderId": 0,
+    "score": 0,
+    "note": "string"
   }
+]

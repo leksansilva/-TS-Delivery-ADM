@@ -5,6 +5,7 @@ import api from '../../services/api';
 import { getToken } from '../../services/auth';
 import { Button, Grid, Paper, TextField, Typography } from '@material-ui/core';
 import Loading from '../Loading';
+import BrlCurrencyComponent from '../BrlCurrencyComponent';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -35,7 +36,7 @@ export default function FormRegisterIngredient({id}) {
   const history = useHistory();
   const url = '/api/Ingredients';
   const headers = {'Authorization':`Bearer ${getToken()}`};
-    
+  const [clicked, setClicked] = useState(false);  
    useEffect(() =>{
       if(id){
         api.get(`${url}/${id}`)
@@ -56,7 +57,7 @@ export default function FormRegisterIngredient({id}) {
   }
 
   function onSubmit (ev) {
-    
+    setClicked(true);
     const method = id ? 'put' : 'post';
     const link = id ? `${url}/${id}`: url;
 
@@ -66,7 +67,7 @@ export default function FormRegisterIngredient({id}) {
     api[method](link, values, {headers: headers})
     .then((response) => {
       
-      history.push('/Cadastrar/Ingredientes');
+      history.push('/Cadastrar/Adicionais');
       
     })
 
@@ -75,11 +76,17 @@ export default function FormRegisterIngredient({id}) {
     return <div><Loading/></div>
   }
 
+  const handleChange = (event, value, maskedValue) => {
+    
+    event.preventDefault();
+    setValues({...values,price:value})
   
+   
+  };
   return (
     <React.Fragment>
         <Typography variant="h6" gutterBottom>
-        {id ? 'Editar Ingrediente:' : 'Cadastrar Ingrediente:'}
+        {id ? 'Editar Adicional:' : 'Cadastrar Adicional:'}
       </Typography>
       {!values?(
         <Loading/>
@@ -123,18 +130,20 @@ export default function FormRegisterIngredient({id}) {
                   <Grid container spacing={3}>
                       <Grid item xs={12} sm={6}>
                           
-                          <TextField
-                             required
-                             id="price"
-                             name="price"
-                             fullWidth
-                             autoComplete="given-price"
-                             onChange={onChange}
-                             value={values.price}
-                             variant="filled"
-                             label="Preço:"
-                             type="number"
-                          />
+                      <TextField         
+                          fullWidth 
+                          autoFocus
+                          value={values.price}
+                          required
+                          variant="filled" label="Preço:" 
+                          onChange={handleChange}
+                          InputProps={{
+                            inputComponent: BrlCurrencyComponent,
+                          }}
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                          />  
                       </Grid>
                       <Grid item xs={12} sm={6}>
                           
@@ -158,9 +167,11 @@ export default function FormRegisterIngredient({id}) {
                 </Grid>
                 <Grid container item sm={12}>
                     <Grid item xs/>
-                    <Button  size="large"  className={classes.buttons} type='submit'  color="primary">
+                    {!clicked?<Button size="large"  className={classes.buttons} type='submit'  color="primary">
                         Salvar
-                    </Button>
+                    </Button>:<Button disabled size="large"  className={classes.buttons} type='submit'  color="primary">
+                        Salvar
+                    </Button>}
                     
                 </Grid>
             </Grid>

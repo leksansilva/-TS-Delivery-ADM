@@ -3,13 +3,13 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 
 //Pedidos
-import OrdersEmEspera from './pages/Orders/OrdersEmEspera';
-import OrdersEmAndamento from './pages/Orders/OrdersEmAndamento';
-import OrdersSaiuParaEntrega from'./pages/Orders/OrdersSaiuParaEntrega';
-import OrdersPronto from './pages/Orders/OrdersPronto';
-import OrdersEntregue from './pages/Orders/OrdersEntregue';
-import OrdersNaoEntregue from './pages/Orders/OrdersNaoEntregue';
-import OrdersCancelado from './pages/Orders/OrdersCancelado';
+import BackOrders from './pages/Orders/BackOrders';
+import OrdersInProgress from './pages/Orders/OrdersInProgress';
+import OrdersWentOutForDelivery from'./pages/Orders/OrdersWentOutForDelivery';
+import ReadyOrders from './pages/Orders/ReadyOrders';
+import OrdersDelivered from './pages/Orders/OrdersDelivered';
+import OrdersNotDelivered from './pages/Orders/OrdersNotDelivered';
+import OrdersCanceled from './pages/Orders/OrdersCanceled';
 
 
 import Home from './pages/Home/Home';
@@ -48,13 +48,13 @@ export default function Routes(){
                 <Route path="/Login" component = {Login}/>
                 {/* Pedidos */}
                 <PrivateRoute path="/" exact to component = {Home}/>
-                <PrivateRoute path="/Pedidos/EmEspera" component = {OrdersEmEspera}/>
-                <PrivateRoute path="/Pedidos/EmAndamento" component = {OrdersEmAndamento}/>
-                <PrivateRoute path="/Pedidos/SaiuParaEntrega" component = {OrdersSaiuParaEntrega}/>
-                <PrivateRoute path="/Pedidos/Pronto" component = {OrdersPronto}/>
-                <PrivateRoute path="/Pedidos/Entregue" component = {OrdersEntregue}/>
-                <PrivateRoute path="/Pedidos/NaoEntregue" component ={OrdersNaoEntregue}/>
-                <PrivateRoute path="/Pedidos/Cancelado" component = {OrdersCancelado}/>
+                <PrivateRoute path="/Pedidos/EmEspera" component = {BackOrders}/>
+                <PrivateRoute path="/Pedidos/EmAndamento" component = {OrdersInProgress}/>
+                <PrivateRoute path="/Pedidos/SaiuParaEntrega" component = {OrdersWentOutForDelivery}/>
+                <PrivateRoute path="/Pedidos/Pronto" component = {ReadyOrders}/>
+                <PrivateRoute path="/Pedidos/Entregue" component = {OrdersDelivered}/>
+                <PrivateRoute path="/Pedidos/NaoEntregue" component ={OrdersNotDelivered}/>
+                <PrivateRoute path="/Pedidos/Cancelado" component = {OrdersCanceled}/>
 
                 {/* Categorias */}
                 <PrivateRoute path="/Cadastrar/Categorias" component = {RegisterCategory}/>
@@ -66,10 +66,10 @@ export default function Routes(){
                 <PrivateRoute path="/Cadastrar/Comida/:id" exact to component = {RegisterFoodForm}/>
                 
                 <PrivateRoute path="/Cadastrar/Comida/Nova" component = {RegisterFoodForm}/>
-                {/* Ingredientes */}
-                <PrivateRoute path="/Cadastrar/Ingredientes" component = {RegisterIngredient}/>
-                <PrivateRoute path="/Cadastrar/Ingrediente/:id" component = {RegisterIngredientForm}/>
-                <PrivateRoute path="/Cadastrar/Ingrediente/Novo" component = {RegisterIngredientForm}/>
+                {/* Adicionais */}
+                <PrivateRoute path="/Cadastrar/Adicionais" component = {RegisterIngredient}/>
+                <PrivateRoute path="/Cadastrar/Adicional/:id" component = {RegisterIngredientForm}/>
+                <PrivateRoute path="/Cadastrar/Adicional/Novo" component = {RegisterIngredientForm}/>
                 {/* Clientes */}
                 <PrivateRoute path="/Usuários" component = {UserClient}/>
                 

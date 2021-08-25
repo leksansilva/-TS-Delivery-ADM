@@ -98,6 +98,7 @@ export default function FormRegisterCategory({id}) {
                                   id="name"
                                   name="name"
                                   fullWidth
+                                  
                                   autoComplete="given-category"
                                   onChange={onChange}
                                   value={values.name}

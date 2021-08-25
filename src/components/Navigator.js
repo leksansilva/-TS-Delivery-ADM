@@ -97,8 +97,8 @@ function Navigator(props) {
 
     '/Cadastrar/Comidas':'Cadastrar',
     '/Cadastrar/Comida/Nova':'Cadastrar',
-    '/Cadastrar/Ingredientes':'Cadastrar',
-    '/Cadastrar/Ingrediente/Novo':'Cadastrar',
+    '/Cadastrar/Adicionais':'Cadastrar',
+    '/Cadastrar/Adicional/Novo':'Cadastrar',
     '/Cadastrar/Categorias':'Cadastrar',
     '/Cadastrar/Categoria/Nova':'Cadastrar',
     '/Cadastrar/Categoria/':'Cadastrar',
@@ -108,7 +108,7 @@ function Navigator(props) {
     '/Feedback': 'Feedbacks',
   }
   const [active, setActive] = useState(currentTab[location.pathname]?currentTab[location.pathname]
-    :location.pathname===`/Cadastrar/Ingrediente/${id}`?'Cadastrar'
+    :location.pathname===`/Cadastrar/Adicional/${id}`?'Cadastrar'
     :location.pathname===`/Cadastrar/Categoria/${id}`?'Cadastrar'
     :location.pathname===`/Cadastrar/Comida/${id}`?'Cadastrar':'');
   const handleChange = ( event, newValue) => {

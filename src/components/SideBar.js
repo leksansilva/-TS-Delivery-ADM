@@ -5,7 +5,7 @@ import { CssBaseline } from '@material-ui/core';
 
 
 const drawerWidth = 256;
-export default function Sidebar({drawer, mobileOpen,handleDrawerToggle }){
+export default function Sidebar({drawer, mobileOpen,handleDrawerToggle,newOrder }){
 
 
     return(
@@ -18,10 +18,11 @@ export default function Sidebar({drawer, mobileOpen,handleDrawerToggle }){
               variant="temporary"
               open={mobileOpen}
               onClose={handleDrawerToggle}
+              
             />
           </Hidden>
           <Hidden xsDown implementation="css">
-            <Navigator PaperProps={{ style: { width: drawerWidth} }} />
+            <Navigator  PaperProps={{ style: { width: drawerWidth} }} />
           </Hidden>
         </nav>
       </>

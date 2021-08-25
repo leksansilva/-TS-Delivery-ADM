@@ -19,7 +19,7 @@ function RegisterTemplate(props) {
   };
   const tabs = [
     {name:'Comidas', link:'/Cadastrar/Comidas'},
-    {name:'Ingredientes', link:'/Cadastrar/Ingredientes'},
+    {name:'Adicionais', link:'/Cadastrar/Adicionais'},
     {name:'Categorias', link:'/Cadastrar/Categorias'},
     ]
 

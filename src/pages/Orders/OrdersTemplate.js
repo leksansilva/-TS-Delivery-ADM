@@ -15,7 +15,7 @@ function OrdersTemplate(props) {
   const orders = props.count;
   function count(tam,i,cont,status){
     if(i<tam){  
-      if(orders[i].status===status){    
+      if(orders[i].deliveryStatusId===status){    
         return count(tam,i+1,cont+1,status);
       }else{
         return count(tam,i+1,cont,status);
@@ -28,11 +28,11 @@ function OrdersTemplate(props) {
   const tabs = [
       {name:'Em Espera', link:'/Pedidos/EmEspera', count: count(orders.length,0,0,1)},
       {name:'Em Andamento', link:'/Pedidos/EmAndamento', count: count(orders.length,0,0,2)},
-      {name:'Pronto', link:'/Pedidos/Pronto', count: count(orders.length,0,0,3)},
+      {name:'Prontos', link:'/Pedidos/Pronto', count: count(orders.length,0,0,3)},
       {name:'Saiu para Entrega', link:'/Pedidos/SaiuParaEntrega', count: count(orders.length,0,0,4)},
-      {name:'Entregue', link:'/Pedidos/Entregue', count: count(orders.length,0,0,5)},
-      {name:'Não Entregue', link:'/Pedidos/NaoEntregue', count: count(orders.length,0,0,6)},
-      {name:'Cancelado',link:'/Pedidos/Cancelado', count: count(orders.length,0,0,7)},
+      {name:'Entregues', link:'/Pedidos/Entregue', count: count(orders.length,0,0,5)},
+      {name:'Não Entregues', link:'/Pedidos/NaoEntregue', count: count(orders.length,0,0,6)},
+      {name:'Cancelados',link:'/Pedidos/Cancelado', count: count(orders.length,0,0,7)},
     ]
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -47,7 +47,8 @@ function OrdersTemplate(props) {
         <Sidebar
           mobileOpen={mobileOpen}
           handleDrawerToggle={handleDrawerToggle}
-          drawer={classes.drawer}    
+          drawer={classes.drawer}
+          newOrder={count(orders.length,0,0,1)}    
         />
         <div className={classes.app}>
           <Header onDrawerToggle={handleDrawerToggle}

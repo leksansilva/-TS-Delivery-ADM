@@ -5,9 +5,8 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import {  Dialog, DialogActions, DialogTitle, Fab, Grid } from '@material-ui/core';
-import { green } from '@material-ui/core/colors';
-import { Link, useHistory } from 'react-router-dom';
+import {  Dialog, DialogActions, DialogTitle, Fab, Grid, TextField } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 import Paper from '@material-ui/core/Paper';
 import api from '../../services/api';
@@ -41,11 +40,15 @@ const useStyles = makeStyles((theme)=> ({
     right: theme.spacing(7),
     position: 'fixed',
     color: theme.palette.common.white,
-    backgroundColor: green[500],
+    backgroundColor: '#BD9B60',
     '&:hover': {
-      backgroundColor: green[600],
-    },
-  },
+      backgroundColor: '#ab8c55',
+    }, 
+   
+  }, 
+  search:{
+    top: theme.spacing(-3),
+  }
 }));
 
   
@@ -56,7 +59,7 @@ export default function Ingredients() {
   const [loading, setLoading ] = useState(true);
   const [info, setInfo] = useState(true);
   const [idDelete, setIdDelete] = useState();
-  const history = useHistory();
+  const [search, setSearch] = useState('');
   const handleOpen= (id) => {
     setOpen(true);
     setIdDelete(id);
@@ -66,7 +69,9 @@ export default function Ingredients() {
     setOpen(false);
   };
   useEffect (() => {
-    api.get('/api/Ingredients').then((response) => {
+    const params= search? {Search:search}: {};
+    setLoading(true);
+    api.get('/api/Ingredients',{params}).then((response) => {
       if(response.status===200){
         setIngredients(response.data);
         setLoading(false);
@@ -80,21 +85,45 @@ export default function Ingredients() {
     return () =>{
       setIngredients([]);
     }
-  }, []);
+  }, [search]);
   async function handleDelete(id){
     const headers = {'Authorization':`Bearer ${getToken()}`};
+    setLoading(true);
+    setOpen(false);
     const result = await api.delete(`api/Ingredients?id=${id}`,{headers: headers});
     
     if(result.status === 200){
-      history.push('/');
-      history.push('/Cadastrar/Ingredientes');
+      api.get('/api/Ingredients').then((response) => {
+        if(response.status===200){
+          setIngredients(response.data);
+          setLoading(false);
+        }
+        if(response.data.length===0){
+          setInfo(false);
+        }else{
+          setInfo(true);
+        }
+      });
     }else{
       alert("Ocorreu um erro, por favor, tente novamente!");
     }
-    setOpen(false);
+    
   }
 
   return (
+    <> <Grid item container>
+    <Grid item xs={7} sm={7} >
+      <TextField
+      fullWidth
+      label="Buscar" 
+      className={classes.search}
+      value={search}
+      onChange={(ev)=>setSearch(ev.target.value)} 
+      type="search"/>
+    </Grid>
+    <Grid item xs sm={2}/>
+    <Grid item xs sm={3}/>
+  </Grid> 
     <Grid   item container xs sm spacing={1} >
         {loading?<Loading />:info?
         ingredients.map((ingredient)=>(
@@ -115,16 +144,16 @@ export default function Ingredients() {
               </CardContent>
               <CardActions>
                   <Button size="large" onClick={() => handleOpen(ingredient.id)} color="secondary">Apagar</Button>
-                  <Button size="large" component={Link} to={`/Cadastrar/Ingrediente/${ingredient.id}`} color="primary">Editar</Button>
+                  <Button size="large" component={Link} to={`/Cadastrar/Adicional/${ingredient.id}`} color="primary">Editar</Button>
               </CardActions>
               </Card>
               
             </Paper>
           </Grid>
           
-        )) : <NoResults name={'Ingredientes'}/>}
+        )) : <NoResults name={'Adicionais'}/>}
         {!loading&&(
-          <Fab  aria-label="add" component={Link} to={('Ingrediente/Novo')} className={classes.floatbutton}>
+          <Fab  aria-label="add" component={Link} to={('Adicional/Novo')} className={classes.floatbutton}>
              
                   <AddIcon/>
           
@@ -135,7 +164,7 @@ export default function Ingredients() {
                 aria-labelledby="alert-dialog-title"
                 
                 >
-                <DialogTitle id="alert-dialog-title">  Deseja realmente apagar esse Ingrediente?</DialogTitle>
+                <DialogTitle id="alert-dialog-title">  Deseja realmente apagar esse Adicional?</DialogTitle>
                 <DialogActions>
                   <Button onClick={handleClose} color="primary">
                     Não
@@ -146,5 +175,6 @@ export default function Ingredients() {
                 </DialogActions>
               </Dialog>
     </Grid>
+    </>
   );
 }

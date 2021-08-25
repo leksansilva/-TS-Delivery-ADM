@@ -7,13 +7,21 @@ import {
         Button, 
         CardMedia, 
         FormControl,  
-        Grid, InputLabel, 
+        Grid, Input, InputLabel, 
         MenuItem, 
         Paper, 
         Select, 
+        Snackbar, 
         TextField, 
         Typography } from '@material-ui/core';
 import Loading from '../Loading';
+import BrlCurrencyComponent from '../BrlCurrencyComponent';
+import { Alert } from '@material-ui/lab';
+import CancelIcon from '@material-ui/icons/Cancel';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+
+
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -53,8 +61,10 @@ const initialValues = {
   available: false,
   categoryId: 0 ,
   images:[],
+  isAppetizer: false,
     
 }
+
 
 export default function FormRegisterFood({id}) {
   const classes = useStyles();
@@ -63,9 +73,18 @@ export default function FormRegisterFood({id}) {
   const [categories, setCategories] = useState([]);
   const url = '/api/Foods';
   const headers = {'Authorization':`Bearer ${getToken()}`};
-
+  const [clicked, setClicked] = useState(false);
+  const [open, setOpen] = useState(false);
+  console.log(values);
 
  
+ const handleClose = (event, reason) => {
+  if (reason === 'clickaway') {
+    return;
+  }
+
+  setOpen(false);
+};
    useEffect(() =>{
       if(id){
         api.get(`${url}/${id}`)
@@ -75,15 +94,7 @@ export default function FormRegisterFood({id}) {
       }
    }, [id]);
   
-  const handleRemove = async () => {
-   if(id){
-     const image = values.images[0].id;
-     const result = await api.delete(`api/Images?id=${image}`, {headers: headers});
-     console.log(result.status);
-   }
-    setValues({...values,images: []})
-  }
-
+  
   function onChange (ev) {
 
   const {name, value} = ev.target;
@@ -91,6 +102,7 @@ export default function FormRegisterFood({id}) {
     setValues({...values,[name]: value});
 
   }
+  
   function onChangeImage () {
     const file = document.querySelector('input[type=file]').files[0];
     const reader = new FileReader();
@@ -132,24 +144,33 @@ export default function FormRegisterFood({id}) {
       
       }}
     }
-
+   
   function onSubmit (ev) {
-    
+    setClicked(true);
     const method = id ? 'put' : 'post';
     const link = id ? `${url}/${id}`: url;
 
 
     ev.preventDefault();
     console.log(values);
-    api[method](link, values, {headers: headers})
-    .then((response) => {
-      
-      history.push('/Cadastrar/Comidas');
-      
-    })
-
+    if(values.images.length>0){
+      api[method](link, values, {headers: headers})
+        .then((response) => {
+          
+          history.push('/Cadastrar/Comidas');
+          
+        }).catch(error =>{
+          setOpen(true);
+          setClicked(false);
+        })
+    }else{
+      setOpen(true);
+      setClicked(false);
+    }
+    
   };
-
+  
+  
   useEffect (() => {
     api.get('/api/Categories').then((response) => {
       if(response.status===200){
@@ -158,10 +179,24 @@ export default function FormRegisterFood({id}) {
       }
     });
   }, []);
+  const handleChange = (event, value, maskedValue) => {
+    
+    event.preventDefault();
+    setValues({...values,price:value})
+  
+   
+  };
+
+  const onClickIsAppetizer = event => {
+    
+      setValues({...values,isAppetizer:!values.isAppetizer})
+  
+  }
+
   return (
     <React.Fragment>
         <Typography variant="h6" gutterBottom>
-        {id ? 'Editar Prato:' : 'Cadastrar Prato:'}
+        {id ? 'Editar Comida:' : 'Cadastrar Comida:'}
       </Typography>
       {!values?(
         <Loading/>
@@ -186,6 +221,7 @@ export default function FormRegisterFood({id}) {
                       <Grid item  xs={12} sm={12}>
                           
                           <TextField
+                              autoFocus
                               required
                               id="name"
                               name="name"
@@ -197,6 +233,7 @@ export default function FormRegisterFood({id}) {
                               label="Nome:"
                               helperText="Exemplos: Sushi, Temaki..."
                               type="text"
+                              
                           />
                       </Grid>
                       
@@ -213,12 +250,20 @@ export default function FormRegisterFood({id}) {
                   <Grid container spacing={3}>
                       <Grid item xs={12} sm={6}>                        
                           <TextField         
-                          onChange={onChange}
+                          fullWidth 
+                          
                           value={values.price}
                           required
-                          variant="filled" label="Preço:" fullWidth id="price" name="price" 
-                          type="number"           
-                          />
+                          variant="filled" label="Preço:" 
+                          onChange={handleChange}
+                          placeholder="0"
+                          InputProps={{
+                            inputComponent: BrlCurrencyComponent,
+                          }}
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                          />     
                       </Grid>
                       <Grid item xs={12} sm={6}>
                       <FormControl required variant="filled" className={classes.formControl}>
@@ -268,31 +313,47 @@ export default function FormRegisterFood({id}) {
                     </Grid>
                     
                     <Grid item>
-                    {values.images.length>0&&
-                    <Button color="secondary" onClick={handleRemove} component="span">
-                       Remover imagem
+                    {values.categoryId===1&&
+                    <Button 
+                     color={values.isAppetizer?'primary':'secondary'}
+                     variant="contained" 
+                     endIcon={values.isAppetizer?<CheckCircleIcon/>:<CancelIcon/>}
+                     onClick={onClickIsAppetizer}
+                    >
+                       Entrada
                       </Button>}
-                    <input
+                    <Input
+                      
                       accept="image/*"
                       className={classes.input}
-                      id="contained-button-file"
+                      id="image"
                       multiple
                       onChange={onChangeImage}
                       type="file"
+                      name="image"
                     />
-                    <label className={classes.buttons} htmlFor="contained-button-file">
+                    <label name="image" id="image"className={classes.buttons} htmlFor="image">
                       <Button color="primary" component="span">
                         {values.images.length>0?'Alterar':'Adicionar'} imagem
                       </Button>
                     </label>
-                    <Button size="large"  className={classes.buttons} type='submit'  color="primary">
+                    {!clicked?<Button size="large"  className={classes.buttons} type='submit'  color="primary">
                         Salvar
-                    </Button>
+                    </Button>:<Button disabled size="large"  className={classes.buttons} type='submit'  color="primary">
+                        Salvar
+                    </Button>}
                       </Grid>
-                    
+                      
                 </Grid>
             </Grid>
         </Paper> )}
+        
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="error">
+            É necessário preencher todos os campos! Incluindo "Adicionar Imagem"
+          </Alert>
+        </Snackbar>
+                  
     </React.Fragment>
 );
 }
