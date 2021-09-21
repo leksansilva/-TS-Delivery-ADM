@@ -1,14 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { ThemeProvider, withStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import {theme, styles} from '../../components/styles/template';
-import Header from '../../components/Header';
-import Sidebar from '../../components/SideBar';
-import Copyright from '../../components/Copyright';
-
-
-
+import React from "react";
+import PropTypes from "prop-types";
+import { ThemeProvider, withStyles } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import { theme, styles } from "../../components/styles/template";
+import Header from "../../components/Header";
+import Sidebar from "../../components/SideBar";
+import Copyright from "../../components/Copyright";
 
 function FeedbackTemplate(props) {
   const { classes } = props;
@@ -25,17 +22,15 @@ function FeedbackTemplate(props) {
         <Sidebar
           mobileOpen={mobileOpen}
           handleDrawerToggle={handleDrawerToggle}
-          drawer={classes.drawer}      
+          drawer={classes.drawer}
         />
         <div className={classes.app}>
-          <Header onDrawerToggle={handleDrawerToggle}
-             name='Feedback'
-             tabs={[]}
-            
+          <Header
+            onDrawerToggle={handleDrawerToggle}
+            name="Feedback"
+            tabs={[]}
           />
-          <main className={classes.main}>
-            {props.feedback()}
-          </main>
+          <main className={classes.main}>{props.feedback()}</main>
           <footer className={classes.footer}>
             <Copyright />
           </footer>
@@ -44,7 +39,6 @@ function FeedbackTemplate(props) {
     </ThemeProvider>
   );
 }
-
 
 FeedbackTemplate.propTypes = {
   classes: PropTypes.object.isRequired,

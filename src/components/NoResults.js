@@ -1,46 +1,33 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import { withStyles } from '@material-ui/core/styles';
-
-
-
-
+import React from "react";
+import Typography from "@material-ui/core/Typography";
+import Paper from "@material-ui/core/Paper";
+import { withStyles } from "@material-ui/core/styles";
 
 const styles = (theme) => ({
   paper: {
-    maxWidth: 936,
-    margin: 'auto',
-    overflow: 'hidden',
-    
-  },
-  block: {
-    display: 'block',
+    width: 936,
+    margin: "auto",
+    overflow: "hidden",
   },
   contentWrapper: {
-    margin: '40px 16px',
+    margin: "40px 16px",
   },
 });
 
 function NoResults(props) {
   const { classes } = props;
-  const { name } = props;
+  const { response } = props;
   return (
     <Paper className={classes.paper}>
-      
-          <div className={classes.contentWrapper} >
-            <Typography color="textSecondary" align="center">
-              Nada encontrado em {name}
-            </Typography>
-        </div>
-      
+      <div className={classes.contentWrapper}>
+        <Typography color="textSecondary" align="center">
+          {response}
+        </Typography>
+      </div>
     </Paper>
   );
 }
 
-NoResults.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+
 
 export default withStyles(styles)(NoResults);

@@ -1,46 +1,47 @@
-import React, { useState } from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import {theme} from '../../components/styles/template';
-import TextField from '@material-ui/core/TextField';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles, MuiThemeProvider } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import api from '../../services/api';
-import {getToken, login, setExpiration, setExpirationRefreshToken, setRefreshToken} from '../../services/auth';
-import { Redirect, useHistory } from 'react-router-dom';
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
-import Copyright from '../../components/Copyright';
-import { IconButton, InputAdornment } from '@material-ui/core';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import React, { useState } from "react";
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import { theme } from "../../components/styles/template";
+import TextField from "@material-ui/core/TextField";
+import Box from "@material-ui/core/Box";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles, MuiThemeProvider } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
+import api from "../../services/api";
+import {
+  getToken,
+  login,
+  setExpiration,
+  setExpirationRefreshToken,
+  setRefreshToken,
+} from "../../services/auth";
+import { Redirect, useHistory } from "react-router-dom";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+import Copyright from "../../components/Copyright";
+import { IconButton, InputAdornment } from "@material-ui/core";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
 function Alert(props) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
-  }
-
-
-
-
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const useStyles = makeStyles((theme) => ({
-  
   paper: {
     marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: '#AF231C',
+    backgroundColor: "#AF231C",
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -50,53 +51,54 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Login() {
   const classes = useStyles();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const history = useHistory();
   const [open, setOpen] = useState(false);
-  const [visibility,setVisbility] = useState(false);
+  const [visibility, setVisbility] = useState(false);
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
 
     setOpen(false);
   };
-  const handleClickShowPassword = ( click) => {
+  const handleClickShowPassword = (click) => {
+    click ? setVisbility(false) : setVisbility(true);
+  };
+  const onError = function (error) {
+    console.log("Request Failed:", error.config);
+    if (error.response) {
+      console.log(error.response.status);
+      if (error.response.status === 404) {
+        setOpen(true);
+      }
+    } else {
+      setOpen(false);
+      console.log("Error Message:", error.message);
+    }
 
-    click?setVisbility(false):setVisbility(true);
-  }
-  const onError = function(error) {
-         console.log('Request Failed:', error.config);
-         if (error.response) {
-             console.log(error.response.status);
-             if(error.response.status===404){
-              setOpen(true)
-             };
-         } else {
-              setOpen(false);
-             console.log('Error Message:', error.message);
-         }
+    return Promise.reject(error.response || error.message);
+  };
 
-         return Promise.reject(error.response || error.message);
-  }
-  
-  async function handleSubimit(){
-     await api.post('/api/Auth/SignIn',{email, password})
-      .then(response =>{
-        if(response.status===200){
-            login(response.data.token);
-            setExpiration(response.data.expiration);
-            setRefreshToken(response.data.refreshToken);
-            setExpirationRefreshToken(response.data.expirationRefreshToken);
-            history.push('/');       
+  async function handleSubimit() {
+    await api
+      .post("/api/Auth/SignIn", { email, password })
+      .then((response) => {
+        if (response.status === 200) {
+          login(response.data.token);
+          setExpiration(response.data.expiration);
+          setRefreshToken(response.data.refreshToken);
+          setExpirationRefreshToken(response.data.expirationRefreshToken);
+          history.push("/");
         }
       })
       .catch(onError);
   }
-  
-  return (
-    getToken()?<Redirect to="/"/>:
+
+  return getToken() ? (
+    <Redirect to="/" />
+  ) : (
     <MuiThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -107,54 +109,58 @@ export default function Login() {
           <Typography component="h1" variant="h5">
             Faça Login
           </Typography>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Digite seu email"
-              name="email"
-              autoComplete="email"
-              autoFocus
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Digite sua senha"
-              type={visibility?"text":"password"}
-              id="password"
-              autoComplete="current-password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              InputProps={{
-                endAdornment: <InputAdornment position="end">
-                   <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={() =>handleClickShowPassword(visibility)}
-              
-                >
-                  {visibility ? <Visibility color="primary"/> : <VisibilityOff color="primary" />}
-                </IconButton>
-                </InputAdornment>,
-              }}
-            />
-          
-            <Button
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              onClick={handleSubimit }   
-            >
-              Entrar
-            </Button>
-            
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Digite seu email"
+            name="email"
+            autoComplete="email"
+            autoFocus
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Digite sua senha"
+            type={visibility ? "text" : "password"}
+            id="password"
+            autoComplete="current-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={() => handleClickShowPassword(visibility)}
+                  >
+                    {visibility ? (
+                      <Visibility color="primary" />
+                    ) : (
+                      <VisibilityOff color="primary" />
+                    )}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+
+          <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            onClick={handleSubimit}
+          >
+            Entrar
+          </Button>
         </div>
         <Box mt={8}>
           <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
@@ -168,7 +174,5 @@ export default function Login() {
         </Box>
       </Container>
     </MuiThemeProvider>
-   
-
   );
 }
