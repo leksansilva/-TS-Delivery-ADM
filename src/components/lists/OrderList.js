@@ -45,7 +45,7 @@ export default function OrderList(props) {
   const location = useLocation();
   const headers = { Authorization: `Bearer ${getToken()}` };
   const history = useHistory();
-
+  console.log(orders);
   const getImage = (img) => {
     const base64Image = `${img.images[0].type},${img.images[0].data}`;
     return base64Image;

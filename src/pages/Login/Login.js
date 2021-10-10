@@ -54,7 +54,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState({state:false, message:''});
   const [visibility, setVisbility] = useState(false);
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -71,11 +71,14 @@ export default function Login() {
     if (error.response) {
       console.log(error.response.status);
       if (error.response.status === 404) {
-        setOpen(true);
+        setOpen({state:true, message:'Senha ou usuário incorreto!'});
       }
     } else {
-      setOpen(false);
-      console.log("Error Message:", error.message);
+      setOpen({state: false, message:''});
+      console.log(error.message);
+      if(error.message === 'Network Error'){
+        setOpen({state: true, message:'Sem acesso a internet...'});
+      }
     }
 
     return Promise.reject(error.response || error.message);
@@ -163,9 +166,9 @@ export default function Login() {
           </Button>
         </div>
         <Box mt={8}>
-          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <Snackbar open={open.state} autoHideDuration={6000} onClose={handleClose}>
             <Alert onClose={handleClose} severity="error">
-              Senha ou usuário incorreto!
+              {open.message}
             </Alert>
           </Snackbar>
         </Box>

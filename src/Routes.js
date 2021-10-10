@@ -24,6 +24,7 @@ import RegisterIngredientForm from "./pages/Register/Ingredient/RegisterIngredie
 
 //Cliente
 import UserClient from "./pages/User/UserClient";
+import UserClientData from "./pages/User/UserClientData";
 
 //Feedback
 import Feedback from "./pages/Feedback/Feedback";
@@ -40,15 +41,24 @@ export default function Routes() {
     <BrowserRouter>
       <Switch>
         <Route path="/Login" component={Login} />
-    
+
         {/* Pedidos */}
         <PrivateRoute path="/" exact to component={Home} />
         <PrivateRoute path="/Pedidos/EmEspera" component={BackOrders} />
-        <PrivateRoute path="/Pedidos/EmAndamento"  component={OrdersInProgress}/>
-        <PrivateRoute path="/Pedidos/SaiuParaEntrega" component={OrdersWentOutForDelivery}/>
+        <PrivateRoute
+          path="/Pedidos/EmAndamento"
+          component={OrdersInProgress}
+        />
+        <PrivateRoute
+          path="/Pedidos/SaiuParaEntrega"
+          component={OrdersWentOutForDelivery}
+        />
         <PrivateRoute path="/Pedidos/Pronto" component={ReadyOrders} />
         <PrivateRoute path="/Pedidos/Entregue" component={OrdersDelivered} />
-        <PrivateRoute path="/Pedidos/NaoEntregue" component={OrdersNotDelivered}/>
+        <PrivateRoute
+          path="/Pedidos/NaoEntregue"
+          component={OrdersNotDelivered}
+        />
         <PrivateRoute path="/Pedidos/Cancelado" component={OrdersCanceled} />
 
         {/* Categorias */}
@@ -93,6 +103,7 @@ export default function Routes() {
         />
         {/* Clientes */}
         <PrivateRoute path="/Usuários" component={UserClient} />
+        <PrivateRoute path="/Usuário/:id" component={UserClientData} />
 
         {/* FeedBback */}
         <PrivateRoute path="/Feedback" component={Feedback} />

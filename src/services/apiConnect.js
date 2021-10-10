@@ -9,7 +9,7 @@ import { getToken } from "./auth";
 export const Notify = () => {
   const [connection, setConnection] = useState(null | HubConnection);
   useEffect(() => {
-    const connect = new HubConnectionBuilder()
+    const newConection = new HubConnectionBuilder()
       .withUrl("https://rokugan.fun/notificationhubservice", {
         accessTokenFactory: () => getToken(),
       })
@@ -17,7 +17,7 @@ export const Notify = () => {
       .withAutomaticReconnect()
       .build();
 
-    setConnection(connect);
+    setConnection(newConection);
   }, []);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ export const Notify = () => {
           .start()
           .then(() => {
             enableOrdersNotification();
-            console.info("connected!");
+            console.info("Connected!");
           })
           .catch((err) => {
             console.log("Disconnected!");
@@ -38,9 +38,8 @@ export const Notify = () => {
           });
       }
     };
-    const enableOrdersNotification = async () => {
-      console.log("entrei aqui");
-      connection.on('ReportNewPurchaseAsync', (order, title) => {
+    const enableOrdersNotification = () => {
+      connection.on("reportNewPurchaseAsync", (order, title) => {
         console.log(order.id + "  " + title);
       });
     };

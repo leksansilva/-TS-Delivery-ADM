@@ -7,6 +7,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { Button } from "@material-ui/core";
 import { green } from "@material-ui/core/colors";
+import { Link } from "react-router-dom";
 
 // Generate Order Data
 
@@ -41,7 +42,7 @@ export default function UserTable({ users }) {
                 <TableCell align="center">{row.name}</TableCell>
                 <TableCell align="center">{row.email}</TableCell>
                 <TableCell align="center">
-                  <Button className={classes.color}>Dados</Button>
+                  <Button component={Link} to={`/Usuário/${row.id}`} className={classes.color}>Dados</Button>
                 </TableCell>
               </TableRow>
             ))}

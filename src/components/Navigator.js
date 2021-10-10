@@ -111,6 +111,8 @@ function Navigator(props) {
       ? "Cadastrar"
       : location.pathname === `/Cadastrar/Comida/${id}`
       ? "Cadastrar"
+      : location.pathname === `/Usuário/${id}`
+      ? "Usuários"
       : ""
   );
   const handleChange = (event, newValue) => {

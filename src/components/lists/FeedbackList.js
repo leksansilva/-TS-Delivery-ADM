@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Paper from "@material-ui/core/Paper";
 import { withStyles } from "@material-ui/core/styles";
@@ -12,6 +12,8 @@ import {
   Typography,
 } from "@material-ui/core";
 import { Rating } from "@material-ui/lab";
+import api from "../../services/api";
+import { getToken } from "../../services/auth";
 
 const styles = (theme) => ({
   paper: {
@@ -33,83 +35,71 @@ const styles = (theme) => ({
     overflow: "hidden",
     backgroundColor: "#ededed",
   },
-  block: {
-    display: "block",
-  },
   contentWrapper: {
     margin: "20px 16px",
   },
 });
-function createData(id, order, avaliation, name, coments) {
-  return { id, order, avaliation, name, coments };
-}
-const feedbacks = [
-  createData(1, "Pizza", 5, "Helena Kittnel", "Muito bom, super recomendo!"),
-  createData(
-    2,
-    "Arroz com feijão",
-    5,
-    "Jason Thunder",
-    "Já sei o que pedi no próximo final de semana, estão de parabéns!"
-  ),
-  createData(
-    3,
-    "Yakisoba",
-    4,
-    "Luíza Sonza",
-    "Só atrasou um pouco, mas está maravilhoso"
-  ),
-  createData(
-    4,
-    "Feijoada",
-    4,
-    "Alexis Santorini",
-    "Assim nem quero cozinhar mais!"
-  ),
-  createData(
-    5,
-    "Frango Rush",
-    5,
-    "Antoni Highlander",
-    "Hmmmm, vou pedir de novo!"
-  ),
-  createData(6, "Steak", 5, "Ana Hickmann", "O melhor sabor, amei!!!!!!"),
-];
+
 function FeedbackList(props) {
   const { classes } = props;
+  const [feedbacks, setFeedbacks] = useState([]);
+  const headers = { Authorization: `Bearer ${getToken()}` };
   const [open, setOpen] = useState(false);
-  const handleOpen = () => {
-    setOpen(true);
-  };
+  const [idDelete, setIdDelete] = useState();
 
+  const handleOpen = (id) => {
+    setOpen(true);
+    setIdDelete(id);
+  };
+  useEffect(() => {
+    api
+      .get("api/Feedbacks", { headers })
+      .then((response) => {
+        if (response.status === 200) {
+          setFeedbacks(response.data);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  console.log(feedbacks);
+  const handleDelete = (id) => {
+    setOpen(false);
+    console.log("delete:  " + id);
+  };
   const handleClose = () => {
     setOpen(false);
   };
   return (
     <Paper className={classes.paper} elevation={4}>
-      {feedbacks.map((feedback) => (
-        <div key={feedback.id} className={classes.contentWrapper}>
+      {feedbacks.map((feedback, index) => (
+        <div key={index} className={classes.contentWrapper}>
           <Paper className={classes.paper2} elevation={1}>
             <Box component="fieldset" mb={2} borderColor="transparent">
               <Grid container>
                 <Grid item xs>
                   <Typography variant="h5" component="legend">
-                    {feedback.order}
+                    {feedback.order.suborders.map((suborder, index2) =>
+                      feedback.order.suborders.length - 1 !== index2 ? (
+                        <span key={index2}>{suborder.food.name} + </span>
+                      ) : (
+                        <span key={index2}>{suborder.food.name}</span>
+                      )
+                    )}
                   </Typography>
                   <Typography variant="subtitle1">Avaliação:</Typography>
-                  <Rating
-                    name="read-only"
-                    value={feedback.avaliation}
-                    readOnly
-                  />
+                  <Rating name="read-only" value={feedback.score} readOnly />
                   <Typography variant="h6" component="legend">
-                    {feedback.name}
+                    {feedback.user.name}
                   </Typography>
                   <Typography variant="subtitle2">Comentário:</Typography>
                 </Grid>
                 <Grid item>
                   <Button
-                    onClick={handleOpen}
+                    onClick={() => handleOpen(feedback.id)}
                     color="secondary"
                     aria-label="delete"
                     size="large"
@@ -120,7 +110,7 @@ function FeedbackList(props) {
               </Grid>
               <Paper className={classes.paper3}>
                 <div className={classes.contentWrapper}>
-                  <Typography>{feedback.coments}</Typography>
+                  <Typography>{feedback.note}</Typography>
                 </div>
               </Paper>
             </Box>
@@ -139,7 +129,11 @@ function FeedbackList(props) {
               <Button onClick={handleClose} color="primary">
                 Não
               </Button>
-              <Button onClick={handleClose} color="primary" autoFocus>
+              <Button
+                onClick={() => handleDelete(idDelete)}
+                color="primary"
+                autoFocus
+              >
                 Sim
               </Button>
             </DialogActions>
