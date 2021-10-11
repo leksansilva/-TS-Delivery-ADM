@@ -45,7 +45,6 @@ export default function OrderList(props) {
   const location = useLocation();
   const headers = { Authorization: `Bearer ${getToken()}` };
   const history = useHistory();
-  console.log(orders);
   const getImage = (img) => {
     const base64Image = `${img.images[0].type},${img.images[0].data}`;
     return base64Image;
@@ -66,13 +65,7 @@ export default function OrderList(props) {
     const value = orders.find((order) => order.id === id);
     const newOrderStatus = {
       id: value.id,
-      price: value.price,
-      note: value.note,
-      shoppingTime: value.shoppingTime,
       deliveryStatusId: newStatus,
-      paymentTypeId: value.paymentTypeId,
-      addressId: value.addressId,
-      userId: value.userId,
     };
     if (newStatus <= 6) {
       api
@@ -98,13 +91,7 @@ export default function OrderList(props) {
     const value = orders.find((order) => order.id === id);
     const newOrderStatus = {
       id: value.id,
-      price: value.price,
-      note: value.note,
-      shoppingTime: value.shoppingTime,
       deliveryStatusId: anotherOption,
-      paymentTypeId: value.paymentTypeId,
-      addressId: value.addressId,
-      userId: value.userId,
     };
     if (anotherOption <= 7) {
       api
