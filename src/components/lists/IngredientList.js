@@ -71,7 +71,6 @@ export default function Ingredients() {
     setOpen(true);
     setIdDelete(id);
   };
-  console.log(ingredients);
   const handleClose = () => {
     setOpen(false);
   };

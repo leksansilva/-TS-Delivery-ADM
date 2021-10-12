@@ -125,7 +125,6 @@ export default function FoodList() {
   const handleClose = () => {
     setOpen(false);
   };
-  console.log(foods);
   useEffect(() => {
     const params = search ? { Search: search } : {};
     setLoading(true);
@@ -222,11 +221,11 @@ export default function FoodList() {
         .put(`/api/Foods/addingredient/${id}`, [details.option.id], { headers })
         .then((response) => {
           if (response.status === 200) {
-            console.log("botei " + details.option.id);
+
           }
         })
         .catch((err) => {
-          console.log("não botei " + details.option.id);
+
         });
     }
     if (reason === "remove-option") {
@@ -236,11 +235,11 @@ export default function FoodList() {
         })
         .then((response) => {
           if (response.status === 200) {
-            console.log("tirei " + details.option.id);
+
           }
         })
         .catch((err) => {
-          console.log("não tirei " + details.option.id);
+
         });
     }
   };

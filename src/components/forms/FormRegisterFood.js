@@ -76,7 +76,6 @@ export default function FormRegisterFood({ id }) {
   const headers = { Authorization: `Bearer ${getToken()}` };
   const [clicked, setClicked] = useState(false);
   const [open, setOpen] = useState(false);
-  console.log(values);
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -103,7 +102,6 @@ export default function FormRegisterFood({ id }) {
     const file = document.querySelector("input[type=file]").files[0];
     const reader = new FileReader();
     if (file) {
-      console.log(reader.readAsDataURL(file));
       reader.onload = async () => {
         const type = reader.result.split(",")[0];
         const blob = reader.result.split(",")[1];
@@ -120,15 +118,14 @@ export default function FormRegisterFood({ id }) {
 
           if (values.images.length > 0) {
             const image = values.images[0].id;
-            const result = await api.delete(`api/Images?id=${image}`, {
+            await api.delete(`api/Images?id=${image}`, {
               headers: headers,
             });
-            console.log(result.status);
+
           }
           api
             .post("api/Images", obj[0], { headers: headers })
             .then((response) => {
-              console.log(response.status);
             });
 
           setValues({ ...values, images: obj });
@@ -153,7 +150,6 @@ export default function FormRegisterFood({ id }) {
     const link = id ? `${url}/${id}` : url;
 
     ev.preventDefault();
-    console.log(values);
     if (values.images.length > 0) {
       api[method](link, values, { headers: headers })
         .then((response) => {

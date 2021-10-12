@@ -60,15 +60,12 @@ function FeedbackList(props) {
         }
       })
       .catch((error) => {
-        console.log(error);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(feedbacks);
   const handleDelete = (id) => {
     setOpen(false);
-    console.log("delete:  " + id);
   };
   const handleClose = () => {
     setOpen(false);

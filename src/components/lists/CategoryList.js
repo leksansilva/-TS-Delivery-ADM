@@ -74,7 +74,6 @@ export default function CategoryList() {
         // eslint-disable-next-line no-loop-func
         .then((response) => {
           if (response.status === 200) {
-            console.log("setado: " + response.data.name);
             i === 2 && setOk(true);
           }
         });

@@ -40,7 +40,7 @@ export const Notify = () => {
     };
     const enableOrdersNotification = () => {
       connection.on("reportNewPurchaseAsync", (order, title) => {
-        console.log(title +"  "+order.id);
+        console.log(order);
       });
     };
 
