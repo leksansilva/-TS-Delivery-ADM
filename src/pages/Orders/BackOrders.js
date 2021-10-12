@@ -16,9 +16,7 @@ export default function BackOrders() {
         setOrders(response.data);
       }
     });
-    return () => {
-      setOrders([]);
-    };
+    return 0;
   }, 500);
   return (
     <OrdersTemplate

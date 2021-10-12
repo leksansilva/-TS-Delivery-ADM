@@ -67,7 +67,7 @@ export default function Wauth({ component: Component, ...rest }) {
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response.status);
         logout();
         setLoading(false);
         setRedirect(true);
@@ -75,6 +75,7 @@ export default function Wauth({ component: Component, ...rest }) {
   }
   useEffect(() => {
     verify();
+    return 0;
   }, [loading, redirect, verify]);
   return loading ? (
     <ThemeProvider theme={theme}>

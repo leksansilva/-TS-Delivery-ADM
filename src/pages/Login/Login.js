@@ -19,15 +19,12 @@ import {
 } from "../../services/auth";
 import { Redirect, useHistory } from "react-router-dom";
 import Snackbar from "@material-ui/core/Snackbar";
-import MuiAlert from "@material-ui/lab/Alert";
+import Alert from "@material-ui/lab/Alert";
 import Copyright from "../../components/Copyright";
 import { IconButton, InputAdornment } from "@material-ui/core";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
-function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -66,8 +63,8 @@ export default function Login() {
   const handleClickShowPassword = (click) => {
     click ? setVisbility(false) : setVisbility(true);
   };
-  const onError = function (error) {
-    console.log("Request Failed:", error.config);
+  const onError =  (error) => {
+
     if (error.response) {
       console.log(error.response.status);
       if (error.response.status === 404) {
@@ -75,7 +72,6 @@ export default function Login() {
       }
     } else {
       setOpen({state: false, message:''});
-      console.log(error.message);
       if(error.message === 'Network Error'){
         setOpen({state: true, message:'Sem acesso a internet...'});
       }
@@ -167,7 +163,7 @@ export default function Login() {
         </div>
         <Box mt={8}>
           <Snackbar open={open.state} autoHideDuration={6000} onClose={handleClose}>
-            <Alert onClose={handleClose} severity="error">
+          <Alert elevation={6} variant="filled" onClose={handleClose} severity="error">
               {open.message}
             </Alert>
           </Snackbar>

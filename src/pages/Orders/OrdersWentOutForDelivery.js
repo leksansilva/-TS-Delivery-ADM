@@ -17,9 +17,7 @@ export default function OrdersWentOutForDelivery() {
         setLoading(false);
       }
     });
-    return () => {
-      setOrders([]);
-    };
+    return 0;
   }, [state]);
 
   return (
