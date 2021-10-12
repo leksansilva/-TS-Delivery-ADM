@@ -72,7 +72,7 @@ function FeedbackList(props) {
     setOpen(false);
   };
   return (
-    <Paper className={classes.paper} elevation={4}>
+    <Paper className={classes.paper} elevation={2}>
       {feedbacks.length>0?feedbacks.map((feedback, index) => (
         <div key={index} className={classes.contentWrapper}>
           <Paper className={classes.paper2} elevation={1}>
