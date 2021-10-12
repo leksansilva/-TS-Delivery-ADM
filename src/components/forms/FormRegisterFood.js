@@ -102,6 +102,7 @@ export default function FormRegisterFood({ id }) {
     const file = document.querySelector("input[type=file]").files[0];
     const reader = new FileReader();
     if (file) {
+      reader.readAsDataURL(file);
       reader.onload = async () => {
         const type = reader.result.split(",")[0];
         const blob = reader.result.split(",")[1];
