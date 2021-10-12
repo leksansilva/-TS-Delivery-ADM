@@ -14,6 +14,7 @@ import {
 import { Rating } from "@material-ui/lab";
 import api from "../../services/api";
 import { getToken } from "../../services/auth";
+import NoResults from "../NoResults";
 
 const styles = (theme) => ({
   paper: {
@@ -72,7 +73,7 @@ function FeedbackList(props) {
   };
   return (
     <Paper className={classes.paper} elevation={4}>
-      {feedbacks.map((feedback, index) => (
+      {feedbacks.length>0?feedbacks.map((feedback, index) => (
         <div key={index} className={classes.contentWrapper}>
           <Paper className={classes.paper2} elevation={1}>
             <Box component="fieldset" mb={2} borderColor="transparent">
@@ -136,7 +137,7 @@ function FeedbackList(props) {
             </DialogActions>
           </Dialog>
         </div>
-      ))}
+      )):<NoResults response="Nenhum Feedback publicado"/> }
     </Paper>
   );
 }
