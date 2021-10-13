@@ -1,7 +1,8 @@
 {
   "name": "ts-deliveryadm",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "homepage": "./src/pages/Home/Home",
   "dependencies": {
     "@material-ui/core": "^4.12.0",
     "@material-ui/icons": "^4.11.2",
