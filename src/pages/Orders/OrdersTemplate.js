@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { ThemeProvider, withStyles } from "@material-ui/core/styles";
+import {  withStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { theme, styles } from "../../components/styles/template";
+import { styles } from "../../components/styles/template";
 import Header from "../../components/Header";
 import Sidebar from "../../components/SideBar";
 import Copyright from "../../components/Copyright";
@@ -66,7 +66,6 @@ function OrdersTemplate(props) {
   };
 
   return (
-    <ThemeProvider theme={theme}>
       <div className={classes.root}>
         <CssBaseline />
         <Sidebar
@@ -87,7 +86,6 @@ function OrdersTemplate(props) {
           </footer>
         </div>
       </div>
-    </ThemeProvider>
   );
 }
 
