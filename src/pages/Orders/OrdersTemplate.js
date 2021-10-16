@@ -1,14 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {  withStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { styles } from "../../components/styles/template";
+import { useStyles } from "../../components/styles/template";
 import Header from "../../components/Header";
 import Sidebar from "../../components/SideBar";
 import Copyright from "../../components/Copyright";
 
 function OrdersTemplate(props) {
-  const { classes } = props;
+  const  classes  = useStyles();
   const orders = props.count;
   function count(tam, i, cont, status) {
     if (i < tam) {
@@ -93,4 +92,4 @@ OrdersTemplate.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(OrdersTemplate);
+export default (OrdersTemplate);

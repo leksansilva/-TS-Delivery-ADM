@@ -1,4 +1,4 @@
-import { unstable_createMuiStrictModeTheme  } from '@material-ui/core';
+import { makeStyles, unstable_createMuiStrictModeTheme  } from '@material-ui/core';
 import FreightBigSemiBoldWoff2 from '../../assets/fonts/FreightBigSemibold.woff2';
 import P22UndergroundLtPWoff2 from '../../assets/fonts/P22Underground-LtP.woff2';
 import P22UndergroundPCpWoff2 from '../../assets/fonts/P22Underground-PCp.woff2';
@@ -174,7 +174,7 @@ theme = {
 
 const drawerWidth = 256;
 
-export const styles = {
+export const useStyles =makeStyles((theme) => ({
     root: {
       display: 'flex',
       minHeight: '100vh',
@@ -200,4 +200,4 @@ export const styles = {
       padding: theme.spacing(2),
       background: '#eaeff1',
     },
-  };
+  }));
