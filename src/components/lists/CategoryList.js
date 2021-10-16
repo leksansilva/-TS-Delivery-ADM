@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(1),
   },
   cardMedia: {
-    paddingTop: "56.25%", // 16:9
+    paddingTop: 150, // 16:9
   },
 }));
 

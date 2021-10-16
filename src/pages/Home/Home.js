@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { useStyles } from "../../components/styles/template";
 import Header from "../../components/Header";
@@ -8,7 +7,7 @@ import HomeInfos from "../../components/HomeInfos";
 import Copyright from "../../components/Copyright";
 
 function Home(props) {
-  const  classes  = useStyles();
+  const classes = useStyles();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -35,9 +34,5 @@ function Home(props) {
     </div>
   );
 }
-
-Home.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 export default Home;

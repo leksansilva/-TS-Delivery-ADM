@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { useStyles } from "../../components/styles/template";
 import Header from "../../components/Header";
@@ -32,9 +31,5 @@ function FeedbackTemplate(props) {
     </div>
   );
 }
-
-FeedbackTemplate.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 export default FeedbackTemplate;

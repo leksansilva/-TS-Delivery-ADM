@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { useStyles } from "../../components/styles/template";
 import Header from "../../components/Header";
@@ -7,7 +6,7 @@ import Sidebar from "../../components/SideBar";
 import Copyright from "../../components/Copyright";
 
 function OrdersTemplate(props) {
-  const  classes  = useStyles();
+  const classes = useStyles();
   const orders = props.count;
   function count(tam, i, cont, status) {
     if (i < tam) {
@@ -65,31 +64,27 @@ function OrdersTemplate(props) {
   };
 
   return (
-      <div className={classes.root}>
-        <CssBaseline />
-        <Sidebar
-          mobileOpen={mobileOpen}
-          handleDrawerToggle={handleDrawerToggle}
-          drawer={classes.drawer}
-          newOrder={count(orders.length, 0, 0, 1)}
+    <div className={classes.root}>
+      <CssBaseline />
+      <Sidebar
+        mobileOpen={mobileOpen}
+        handleDrawerToggle={handleDrawerToggle}
+        drawer={classes.drawer}
+        newOrder={count(orders.length, 0, 0, 1)}
+      />
+      <div className={classes.app}>
+        <Header
+          onDrawerToggle={handleDrawerToggle}
+          name="Pedidos"
+          tabs={tabs}
         />
-        <div className={classes.app}>
-          <Header
-            onDrawerToggle={handleDrawerToggle}
-            name="Pedidos"
-            tabs={tabs}
-          />
-          <main className={classes.main}>{props.orders()}</main>
-          <footer className={classes.footer}>
-            <Copyright />
-          </footer>
-        </div>
+        <main className={classes.main}>{props.orders()}</main>
+        <footer className={classes.footer}>
+          <Copyright />
+        </footer>
       </div>
+    </div>
   );
 }
 
-OrdersTemplate.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default (OrdersTemplate);
+export default OrdersTemplate;
