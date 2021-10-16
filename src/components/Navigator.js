@@ -119,53 +119,61 @@ function Navigator(props) {
     setActive(newValue);
   };
   return (
-    <Drawer variant="permanent" {...other}>
-      <List disablePadding>
-        <ListItem
-          className={clsx(classes.firebase, classes.item, classes.itemCategory)}
-        >
-          <Button component={Link} to="/">
-            <img src={logo} />
-          </Button>
-        </ListItem>
-        {categories.map(({ id, children }) => (
-          <Fragment key={id}>
-            <ListItem className={classes.categoryHeader}>
-              <ListItemText
-                classes={{
-                  primary: classes.categoryHeaderPrimary,
-                }}
-              >
-                {id}
-              </ListItemText>
-            </ListItem>
-            {children.map(({ id: childId, icon, link }) => (
-              <ListItem
-                onChange={handleChange}
-                component={Link}
-                to={link}
-                key={childId}
-                className={clsx(
-                  classes.item,
-                  childId === active && classes.itemActiveItem
-                )}
-              >
-                <ListItemIcon className={classes.itemIcon}>{icon}</ListItemIcon>
+    <Fragment>
+      <Drawer variant="permanent" {...other}>
+        <List disablePadding>
+          <ListItem
+            className={clsx(
+              classes.firebase,
+              classes.item,
+              classes.itemCategory
+            )}
+          >
+            <Button component={Link} to="/">
+              <img src={logo} />
+            </Button>
+          </ListItem>
+          {categories.map(({ id, children }) => (
+            <Fragment key={id}>
+              <ListItem className={classes.categoryHeader}>
                 <ListItemText
                   classes={{
-                    primary: classes.itemPrimary,
+                    primary: classes.categoryHeaderPrimary,
                   }}
                 >
-                  {childId}
+                  {id}
                 </ListItemText>
               </ListItem>
-            ))}
+              {children.map(({ id: childId, icon, link }) => (
+                <ListItem
+                  onChange={handleChange}
+                  component={Link}
+                  to={link}
+                  key={childId}
+                  className={clsx(
+                    classes.item,
+                    childId === active && classes.itemActiveItem
+                  )}
+                >
+                  <ListItemIcon className={classes.itemIcon}>
+                    {icon}
+                  </ListItemIcon>
+                  <ListItemText
+                    classes={{
+                      primary: classes.itemPrimary,
+                    }}
+                  >
+                    {childId}
+                  </ListItemText>
+                </ListItem>
+              ))}
 
-            <Divider className={classes.divider} />
-          </Fragment>
-        ))}
-      </List>
-    </Drawer>
+              <Divider className={classes.divider} />
+            </Fragment>
+          ))}
+        </List>
+      </Drawer>
+    </Fragment>
   );
 }
 
