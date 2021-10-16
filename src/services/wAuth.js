@@ -66,12 +66,12 @@ export default function Wauth({ component: Component, ...rest }) {
           }
         }
       })
-      .catch((err) => {
+      /* .catch((err) => {
         console.log(err.response.status);
         logout();
         setLoading(false);
         setRedirect(true);
-      });
+      }); */
   }
   useEffect(() => {
     verify();
@@ -85,13 +85,10 @@ export default function Wauth({ component: Component, ...rest }) {
     <Route
       {...rest}
       render={(props) =>
-        !redirect ? (
+
           <Component {...props} />
-        ) : (
-          <Redirect
-            to={{ pathname: "/Login", state: { from: props.location } }}
-          />
-        )
+
+
       }
     />
   );
