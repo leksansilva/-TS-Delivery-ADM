@@ -2,10 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { styles } from "../../components/styles/template";
+import { styles, theme } from "../../components/styles/template";
 import Header from "../../components/Header";
 import Sidebar from "../../components/SideBar";
 import Copyright from "../../components/Copyright";
+import { ThemeProvider } from "@material-ui/styles";
 
 function UserTemplate(props) {
   const { classes } = props;
@@ -16,21 +17,27 @@ function UserTemplate(props) {
   };
 
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <Sidebar
-        mobileOpen={mobileOpen}
-        handleDrawerToggle={handleDrawerToggle}
-        drawer={classes.drawer}
-      />
-      <div className={classes.app}>
-        <Header onDrawerToggle={handleDrawerToggle} name="Usuários" tabs={[]} />
-        <main className={classes.main}>{props.content()}</main>
-        <footer className={classes.footer}>
-          <Copyright />
-        </footer>
+    <ThemeProvider theme={theme}>
+      <div className={classes.root}>
+        <CssBaseline />
+        <Sidebar
+          mobileOpen={mobileOpen}
+          handleDrawerToggle={handleDrawerToggle}
+          drawer={classes.drawer}
+        />
+        <div className={classes.app}>
+          <Header
+            onDrawerToggle={handleDrawerToggle}
+            name="Usuários"
+            tabs={[]}
+          />
+          <main className={classes.main}>{props.content()}</main>
+          <footer className={classes.footer}>
+            <Copyright />
+          </footer>
+        </div>
       </div>
-    </div>
+    </ThemeProvider>
   );
 }
 
