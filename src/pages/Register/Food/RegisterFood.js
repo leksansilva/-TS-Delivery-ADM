@@ -1,15 +1,7 @@
-import React from 'react';
-import FoodList from '../../../components/lists/FoodList';
-import RegisterTemplate from '../RegisterTemplate';
+import React from "react";
+import FoodList from "../../../components/lists/FoodList";
+import RegisterTemplate from "../RegisterTemplate";
 
-
-
-export default function RegisterFood(){
-
-  return(
-    <RegisterTemplate
-      register={()=><FoodList name="Itens"/>}
-    
-    />
-  )
+export default function RegisterFood() {
+  return <FoodList name="Itens" />;
 }
