@@ -13,8 +13,6 @@ import {
   setRefreshToken,
   setExpirationRefreshToken,
 } from "./auth";
-import ThemeProvider from "@material-ui/styles/ThemeProvider";
-import { theme } from "../components/styles/template";
 
 export default function Wauth({ component: Component, ...rest }) {
   const [redirect, setRedirect] = useState(false);
@@ -78,9 +76,7 @@ export default function Wauth({ component: Component, ...rest }) {
     return 0;
   }, [loading, redirect, verify]);
   return loading ? (
-    <ThemeProvider theme={theme}>
       <Loading />
-    </ThemeProvider>
   ) : (
     <Route
       {...rest}

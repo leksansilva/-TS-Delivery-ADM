@@ -33,6 +33,7 @@ import Feedback from "./pages/Feedback/Feedback";
 import Login from "./pages/Login/Login";
 
 import PrivateRoute from "./services/wAuth";
+import PagesTemplate from "./pages/PagesTemplate";
 
 export default function Routes() {
    Notify();
@@ -43,7 +44,7 @@ export default function Routes() {
         <Route path="/Login" component={Login} />
 
         {/* Pedidos */}
-        <PrivateRoute path="/" exact to component={Home} />
+        <PagesTemplate routes={()=><><PrivateRoute path="/" exact to component={Home} />
         <PrivateRoute path="/Pedidos/EmEspera" component={BackOrders} />
         <PrivateRoute
           path="/Pedidos/EmAndamento"
@@ -106,7 +107,8 @@ export default function Routes() {
         <PrivateRoute path="/Usuário/:id" component={UserClientData} />
 
         {/* FeedBback */}
-        <PrivateRoute path="/Feedback" component={Feedback} />
+        <PrivateRoute path="/Feedback" component={Feedback} /></>}/>
+
       </Switch>
     </BrowserRouter>
   );
