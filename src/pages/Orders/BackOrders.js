@@ -11,12 +11,14 @@ export default function BackOrders() {
   const [state, setState] = useState(false);
   useRecursiveTimeout(async () => {
     const headers = { Authorization: `Bearer ${getToken()}` };
-    await api.get("/api/Orders", { headers: headers }).then((response) => {
+    await api.get("/api/Orders", { headers }).then((response) => {
       if (response.status === 200) {
         setOrders(response.data);
       }
     });
-    return 0;
+    return () => {
+      setOrders([]);
+    };
   }, 500);
   return (
     <OrdersTemplate

@@ -84,10 +84,10 @@ export default function CategoryList() {
     dataImages();
     api.get("/api/Categories").then(async (response) => {
       if (response.status === 200) {
-        setCategories(response.data);
+        await setCategories(response.data);
         setLoading(false);
         if (response.data.length === 0) {
-          SetCategoriesInitial();
+          await SetCategoriesInitial();
           setInfo(false);
         } else {
           setInfo(true);

@@ -35,7 +35,7 @@ import Login from "./pages/Login/Login";
 import PrivateRoute from "./services/wAuth";
 
 export default function Routes() {
-  Notify();
+   Notify();
 
   return (
     <BrowserRouter>
