@@ -13,7 +13,7 @@ export const getToken = () => localStorage.getItem(TOKEN_KEY);
 export const setExpiration = (expiration) =>
   localStorage.setItem(EXPIRATION_TOKEN, expiration);
 export const expiration = () => localStorage.getItem(EXPIRATION_TOKEN);
-
+console.log(getToken());
 export const setRefreshToken = (refreshToken) =>
   localStorage.setItem(REFRESH_TOKEN, refreshToken);
 export const refreshToken = () => localStorage.getItem(REFRESH_TOKEN);

@@ -64,8 +64,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   filter: {
-    top: theme.spacing(-3),
-    left: theme.spacing(1),
+    top: -25,
+    left: '40%',
   },
   text: {
     right: theme.spacing(5),
@@ -263,7 +263,7 @@ export default function FoodList() {
             <InputLabel
               id="categoryId"
               name="categoryId"
-              onChange={(ev) => setFilterCategory(ev.target.value)}
+              onChange={(ev) =>  setFilterCategory(ev.target.value)}
             >
               Filtrar
             </InputLabel>

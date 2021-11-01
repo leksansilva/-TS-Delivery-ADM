@@ -91,7 +91,7 @@ export default function FormRegisterFood({ id }) {
       });
     }
   }, [id]);
-
+  console.log(values);
   function onChange(ev) {
     const { name, value } = ev.target;
 
@@ -152,7 +152,7 @@ export default function FormRegisterFood({ id }) {
 
     ev.preventDefault();
     if (values.images.length > 0) {
-      api[method](link, values, { headers: headers })
+      api[method](link, values, { headers })
         .then((response) => {
           history.push("/Cadastrar/Comidas");
         })
