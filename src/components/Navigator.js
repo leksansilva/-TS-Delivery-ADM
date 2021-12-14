@@ -15,7 +15,7 @@ import ListAltIcon from "@material-ui/icons/ListAlt";
 import logo from "../assets/logo.png";
 import FeedbackIcon from "@material-ui/icons/Feedback";
 import { Link, useLocation, useParams } from "react-router-dom";
-import { Button } from "@material-ui/core";
+import { Button, CssBaseline } from "@material-ui/core";
 
 const styles = (theme) => ({
   categoryHeader: {
@@ -120,6 +120,7 @@ function Navigator(props) {
   };
   return (
     <Fragment>
+      <CssBaseline />
       <Drawer variant="permanent" {...other}>
         <List disablePadding>
           <ListItem

@@ -1,5 +1,4 @@
 import React from "react";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import { useStyles } from "../../components/styles/template";
 import Header from "../../components/Header";
 import Sidebar from "../../components/SideBar";
@@ -15,7 +14,6 @@ function FeedbackTemplate(props) {
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
       <Sidebar
         mobileOpen={mobileOpen}
         handleDrawerToggle={handleDrawerToggle}
