@@ -19,6 +19,7 @@ function UserTemplate(props) {
         handleDrawerToggle={handleDrawerToggle}
         drawer={classes.drawer}
       />
+
       <div className={classes.app}>
         <Header onDrawerToggle={handleDrawerToggle} name="Usuários" tabs={[]} />
         <main className={classes.main}>{props.content()}</main>
