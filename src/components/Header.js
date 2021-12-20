@@ -89,8 +89,10 @@ function Header(props) {
   return (
     <React.Fragment>
       <div
-        className={classes.header}
-
+        style={{
+          backgroundColor: "#1D1F2A",
+          position: "sticky",
+        }}
       >
         <Toolbar>
           <Grid container spacing={1} alignItems="center">
@@ -116,10 +118,7 @@ function Header(props) {
           </Grid>
         </Toolbar>
       </div>
-      <div
-        color="inherit"
-        className={classes.secondaryBar}
-      >
+      <div color="inherit" className={classes.secondaryBar}>
         <Toolbar>
           <Grid container alignItems="center" spacing={1}>
             <Grid item xs>
@@ -130,10 +129,7 @@ function Header(props) {
           </Grid>
         </Toolbar>
       </div>
-      <div
-        color="inherit"
-        className={classes.secondaryBar}
-      >
+      <div color="inherit" className={classes.secondaryBar}>
         <Tabs
           value={value}
           onChange={handleChange}
