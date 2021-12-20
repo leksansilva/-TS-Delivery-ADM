@@ -91,7 +91,6 @@ function Header(props) {
     <React.Fragment>
       <AppBar
         className={classes.header}
-        color="default"
         position="sticky"
         elevation={0}
       >
@@ -111,7 +110,7 @@ function Header(props) {
             <Grid item xs />
             <Grid item>
               <Tooltip title="Sair">
-                <IconButton onClick={onClickLogout} color="inherit">
+                <IconButton onClick={onClickLogout}>
                   <ExitToAppIcon className={classes.item} />
                 </IconButton>
               </Tooltip>
@@ -120,7 +119,7 @@ function Header(props) {
         </Toolbar>
       </AppBar>
       <AppBar
-        color="default"
+
         component="div"
         className={classes.secondaryBar}
         position="static"
@@ -130,7 +129,7 @@ function Header(props) {
           <Grid container alignItems="center" spacing={1}>
             <Grid item xs>
               <Typography
-                color="default"
+
                 className={classes.item}
                 variant="h5"
                 component="h1"
@@ -142,7 +141,6 @@ function Header(props) {
         </Toolbar>
       </AppBar>
       <AppBar
-        color="default"
         component="div"
         className={classes.secondaryBar}
         position="static"
