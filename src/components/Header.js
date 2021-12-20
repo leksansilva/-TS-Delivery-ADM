@@ -33,6 +33,9 @@ const styles = (theme) => ({
   button: {
     borderColor: lightColor,
   },
+  header: {
+    backgroundColor: "blue",
+  },
 });
 
 function Header(props) {
@@ -80,14 +83,13 @@ function Header(props) {
     }
   }
   return (
-    <React.Fragment>
-      <AppBar color="primary" position="sticky" elevation={0}>
+    <>
+      <AppBar position="sticky" elevation={0}>
         <Toolbar>
           <Grid container spacing={1} alignItems="center">
             <Hidden smUp>
               <Grid item>
                 <IconButton
-                  color="inherit"
                   aria-label="open drawer"
                   onClick={onDrawerToggle}
                   className={classes.menuButton}
@@ -110,7 +112,6 @@ function Header(props) {
       <AppBar
         component="div"
         className={classes.secondaryBar}
-        color="primary"
         position="static"
         elevation={0}
       >
@@ -127,7 +128,6 @@ function Header(props) {
       <AppBar
         component="div"
         className={classes.secondaryBar}
-        color="primary"
         position="static"
         elevation={0}
       >
@@ -164,7 +164,7 @@ function Header(props) {
           ))}
         </Tabs>
       </AppBar>
-    </React.Fragment>
+    </>
   );
 }
 

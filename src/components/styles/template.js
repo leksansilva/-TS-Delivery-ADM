@@ -51,7 +51,8 @@ let theme = createTheme({
     },
     secondary:{
       main: '#AF231C',
-    }
+    },
+
   },
   typography: {
     fontFamily: [
