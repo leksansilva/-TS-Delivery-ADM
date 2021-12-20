@@ -22,6 +22,7 @@ const styles = (theme) => ({
   secondaryBar: {
     zIndex: 0,
     width: "100%",
+    backgroundColor: "#1D1F2A",
   },
   menuButton: {
     marginLeft: -theme.spacing(1),
@@ -34,8 +35,12 @@ const styles = (theme) => ({
     borderColor: lightColor,
   },
   header: {
-    backgroundColor: "blue",
+    backgroundColor: "#1D1F2A",
   },
+  item: {
+    color: "#ffff",
+  },
+
 });
 
 function Header(props) {
@@ -83,8 +88,13 @@ function Header(props) {
     }
   }
   return (
-    <>
-      <AppBar position="sticky" elevation={0}>
+    <React.Fragment>
+      <AppBar
+        className={classes.header}
+        color="default"
+        position="sticky"
+        elevation={0}
+      >
         <Toolbar>
           <Grid container spacing={1} alignItems="center">
             <Hidden smUp>
@@ -102,7 +112,7 @@ function Header(props) {
             <Grid item>
               <Tooltip title="Sair">
                 <IconButton onClick={onClickLogout} color="inherit">
-                  <ExitToAppIcon />
+                  <ExitToAppIcon className={classes.item} />
                 </IconButton>
               </Tooltip>
             </Grid>
@@ -110,6 +120,7 @@ function Header(props) {
         </Toolbar>
       </AppBar>
       <AppBar
+        color="default"
         component="div"
         className={classes.secondaryBar}
         position="static"
@@ -118,7 +129,12 @@ function Header(props) {
         <Toolbar>
           <Grid container alignItems="center" spacing={1}>
             <Grid item xs>
-              <Typography color="inherit" variant="h5" component="h1">
+              <Typography
+                color="default"
+                className={classes.item}
+                variant="h5"
+                component="h1"
+              >
                 {props.name}
               </Typography>
             </Grid>
@@ -126,6 +142,7 @@ function Header(props) {
         </Toolbar>
       </AppBar>
       <AppBar
+        color="default"
         component="div"
         className={classes.secondaryBar}
         position="static"
@@ -154,7 +171,10 @@ function Header(props) {
                     badgeContent={tab.count}
                     color="secondary"
                   >
-                    <Typography variant="body2"> {tab.name} </Typography>
+                    <Typography className={classes.item} variant="body2">
+                      {" "}
+                      {tab.name}{" "}
+                    </Typography>
                   </Badge>
                   &nbsp;&nbsp;&nbsp;
                 </div>
@@ -164,7 +184,7 @@ function Header(props) {
           ))}
         </Tabs>
       </AppBar>
-    </>
+    </React.Fragment>
   );
 }
 

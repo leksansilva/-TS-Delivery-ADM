@@ -36,8 +36,8 @@ const styles = (theme) => ({
   itemCategory: {
     backgroundColor: "#1D1F2A",
     boxShadow: "0 -1px 0 #404854 inset",
-    paddingTop: theme.spacing(3),
-    paddingBottom: theme.spacing(2),
+    paddingTop: "1.7rem",
+    paddingBottom: "1rem",
   },
   firebase: {
     fontSize: 200,
@@ -51,10 +51,10 @@ const styles = (theme) => ({
   },
   itemIcon: {
     minWidth: "auto",
-    marginRight: theme.spacing(2),
+    marginRight: "1rem",
   },
   divider: {
-    marginTop: theme.spacing(2),
+    marginTop: "1rem",
   },
   img: {},
   link: {

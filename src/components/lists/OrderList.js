@@ -60,7 +60,6 @@ export default function OrderList(props) {
     "/Pedidos/Cancelado": "Cancelado",
   };
   const set = currentTab[location.pathname];
-
   async function handleOrderStatus(id) {
     const value = orders.find((order) => order.id === id);
     const newOrderStatus = {

@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-//import { Notify } from "./services/apiConnect";
+import { Notify } from "./services/apiConnect";
 
 //Pedidos
 import BackOrders from "./pages/Orders/BackOrders";
@@ -35,7 +35,7 @@ import Login from "./pages/Login/Login";
 import PrivateRoute from "./services/wAuth";
 
 export default function Routes() {
- //  Notify();
+ Notify();
 
   return (
     <BrowserRouter>

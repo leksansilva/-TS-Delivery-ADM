@@ -32,7 +32,7 @@ export const Notify = () => {
           .catch((err) => {
             console.log("Disconnected!");
             if (connection.state === "Disconnected") {
-              console.error(err.toString());
+              console.warn(err.toString());
               setTimeout(connectionOrders, 3000);
             }
           });
@@ -41,6 +41,7 @@ export const Notify = () => {
     const enableOrdersNotification = () => {
       connection.on("reportNewPurchaseAsync", (order, title) => {
         console.log(order);
+        console.log(title);
       });
     };
 
