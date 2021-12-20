@@ -19,8 +19,8 @@ import { Button } from "@material-ui/core";
 
 const styles = (theme) => ({
   categoryHeader: {
-    paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
+    paddingTop: "2rem",
+    paddingBottom: "2rem",
   },
   categoryHeaderPrimary: {
     color: theme.palette.common.white,

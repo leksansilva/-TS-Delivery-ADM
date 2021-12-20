@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
 import Grid from "@material-ui/core/Grid";
 import Hidden from "@material-ui/core/Hidden";
@@ -9,23 +8,22 @@ import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import { withStyles } from "@material-ui/core/styles";
 import { Link, useHistory, useLocation, useParams } from "react-router-dom";
 import Badge from "@material-ui/core/Badge";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import { Tooltip } from "@material-ui/core";
+import { makeStyles, Tooltip } from "@material-ui/core";
 import { getToken, logout } from "../services/auth";
 
 const lightColor = "rgba(255, 255, 255, 0.7)";
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   secondaryBar: {
     zIndex: 0,
     width: "100%",
     backgroundColor: "#1D1F2A",
   },
   menuButton: {
-    marginLeft: -theme.spacing(1),
+    marginLeft: "-1rem",
   },
   badge: {
     right: 2,
@@ -41,10 +39,11 @@ const styles = (theme) => ({
     color: "#ffff",
   },
 
-});
+}));
 
 function Header(props) {
-  const { classes, onDrawerToggle } = props;
+  const { onDrawerToggle } = props;
+  const classes =useStyles();
   const tabs = props.tabs;
   const location = useLocation();
   const { id } = useParams();
@@ -186,9 +185,4 @@ function Header(props) {
   );
 }
 
-Header.propTypes = {
-  classes: PropTypes.object.isRequired,
-  onDrawerToggle: PropTypes.func.isRequired,
-};
-
-export default withStyles(styles)(Header);
+export default Header;
