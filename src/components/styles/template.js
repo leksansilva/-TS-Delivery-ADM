@@ -95,11 +95,7 @@ theme = {
 
       },
     },
-    MuiDrawer: {
-      paper: {
-        backgroundColor: '#1D1F2A',
-      },
-    },
+
     MuiButton: {
       label: {
         textTransform: 'none',

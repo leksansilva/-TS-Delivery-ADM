@@ -13,7 +13,7 @@ import { withStyles } from "@material-ui/core/styles";
 import { Link, useHistory, useLocation, useParams } from "react-router-dom";
 import Badge from "@material-ui/core/Badge";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import { CssBaseline, Tooltip } from "@material-ui/core";
+import { Tooltip } from "@material-ui/core";
 import { getToken, logout } from "../services/auth";
 
 const lightColor = "rgba(255, 255, 255, 0.7)";
@@ -81,7 +81,6 @@ function Header(props) {
   }
   return (
     <React.Fragment>
-      <CssBaseline />
       <AppBar color="primary" position="sticky" elevation={0}>
         <Toolbar>
           <Grid container spacing={1} alignItems="center">
