@@ -284,7 +284,7 @@ export default function FoodList() {
           </FormControl>
         </Grid>
       </Grid>
-      <Grid item container xs sm spacing={1}>
+      <Grid item container spacing={3}  >
         {loading ? (
           <Loading />
         ) : info ? (
@@ -302,7 +302,7 @@ export default function FoodList() {
                   isAppetizer,
                   description,
                 }) => (
-                  <Grid key={id} item xs sm={4}>
+                  <Grid key={id} item xs>
                     <Card className={classes.root}>
                       <Paper elevation={4}>
                         {categories.map(

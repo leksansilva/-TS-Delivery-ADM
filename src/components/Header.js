@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import AppBar from "@material-ui/core/AppBar";
 import Grid from "@material-ui/core/Grid";
 import Hidden from "@material-ui/core/Hidden";
 import IconButton from "@material-ui/core/IconButton";
@@ -19,6 +18,7 @@ const lightColor = "rgba(255, 255, 255, 0.7)";
 const useStyles = makeStyles((theme) => ({
   secondaryBar: {
     zIndex: 0,
+    position: "static",
     width: "100%",
     backgroundColor: "#1D1F2A",
   },
@@ -34,16 +34,16 @@ const useStyles = makeStyles((theme) => ({
   },
   header: {
     backgroundColor: "#1D1F2A",
+    position: "sticky",
   },
   item: {
     color: "#ffff",
   },
-
 }));
 
 function Header(props) {
   const { onDrawerToggle } = props;
-  const classes =useStyles();
+  const classes = useStyles();
   const tabs = props.tabs;
   const location = useLocation();
   const { id } = useParams();
@@ -88,10 +88,9 @@ function Header(props) {
   }
   return (
     <React.Fragment>
-      <AppBar
+      <div
         className={classes.header}
-        position="sticky"
-        elevation={0}
+
       >
         <Toolbar>
           <Grid container spacing={1} alignItems="center">
@@ -102,7 +101,7 @@ function Header(props) {
                   onClick={onDrawerToggle}
                   className={classes.menuButton}
                 >
-                  <MenuIcon />
+                  <MenuIcon className={classes.item} />
                 </IconButton>
               </Grid>
             </Hidden>
@@ -116,34 +115,24 @@ function Header(props) {
             </Grid>
           </Grid>
         </Toolbar>
-      </AppBar>
-      <AppBar
-
-        component="div"
+      </div>
+      <div
+        color="inherit"
         className={classes.secondaryBar}
-        position="static"
-        elevation={0}
       >
         <Toolbar>
           <Grid container alignItems="center" spacing={1}>
             <Grid item xs>
-              <Typography
-
-                className={classes.item}
-                variant="h5"
-                component="h1"
-              >
+              <Typography className={classes.item} variant="h5" component="h1">
                 {props.name}
               </Typography>
             </Grid>
           </Grid>
         </Toolbar>
-      </AppBar>
-      <AppBar
-        component="div"
+      </div>
+      <div
+        color="inherit"
         className={classes.secondaryBar}
-        position="static"
-        elevation={0}
       >
         <Tabs
           value={value}
@@ -180,7 +169,7 @@ function Header(props) {
             />
           ))}
         </Tabs>
-      </AppBar>
+      </div>
     </React.Fragment>
   );
 }

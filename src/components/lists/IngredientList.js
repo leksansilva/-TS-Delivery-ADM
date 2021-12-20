@@ -134,12 +134,12 @@ export default function Ingredients() {
         <Grid item xs sm={2} />
         <Grid item xs sm={3} />
       </Grid>
-      <Grid item container xs sm spacing={1}>
+      <Grid item container xs sm spacing={3}>
         {loading ? (
           <Loading />
         ) : info ? (
           ingredients.map((ingredient) => (
-            <Grid key={ingredient.id} item xs={12} sm={4}>
+            <Grid key={ingredient.id} item xs>
               <Paper elevation={3} className={classes.root}>
                 <Card key={ingredient.id} variant="outlined">
                   <CardContent>
