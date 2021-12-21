@@ -2,6 +2,7 @@ import React from "react";
 import Hidden from "@material-ui/core/Hidden";
 import Navigator from "../components/Navigator";
 
+
 export default function Sidebar({
   drawer,
   mobileOpen,

@@ -11,7 +11,6 @@ import {
   IconButton,
   Input,
   InputLabel,
-  MenuItem,
   Paper,
   Select,
   Snackbar,
@@ -23,7 +22,7 @@ import BrlCurrencyComponent from "../BrlCurrencyComponent";
 import { Alert } from "@material-ui/lab";
 import CancelIcon from "@material-ui/icons/Cancel";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -192,7 +191,7 @@ export default function FormRegisterFood({ id }) {
         </Grid>
         <Grid item>
           <IconButton onClick={() => history.push("/Cadastrar/Comidas")}>
-            <ArrowBackIcon color="primary" />
+            <ArrowForwardIcon color="primary" />
           </IconButton>
         </Grid>
       </Grid>
@@ -270,17 +269,18 @@ export default function FormRegisterFood({ id }) {
                       Categoria
                     </InputLabel>
                     <Select
+                      native
                       labelId="categoryId"
                       id="categoryId"
                       name="categoryId"
                       value={values.categoryId}
                       onChange={onChange}
                     >
-                      <MenuItem value={0}>Selecione</MenuItem>
+                      <option value={0}>Selecione</option>
                       {categories.map((category) => (
-                        <MenuItem key={category.id} value={category.id}>
+                        <option key={category.id} value={category.id}>
                           {category.name}
-                        </MenuItem>
+                        </option>
                       ))}
                     </Select>
                   </FormControl>
@@ -313,14 +313,15 @@ export default function FormRegisterFood({ id }) {
                     Status:
                   </InputLabel>
                   <Select
+                    native
                     labelId="available"
                     id="available"
                     name="available"
                     value={values.available}
                     onChange={onChange}
                   >
-                    <MenuItem value={true}>Habilitado</MenuItem>
-                    <MenuItem value={false}>Desabilitado</MenuItem>
+                    <option value={true}>Habilitado</option>
+                    <option value={false}>Desabilitado</option>
                   </Select>
                 </FormControl>
               </Grid>

@@ -17,7 +17,6 @@ import {
   Grid,
   IconButton,
   InputLabel,
-  MenuItem,
   Paper,
   Select,
   TextField,
@@ -98,6 +97,7 @@ export default function FoodList() {
   const [loadingStatus, setLoadingStatus] = useState({ res: false, id: 0 });
   const [state, setState] = useState(false);
   const [search, setSearch] = useState("");
+
 
   const handleExpandClick = (id) => {
     setExpanded({ res: !expanded.res, id: id });
@@ -194,13 +194,8 @@ export default function FoodList() {
         }
       });
   }
-  /*   async function handleIngredient(){
-    const editFoodIngredients= { id, name, available:false, categoryId, images, price, foodIngredients}
-    console.log(editFoodIngredients.foodIngredients);
 
 
-  }
- */
   async function handleDelete(id) {
     setLoading(true);
     setOpen(false);
@@ -247,7 +242,7 @@ export default function FoodList() {
   return (
     <>
       <Grid item container>
-        <Grid item xs={7} sm={7}>
+        <Grid item xs>
           <TextField
             fullWidth
             label="Buscar"
@@ -257,28 +252,29 @@ export default function FoodList() {
             type="search"
           />
         </Grid>
-        <Grid item xs sm={2} />
-        <Grid item xs sm={3}>
+        <Grid item xs />
+        <Grid item xs>
           <FormControl variant="standard" className={classes.filter}>
             <InputLabel
               id="categoryId"
               name="categoryId"
-              onChange={(ev) =>  setFilterCategory(ev.target.value)}
+              onChange={(ev) =>  setFilterCategory(parseInt(ev.target.value))}
             >
               Filtrar
             </InputLabel>
             <Select
+              native
               labelId="categoryId"
               id="categoryId"
               name="categoryId"
               value={filterCategory}
-              onChange={(ev) => setFilterCategory(ev.target.value)}
+              onChange={(ev) => setFilterCategory(parseInt(ev.target.value))}
             >
-              <MenuItem value={0}>Sem Filtros</MenuItem>
+              <option value={0}>Sem Filtros</option>
               {categories.map((category) => (
-                <MenuItem key={category.id} value={category.id}>
+                <option key={category.id} value={category.id}>
                   {category.name}
-                </MenuItem>
+                </option>
               ))}
             </Select>
           </FormControl>

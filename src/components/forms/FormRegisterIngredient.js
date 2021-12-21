@@ -13,7 +13,7 @@ import {
 } from "@material-ui/core";
 import Loading from "../Loading";
 import BrlCurrencyComponent from "../BrlCurrencyComponent";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -90,7 +90,7 @@ export default function FormRegisterIngredient({ id }) {
         </Grid>
         <Grid item>
           <IconButton onClick={() => history.push("/Cadastrar/Adicionais")}>
-            <ArrowBackIcon color="primary"/>
+            <ArrowForwardIcon color="primary"/>
           </IconButton>
         </Grid>
       </Grid>
