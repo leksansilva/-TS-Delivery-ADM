@@ -1,32 +1,20 @@
+import Compress from "compress.js"
 
-function loadImage(img, src) {
-  return new Promise((resolve, reject) => {
-      img.src = src;
-      img.completed ? resolve(img) : img.addEventListener('load', function () {
-          resolve(img)
-      });
-      img.addEventListener('error', reject);
+const compress = new Compress()
+
+
+export default async function Resize(file) {
+
+  const resizedImage = await compress.compress([file], {
+    size: .08,
+    quality: 1,
+    maxWidth: 1080,
+    maxHeight: 1080,
+    resize: true
   })
-}
-
-export default function Resize(src, options) {
-
-  return loadImage(document.createElement('img'), src).then(function (image) {
-
-      var canvas = document.createElement('canvas');
-
-      if (options.width && !options.height) {
-          options.height = image.height * (options.width / image.width)
-      } else if (!options.width && options.height) {
-          options.width = image.width * (options.height / image.height)
-      }
-
-      Object.assign(canvas, options);
-
-      canvas.getContext('2d').drawImage(image, 0, 0, canvas.width, canvas.height);
-
-      return new Promise(function (resolve) {
-          canvas.toBlob(resolve, options.type || 'image/png', options.quality)
-      })
-  })
+  const img = resizedImage[0];
+  const base64str = img.data
+  const imgExt = img.ext
+  const resizedFiile = Compress.convertBase64ToFile(base64str, imgExt)
+  return resizedFiile;
 }

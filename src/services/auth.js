@@ -10,7 +10,6 @@ export const logout = () => {
   localStorage.clear();
 };
 export const getToken = () => localStorage.getItem(TOKEN_KEY);
-console.log(getToken);
 export const setExpiration = (expiration) =>
   localStorage.setItem(EXPIRATION_TOKEN, expiration);
 export const expiration = () => localStorage.getItem(EXPIRATION_TOKEN);

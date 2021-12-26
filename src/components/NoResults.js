@@ -5,7 +5,7 @@ import { withStyles } from "@material-ui/core/styles";
 
 const styles = (theme) => ({
   paper: {
-    width: 936,
+    width: "30wv",
     margin: "auto",
     overflow: "hidden",
   },

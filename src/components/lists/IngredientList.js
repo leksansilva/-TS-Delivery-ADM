@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
     textOverflow: "ellipsis",
   },
   search: {
-    top: theme.spacing(-3),
+    marginBottom: theme.spacing(3),
   },
 }));
 
@@ -134,12 +134,12 @@ export default function Ingredients() {
         <Grid item xs sm={2} />
         <Grid item xs sm={3} />
       </Grid>
-      <Grid item container xs sm spacing={3}>
+      <Grid item container  spacing={3}>
         {loading ? (
           <Loading />
         ) : info ? (
           ingredients.map((ingredient) => (
-            <Grid key={ingredient.id} item xs>
+            <Grid key={ingredient.id} item >
               <Paper elevation={3} className={classes.root}>
                 <Card key={ingredient.id} variant="outlined">
                   <CardContent>

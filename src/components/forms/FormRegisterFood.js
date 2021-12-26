@@ -22,7 +22,8 @@ import BrlCurrencyComponent from "../BrlCurrencyComponent";
 import { Alert } from "@material-ui/lab";
 import CancelIcon from "@material-ui/icons/Cancel";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
+import Resize from "../utils/Resize";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -75,7 +76,6 @@ export default function FormRegisterFood({ id }) {
   const headers = { Authorization: `Bearer ${getToken()}` };
   const [clicked, setClicked] = useState(false);
   const [open, setOpen] = useState(false);
-
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -90,18 +90,26 @@ export default function FormRegisterFood({ id }) {
       });
     }
   }, [id]);
-  console.log(values);
+
   function onChange(ev) {
     const { name, value } = ev.target;
+    if(name ==="categoryId"){
+      setValues({ ...values, [name]: parseInt(value) });
+    }else{
+      setValues({ ...values, [name]:value });
+    }
 
-    setValues({ ...values, [name]: value });
+
   }
 
-  function onChangeImage() {
+  async function onChangeImage() {
     const file = document.querySelector("input[type=file]").files[0];
     const reader = new FileReader();
+    console.log(file)
     if (file) {
-      reader.readAsDataURL(file);
+      const image = await Resize(file);
+      console.log(image)
+      reader.readAsDataURL(image);
       reader.onload = async () => {
         const type = reader.result.split(",")[0];
         const blob = reader.result.split(",")[1];
@@ -111,7 +119,7 @@ export default function FormRegisterFood({ id }) {
               name: file.name,
               type: type,
               data: blob,
-              size: file.size,
+              size: image.size,
               foodId: values.id,
             },
           ];
@@ -121,12 +129,10 @@ export default function FormRegisterFood({ id }) {
             await api.delete(`api/Images?id=${image}`, {
               headers: headers,
             });
-
           }
           api
             .post("api/Images", obj[0], { headers: headers })
-            .then((response) => {
-            });
+            .then((response) => {});
 
           setValues({ ...values, images: obj });
         } else {
@@ -135,9 +141,10 @@ export default function FormRegisterFood({ id }) {
               name: file.name,
               type: type,
               data: blob,
-              size: file.size,
+              size: image.size,
             },
           ];
+
           setValues({ ...values, images: obj });
         }
       };
@@ -152,7 +159,7 @@ export default function FormRegisterFood({ id }) {
     ev.preventDefault();
     if (values.images.length > 0) {
       api[method](link, values, { headers })
-        .then((response) => {
+        .then(() => {
           history.push("/Cadastrar/Comidas");
         })
         .catch((error) => {
@@ -273,7 +280,7 @@ export default function FormRegisterFood({ id }) {
                       labelId="categoryId"
                       id="categoryId"
                       name="categoryId"
-                      value={values.categoryId}
+                      value={parseInt(values.categoryId)}
                       onChange={onChange}
                     >
                       <option value={0}>Selecione</option>
@@ -288,19 +295,19 @@ export default function FormRegisterFood({ id }) {
               </Grid>
             </Grid>
             <Grid item xs={12} sm={12}>
-            <TextField
-                  multiline
-                  id="description"
-                  name="description"
-                  fullWidth
-                  autoComplete="given-ingredient"
-                  onChange={onChange}
-                  value={values.description}
-                  variant="filled"
-                  label="Descrição"
-                  helperText="Exemplos: Sushi, Temaki..."
-                  type="text"
-                />
+              <TextField
+                multiline
+                id="description"
+                name="description"
+                fullWidth
+                autoComplete="given-ingredient"
+                onChange={onChange}
+                value={values.description}
+                variant="filled"
+                label="Descrição"
+                helperText="Exemplos: Sushi, Temaki..."
+                type="text"
+              />
             </Grid>
             <Grid container item sm={12}>
               <Grid item xs>

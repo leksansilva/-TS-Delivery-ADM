@@ -39,10 +39,9 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: 300,
-    marginBottom: "20px",
-    marginRight: "20px",
-    flexGrow: 1,
+    width: "17.5rem",
+    margin: "0.5rem",
+
   },
   media: {
     height: 0,
@@ -63,14 +62,13 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   filter: {
-    top: -25,
-    left: '40%',
+    marginBottom: theme.spacing(3),
   },
   text: {
     right: theme.spacing(5),
   },
   search: {
-    top: theme.spacing(-3),
+   marginBottom: theme.spacing(3),
   },
   name: {
     maxWidth: "220px",
@@ -219,7 +217,7 @@ export default function FoodList() {
 
           }
         })
-        .catch((err) => {
+        .catch(() => {
 
         });
     }
@@ -233,7 +231,7 @@ export default function FoodList() {
 
           }
         })
-        .catch((err) => {
+        .catch(() => {
 
         });
     }
@@ -241,8 +239,8 @@ export default function FoodList() {
 
   return (
     <>
-      <Grid item container>
-        <Grid item xs>
+      <Grid item container xs direction="row">
+        <Grid item  xs={7} sm={7} >
           <TextField
             fullWidth
             label="Buscar"
@@ -252,9 +250,9 @@ export default function FoodList() {
             type="search"
           />
         </Grid>
-        <Grid item xs />
-        <Grid item xs>
-          <FormControl variant="standard" className={classes.filter}>
+        <Grid item xs sm={3}/>
+        <Grid className={classes.filter} item xs sm={2} >
+          <FormControl variant="standard" >
             <InputLabel
               id="categoryId"
               name="categoryId"
@@ -298,7 +296,7 @@ export default function FoodList() {
                   isAppetizer,
                   description,
                 }) => (
-                  <Grid key={id} item xs>
+                  <Grid key={id} item >
                     <Card className={classes.root}>
                       <Paper elevation={4}>
                         {categories.map(
@@ -481,7 +479,7 @@ export default function FoodList() {
                   description,
                 }) =>
                   categoryId === filterCategory && (
-                    <Grid key={id} item xs sm={4}>
+                    <Grid key={id} item >
                       <Card className={classes.root}>
                         <Paper elevation={4}>
                           {categories.map((categorie) =>

@@ -241,6 +241,8 @@ export default function OrderList(props) {
       ))
       .reverse()
   ) : (
-    <NoResults response={`Nenhum pedido ${set}`} />
+
+      <NoResults response={`Nenhum pedido ${set}`} />
+
   );
 }
