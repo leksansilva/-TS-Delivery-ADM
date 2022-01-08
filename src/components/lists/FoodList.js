@@ -130,7 +130,6 @@ export default function FoodList() {
     dataIngredients();
     api.get("api/Foods", { params }).then((response) => {
       setFoods(response.data);
-
       setLoading(false);
       if (response.data.length === 0) {
         setInfo(false);
@@ -138,6 +137,7 @@ export default function FoodList() {
         setInfo(true);
       }
     });
+
     return () => {
       setFoods([]);
       setCategories([]);

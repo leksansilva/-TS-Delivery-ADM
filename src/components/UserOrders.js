@@ -5,38 +5,42 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Title from "./Title";
+// Generate Order Data
 
-export default function HistoryOrders({ orders }) {
 
+
+export default function UserOrders({ orders, title, addresses }) {
+  const searchAddresses = (id) => {
+    const address = addresses.find((i) => i.id === id);
+    return `${address.neighborhood} -${address.state},
+    nº ${address.number}`;
+  };
+  const status = {
+    1: "Em espera",
+    2: "Em Andamento",
+    3: "Pronto",
+    4: "Saiu para Entrega",
+    5: "Entregue",
+    6: "Não Entregue",
+    7: "Cancelado",
+  };
   return (
     <React.Fragment>
-      <Title>Pedidos Entregues</Title>
-
+      <Title>{title}</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell>Pedido</TableCell>
-            <TableCell>Nome</TableCell>
+            <TableCell>Status</TableCell>
             <TableCell>Endereço</TableCell>
             <TableCell align="right">Preço</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {orders.map((order) =>
-            order.deliveryStatusId === 5 ? (
+            order ? (
               <TableRow key={order.id}>
-                <TableCell>
-                  {" "}
-                  {order.suborders.length > 0
-                    ? order.suborders.length > 1
-                      ? order.suborders[0].food.name + " e outros"
-                      : order.suborders[0].food.name
-                    : "ainda não listado"}
-                </TableCell>
-                <TableCell>{order.user.name}</TableCell>
-                <TableCell>
-                  {order.address.neighborhood}, {order.address.number}
-                </TableCell>
+                <TableCell>{status[order.deliveryStatusId]}</TableCell>
+                <TableCell>{searchAddresses(order.addressId)}</TableCell>
                 <TableCell align="right">
                   {order.price.toLocaleString("pt-BR", {
                     style: "currency",

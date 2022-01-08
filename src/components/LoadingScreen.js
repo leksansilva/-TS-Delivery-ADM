@@ -9,13 +9,13 @@ const useStyles = makeStyles((theme) => ({
     justifyContent:'center',
     alignItems:'center',
     width: "100%",
-    height: "50vh",
+    height: "100vh",
     flexDirection:"column",
     position: "relative",
   },
 }));
 
-export default function Loading() {
+export default function LoadingScreen() {
   const classes = useStyles();
 
   return (

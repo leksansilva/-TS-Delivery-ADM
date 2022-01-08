@@ -43,6 +43,9 @@ export default function OrderList(props) {
   const classes = useStyles();
   const { orders, newStatus, newEvent, anotherOption } = props;
   const location = useLocation();
+
+  console.log(orders);
+
   const headers = { Authorization: `Bearer ${getToken()}` };
   const history = useHistory();
   const getImage = (img) => {
@@ -151,7 +154,7 @@ export default function OrderList(props) {
                       {order.address.city}-{order.address.state}
                     </Typography>
                     <Typography variant="subtitle2">
-                      {order.address.neighborhood}, {order.address.number}
+                      {order.address.neighborhood} - {order.address.state}, {order.address.number}
                     </Typography>
                     <Typography variant="subtitle2">
                       {order.address.addressTypeId === 1 ? "Casa" : "Trabalho"}{" "}

@@ -2,7 +2,6 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Title from "./Title";
-import { orders } from "../teste/orders";
 
 const useStyles = makeStyles({
   depositContext: {
@@ -10,42 +9,30 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Deposits() {
+export default function Deposits({ orders }) {
   const classes = useStyles();
-  function accumulate(tam, i, accum, status) {
-    if (i < tam) {
-      if (orders[i].status === status) {
-        return accumulate(tam, i + 1, accum + orders[i].price, status);
-      } else {
-        return accumulate(tam, i + 1, accum, status);
-      }
-    }
 
-    return accum;
-  }
-  function count(tam, i, cont, status) {
-    if (i < tam) {
-      if (orders[i].status === status) {
-        return count(tam, i + 1, cont + 1, status);
-      } else {
-        return count(tam, i + 1, cont, status);
-      }
-    }
+  const count = orders
+    .filter((order) => order.deliveryStatusId === 5)
+    .flatMap((order) => order);
 
-    return cont;
+  let acummulate = 0;
+  var i = 0;
+  for (i; i < count.length; i++) {
+    acummulate = acummulate + count[i].price;
   }
 
   return (
     <React.Fragment>
       <Title>Vendas por delivery</Title>
       <Typography component="p" variant="h4">
-        {accumulate(orders.length, 0, 0, 5).toLocaleString("pt-BR", {
+        {acummulate.toLocaleString("pt-BR", {
           style: "currency",
           currency: "BRL",
         })}
       </Typography>
       <Typography color="textSecondary" className={classes.depositContext}>
-        {count(orders.length, 0, 0, 5)} pedidos Entregues!
+        {count.length} pedidos Entregues!
       </Typography>
       <div></div>
     </React.Fragment>

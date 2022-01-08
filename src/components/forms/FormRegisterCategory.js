@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(1),
         margin: 'auto',
         maxWidth: 500,
-        
+
       },
   }));
   const initialValues = {
@@ -36,7 +36,7 @@ export default function FormRegisterCategory({id}) {
   const classes = useStyles();
   const [values, setValues] = useState(id ? null: initialValues);
   const history = useHistory();
-  
+
   const url = '/api/Categories';
   const headers = {'Authorization':`Bearer ${getToken()}`};
 
@@ -48,8 +48,8 @@ export default function FormRegisterCategory({id}) {
         })
       }
    }, [id]);
- 
-  
+
+
 
   function onChange (ev) {
 
@@ -60,15 +60,15 @@ export default function FormRegisterCategory({id}) {
   }
 
   function onSubmit (ev) {
-    
+
     const method = id ? 'put' : 'post';
     const link = id ? `${url}/${id}`: url;
     ev.preventDefault();
     api[method](link, values, {headers: headers})
     .then((response) => {
-      
+
       history.push('/Cadastrar/Categorias');
-      
+
     })
 
   };
@@ -86,19 +86,19 @@ export default function FormRegisterCategory({id}) {
               <Grid item sm={12}>
                         <Grid container spacing={5}>
                           <Grid item xs={12} sm={12}>
-                          
+
                           </Grid>
-                                        
+
                       </Grid>
                       <Grid container spacing={5}>
                           <Grid item xs={12} sm={12}>
-                              
+
                               <TextField
                                   required
                                   id="name"
                                   name="name"
                                   fullWidth
-                                  
+
                                   autoComplete="given-category"
                                   onChange={onChange}
                                   value={values.name}
@@ -107,21 +107,21 @@ export default function FormRegisterCategory({id}) {
                                   helperText="Exemplos: Quentes, Salgados..."
                               />
                               </Grid>
-                                        
+
                       </Grid>
-                
+
               </Grid>
               <Grid container item sm={12}>
                 <Grid item xs/>
                   <Button size="large"  className={classes.buttons} type='submit'  color="primary">
                       Salvar
                   </Button>
-                  
+
               </Grid>
           </Grid>
-      </Paper>  
+      </Paper>
       )}
-      
+
     </React.Fragment>
   );
 }

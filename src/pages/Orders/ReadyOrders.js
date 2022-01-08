@@ -17,7 +17,7 @@ export default function ReadyOrders() {
         setLoading(false);
       }
     });
-    return 0;
+    return ()=> setOrders([]);
   }, [state]);
 
   return (

@@ -2,19 +2,31 @@ import React from "react";
 
 import Title from "./Title";
 import {
+  Badge,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableRow,
 } from "@material-ui/core";
-import { orders } from "../teste/orders";
-// Generate Sales Data
 
-export default function NewOrders() {
+export default function NewOrders({ orders }) {
+
+
+
+  const count = orders
+  .filter((order) => order.deliveryStatusId === 1)
+  .flatMap((order) => order);
   return (
     <React.Fragment>
-      <Title>Pedidos de Hoje</Title>
+       <Badge
+                    anchorOrigin={{
+                      vertical: "top",
+                      horizontal: "left",
+                    }}
+                    badgeContent={count.length}
+                    color="secondary"
+                  ><Title>Pedidos de Hoje</Title></Badge>
       <Table size="small">
         <TableHead>
           <TableRow>
@@ -25,25 +37,34 @@ export default function NewOrders() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {orders.map((order) =>
-            order.status === 1 ? (
-              <TableRow key={order.id}>
-                <TableCell>{order.order}</TableCell>
-                <TableCell>{order.name}</TableCell>
-                <TableCell>
-                  {order.neighborhood}, {order.number}
-                </TableCell>
-                <TableCell align="right">
-                  {order.price.toLocaleString("pt-BR", {
-                    style: "currency",
-                    currency: "BRL",
-                  })}
-                </TableCell>
-              </TableRow>
-            ) : (
-              <TableRow key={order.id}></TableRow>
+          {orders
+            .map((order) =>
+              order.deliveryStatusId === 1 ? (
+                <TableRow key={order.id}>
+                  <TableCell>
+                    {order.suborders.length > 0
+                      ? order.suborders.length > 1
+                        ? order.suborders[0].food.name + " e outros"
+                        : order.suborders[0].food.name
+                      : "ainda não listado"}
+                  </TableCell>
+                  <TableCell>{order.user.name}</TableCell>
+                  <TableCell>
+                    {order.address.neighborhood} - {order.address.state},{" "}
+                    {order.address.number}
+                  </TableCell>
+                  <TableCell align="right">
+                    {order.price.toLocaleString("pt-BR", {
+                      style: "currency",
+                      currency: "BRL",
+                    })}
+                  </TableCell>
+                </TableRow>
+              ) : (
+                <TableRow key={order.id}></TableRow>
+              )
             )
-          )}
+            .reverse()}
         </TableBody>
       </Table>
     </React.Fragment>

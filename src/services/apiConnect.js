@@ -6,12 +6,18 @@ import {
 import { useEffect, useState } from "react";
 import { getToken } from "./auth";
 
+
+
+
+
 export const Notify = () => {
   const [connection, setConnection] = useState(null | HubConnection);
+  const [notify, setNotify] = useState(false);
+
   useEffect(() => {
     const newConection = new HubConnectionBuilder()
       .withUrl("https://rokugan.fun/notificationhubservice", {
-        accessTokenFactory: () => getToken(),
+        accessTokenFactory: () =>getToken(),
       })
       .configureLogging(LogLevel.Information)
       .withAutomaticReconnect()
@@ -40,11 +46,12 @@ export const Notify = () => {
     };
     const enableOrdersNotification = () => {
       connection.on("reportNewPurchaseAsync", (order, title) => {
-        console.log(order);
-        console.log(title);
+        setNotify(!notify);
       });
     };
 
     connectionOrders();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [connection]);
+  return notify;
 };

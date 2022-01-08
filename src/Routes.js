@@ -32,6 +32,7 @@ import Feedback from "./pages/Feedback/Feedback";
 //Login
 import Login from "./pages/Login/Login";
 
+//Autenticação para uso das rotas
 import PrivateRoute from "./services/wAuth";
 
 export default function Routes() {

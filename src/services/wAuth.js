@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import api from "./api";
 import { Route, Redirect } from "react-router-dom";
-import Loading from "../components/Loading";
 import {
   logout,
   getToken,
@@ -13,6 +12,7 @@ import {
   setRefreshToken,
   setExpirationRefreshToken,
 } from "./auth";
+import LoadingScreen from "../components/LoadingScreen";
 
 export default function Wauth({ component: Component, ...rest }) {
   const [redirect, setRedirect] = useState(false);
@@ -76,7 +76,7 @@ export default function Wauth({ component: Component, ...rest }) {
     return 0;
   }, [loading, redirect, verify]);
   return loading ? (
-      <Loading />
+      <LoadingScreen />
   ) : (
     <Route
       {...rest}
