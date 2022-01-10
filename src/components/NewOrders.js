@@ -31,7 +31,7 @@ export default function NewOrders({ orders }) {
         <TableHead>
           <TableRow>
             <TableCell>Pedido</TableCell>
-            <TableCell>Nome</TableCell>
+            <TableCell>Cliente</TableCell>
             <TableCell>Endereço</TableCell>
             <TableCell align="right">Preço</TableCell>
           </TableRow>

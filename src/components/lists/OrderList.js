@@ -44,7 +44,7 @@ export default function OrderList(props) {
   const { orders, newStatus, newEvent, anotherOption } = props;
   const location = useLocation();
 
-  console.log(orders);
+
 
   const headers = { Authorization: `Bearer ${getToken()}` };
   const history = useHistory();
